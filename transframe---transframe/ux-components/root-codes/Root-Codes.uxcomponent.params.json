@@ -1,0 +1,71 @@
+{
+  "layout": {
+    "id": "layout1",
+    "options": {
+      "rearrangeEnabled": {
+        "image": true,
+        "title": true,
+        "description": true,
+        "button": true,
+        "textHyperlink": true
+      },
+      "hidden": {
+        "image": true,
+        "title": false,
+        "description": true,
+        "button": true,
+        "textHyperlink": true
+      },
+      "index": {
+        "image": 0,
+        "title": 1,
+        "description": 2,
+        "button": 3,
+        "textHyperlink": 4
+      },
+      "searchEnabled": false
+    },
+    "configurations": {
+      "gallery": {
+        "type": "grid",
+        "overflow": "scroll",
+        "cards": {
+          "elements": {
+            "button": {
+              "openInNewTab": false,
+              "appearance": "primary"
+            },
+            "textHyperlink": {
+              "openInNewTab": false,
+              "linkStyle": "underline"
+            },
+            "image": {
+              "size": "scale_to_fill"
+            },
+            "title": "h4",
+            "description": "p"
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "entityLogicalName": "tf_icode",
+    "viewId": "63b5dc81-227e-ef11-ac21-6045bd5f9b62",
+    "elements": {
+      "image": "",
+      "title": "tf_child",
+      "description": "tf_o",
+      "button": {
+        "label": "",
+        "hyperlink": ""
+      },
+      "textHyperlink": {
+        "label": "",
+        "hyperlink": ""
+      }
+    }
+  },
+  "name": "",
+  "style": {}
+}

@@ -1,0 +1,1951 @@
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+#cntMain {
+  overflow-y: auto;
+  width: 100%;
+  height: 80vh;
+  border: 1px solid #f9f8fc;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 8px;
+  background-color: #f9f8fc;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-weight: normal;
+}
+#cntMainP {
+  display: flex;
+  align-items: center;
+  color: #191817;
+  background-color: #f9f8fc;
+  padding: 8px 10px;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-weight: normal;
+}
+#cntMainP .JP {
+  font-size: 1em;
+  color: #211832;
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+#cntMainP .JP:hover {
+  background-color: #8764b8;
+  color: #ffffff;
+}
+#cntMainP .JP:active {
+  background-color: #6d49a0;
+}
+#cntMainP .separator {
+  margin: 0 5px;
+  color: #cdcdcd;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes gentleAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.n1J {
+  margin-left: 4px;
+}
+.n1J .n1Jrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 8px;
+  background: linear-gradient(90deg, #f2e7ff 0%, white 100%);
+  border-left: 2px solid #d2c2e7;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  animation: fadeIn 0.5s ease forwards;
+}
+.n1J .n1Jrow:hover {
+  background-color: #ddbeff;
+  transform: scale(1.01);
+}
+.n1J .n1Jrow:active {
+  background-color: #d5aeff;
+  transform: scale(0.99);
+}
+.n1J .n1Jrow .n1ComIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.n1J .n1Jrow .n1ComIcon svg {
+  width: 18px;
+  height: 18px;
+  color: #4d3273;
+  display: block;
+}
+.n1J .n1Jrow .n1Jname {
+  flex-grow: 1;
+  min-width: 0;
+  font-size: 0.97em;
+  color: #211832;
+  line-height: 1.4;
+  word-break: break-word;
+}
+.n1J .n1Jrow .n1Jstatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #211832;
+}
+.n1J .n1Jrow .n1Jstatus svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+.n1J .n1Jrow .n1Jstatus .status-text {
+  line-height: 1.2;
+}
+.n1J .n1Jrow .n1Jstatus.status-running {
+  color: #4caf50;
+}
+.n1J .n1Jrow .n1Jstatus.status-finished {
+  color: #2196f3;
+}
+.n1J .n1Jrow .n1Jstatus.status-pending {
+  color: #ff9800;
+}
+.n1J .n1Jrow .n1Jstatus.status-failed {
+  color: #f44336;
+}
+.n1J .n1Jactions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 2px 0 4px 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+.n1J .n1Jactions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  overflow: visible;
+  pointer-events: all;
+  animation: gentleAppear 0.5s ease forwards;
+}
+.n1J .n1Jactions .Jaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: rgba(135, 100, 184, 0.12);
+  color: #4d3273;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.n1J .n1Jactions .Jaction svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.n1J .n1Jactions .Jaction:hover {
+  background-color: rgba(135, 100, 184, 0.3);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+.n1J .n1Jactions .Jaction:active {
+  background-color: rgba(135, 100, 184, 0.45);
+  transform: scale(0.95);
+}
+.n1J .n1Jactions .Jaction.active {
+  opacity: 1;
+}
+.n1J .n1Jo {
+  margin: 2px 0 6px 22px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #3d3747;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.45s ease;
+}
+.n1J .n1Jo.visible {
+  opacity: 1;
+  height: auto;
+  transform: translateY(0);
+  overflow: visible;
+  animation: fadeSlide 0.5s ease forwards;
+}
+.n1J .n1Jo:empty {
+  display: none;
+}
+.n1J .n1JrowOut {
+  margin: 4px 0 6px 26px;
+  padding: 6px 10px;
+  border-left: 2px solid #e5dbf1;
+  background-color: #f6f2fc;
+  border-radius: 6px;
+  font-size: 0.9em;
+  animation: gentleAppear 0.6s ease forwards;
+}
+.n1J .n1JrowOut .Jout-container:empty {
+  display: none !important;
+}
+.n1J .n1JrowOut:has(.Jout-container:empty) {
+  display: none !important;
+}
+.n1J .n1JrowOut .n1Jout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #211832;
+}
+.n1J .n1JrowOut .n1Jout .Jout-item {
+  margin: 4px 0;
+  padding-left: 12px;
+  border-left: 2px solid #d7c9ea;
+  transition: all 0.2s ease;
+}
+.n1J .n1JrowOut .n1Jout .Jout-item:hover {
+  background-color: rgba(229, 205, 255, 0.25);
+  border-color: #bca4dc;
+}
+.n1J .n1JrowOut .n1Jout .Jout-item .Jout-key {
+  font-weight: 600;
+  color: #4d3273;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+}
+.n1J .n1JrowOut .n1Jout .Jout-item .Jout-key:hover {
+  text-decoration: underline;
+}
+.n1J .n1JrowOut .n1Jout .Jout-item .Jout-value {
+  margin-left: 8px;
+  padding: 2px 0;
+  display: none;
+  transition: all 0.25s ease;
+}
+.n1J .n1JrowOut .n1Jout .Jout-item .Jout-value.visible {
+  display: block;
+}
+.n1J .n1JrowOut .n1Jout .Jout-primitive {
+  color: #191817;
+}
+.n1J .n1JrowOut .n1Jout .Jout-null {
+  color: #999;
+  font-style: italic;
+}
+.n2J {
+  margin-left: 8px;
+}
+.n2J .n2Jrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 8px;
+  background: linear-gradient(90deg, white 0%, white 100%);
+  border-left: 2px solid #ccbae4;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  animation: fadeIn 0.5s ease forwards;
+}
+.n2J .n2Jrow:hover {
+  background-color: #d5aeff;
+  transform: scale(1.01);
+}
+.n2J .n2Jrow:active {
+  background-color: #c590ff;
+  transform: scale(0.99);
+}
+.n2J .n2Jrow .n2ComIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.n2J .n2Jrow .n2ComIcon svg {
+  width: 18px;
+  height: 18px;
+  color: #4d3273;
+  display: block;
+}
+.n2J .n2Jrow .n2Jname {
+  flex-grow: 1;
+  min-width: 0;
+  font-size: 0.94em;
+  color: #211832;
+  line-height: 1.4;
+  word-break: break-word;
+}
+.n2J .n2Jrow .n2Jstatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #211832;
+}
+.n2J .n2Jrow .n2Jstatus svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+.n2J .n2Jrow .n2Jstatus .status-text {
+  line-height: 1.2;
+}
+.n2J .n2Jrow .n2Jstatus.status-running {
+  color: #4caf50;
+}
+.n2J .n2Jrow .n2Jstatus.status-finished {
+  color: #2196f3;
+}
+.n2J .n2Jrow .n2Jstatus.status-pending {
+  color: #ff9800;
+}
+.n2J .n2Jrow .n2Jstatus.status-failed {
+  color: #f44336;
+}
+.n2J .n2Jactions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 2px 0 4px 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+.n2J .n2Jactions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  overflow: visible;
+  pointer-events: all;
+  animation: gentleAppear 0.5s ease forwards;
+}
+.n2J .n2Jactions .Jaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: rgba(135, 100, 184, 0.12);
+  color: #4d3273;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.n2J .n2Jactions .Jaction svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.n2J .n2Jactions .Jaction:hover {
+  background-color: rgba(135, 100, 184, 0.3);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+.n2J .n2Jactions .Jaction:active {
+  background-color: rgba(135, 100, 184, 0.45);
+  transform: scale(0.95);
+}
+.n2J .n2Jactions .Jaction.active {
+  opacity: 1;
+}
+.n2J .n2Jo {
+  margin: 2px 0 6px 22px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #3d3747;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.45s ease;
+}
+.n2J .n2Jo.visible {
+  opacity: 1;
+  height: auto;
+  transform: translateY(0);
+  overflow: visible;
+  animation: fadeSlide 0.5s ease forwards;
+}
+.n2J .n2Jo:empty {
+  display: none;
+}
+.n2J .n2JrowOut {
+  margin: 4px 0 6px 26px;
+  padding: 6px 10px;
+  border-left: 2px solid #e5dbf1;
+  background-color: #f6f2fc;
+  border-radius: 6px;
+  font-size: 0.9em;
+  animation: gentleAppear 0.6s ease forwards;
+}
+.n2J .n2JrowOut .Jout-container:empty {
+  display: none !important;
+}
+.n2J .n2JrowOut:has(.Jout-container:empty) {
+  display: none !important;
+}
+.n2J .n2JrowOut .n2Jout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #211832;
+}
+.n2J .n2JrowOut .n2Jout .Jout-item {
+  margin: 4px 0;
+  padding-left: 12px;
+  border-left: 2px solid #d7c9ea;
+  transition: all 0.2s ease;
+}
+.n2J .n2JrowOut .n2Jout .Jout-item:hover {
+  background-color: rgba(229, 205, 255, 0.25);
+  border-color: #bca4dc;
+}
+.n2J .n2JrowOut .n2Jout .Jout-item .Jout-key {
+  font-weight: 600;
+  color: #4d3273;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+}
+.n2J .n2JrowOut .n2Jout .Jout-item .Jout-key:hover {
+  text-decoration: underline;
+}
+.n2J .n2JrowOut .n2Jout .Jout-item .Jout-value {
+  margin-left: 8px;
+  padding: 2px 0;
+  display: none;
+  transition: all 0.25s ease;
+}
+.n2J .n2JrowOut .n2Jout .Jout-item .Jout-value.visible {
+  display: block;
+}
+.n2J .n2JrowOut .n2Jout .Jout-primitive {
+  color: #191817;
+}
+.n2J .n2JrowOut .n2Jout .Jout-null {
+  color: #999;
+  font-style: italic;
+}
+.n3J {
+  margin-left: 12px;
+}
+.n3J .n3Jrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 8px;
+  background: linear-gradient(90deg, white 0%, white 100%);
+  border-left: 2px solid #c7b3e1;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  animation: fadeIn 0.5s ease forwards;
+}
+.n3J .n3Jrow:hover {
+  background-color: #cd9fff;
+  transform: scale(1.01);
+}
+.n3J .n3Jrow:active {
+  background-color: #b571ff;
+  transform: scale(0.99);
+}
+.n3J .n3Jrow .n3ComIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.n3J .n3Jrow .n3ComIcon svg {
+  width: 18px;
+  height: 18px;
+  color: #4d3273;
+  display: block;
+}
+.n3J .n3Jrow .n3Jname {
+  flex-grow: 1;
+  min-width: 0;
+  font-size: 0.91em;
+  color: #211832;
+  line-height: 1.4;
+  word-break: break-word;
+}
+.n3J .n3Jrow .n3Jstatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #211832;
+}
+.n3J .n3Jrow .n3Jstatus svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+.n3J .n3Jrow .n3Jstatus .status-text {
+  line-height: 1.2;
+}
+.n3J .n3Jrow .n3Jstatus.status-running {
+  color: #4caf50;
+}
+.n3J .n3Jrow .n3Jstatus.status-finished {
+  color: #2196f3;
+}
+.n3J .n3Jrow .n3Jstatus.status-pending {
+  color: #ff9800;
+}
+.n3J .n3Jrow .n3Jstatus.status-failed {
+  color: #f44336;
+}
+.n3J .n3Jactions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 2px 0 4px 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+.n3J .n3Jactions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  overflow: visible;
+  pointer-events: all;
+  animation: gentleAppear 0.5s ease forwards;
+}
+.n3J .n3Jactions .Jaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: rgba(135, 100, 184, 0.12);
+  color: #4d3273;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.n3J .n3Jactions .Jaction svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.n3J .n3Jactions .Jaction:hover {
+  background-color: rgba(135, 100, 184, 0.3);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+.n3J .n3Jactions .Jaction:active {
+  background-color: rgba(135, 100, 184, 0.45);
+  transform: scale(0.95);
+}
+.n3J .n3Jactions .Jaction.active {
+  opacity: 1;
+}
+.n3J .n3Jo {
+  margin: 2px 0 6px 22px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #3d3747;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.45s ease;
+}
+.n3J .n3Jo.visible {
+  opacity: 1;
+  height: auto;
+  transform: translateY(0);
+  overflow: visible;
+  animation: fadeSlide 0.5s ease forwards;
+}
+.n3J .n3Jo:empty {
+  display: none;
+}
+.n3J .n3JrowOut {
+  margin: 4px 0 6px 26px;
+  padding: 6px 10px;
+  border-left: 2px solid #e5dbf1;
+  background-color: #f6f2fc;
+  border-radius: 6px;
+  font-size: 0.9em;
+  animation: gentleAppear 0.6s ease forwards;
+}
+.n3J .n3JrowOut .Jout-container:empty {
+  display: none !important;
+}
+.n3J .n3JrowOut:has(.Jout-container:empty) {
+  display: none !important;
+}
+.n3J .n3JrowOut .n3Jout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #211832;
+}
+.n3J .n3JrowOut .n3Jout .Jout-item {
+  margin: 4px 0;
+  padding-left: 12px;
+  border-left: 2px solid #d7c9ea;
+  transition: all 0.2s ease;
+}
+.n3J .n3JrowOut .n3Jout .Jout-item:hover {
+  background-color: rgba(229, 205, 255, 0.25);
+  border-color: #bca4dc;
+}
+.n3J .n3JrowOut .n3Jout .Jout-item .Jout-key {
+  font-weight: 600;
+  color: #4d3273;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+}
+.n3J .n3JrowOut .n3Jout .Jout-item .Jout-key:hover {
+  text-decoration: underline;
+}
+.n3J .n3JrowOut .n3Jout .Jout-item .Jout-value {
+  margin-left: 8px;
+  padding: 2px 0;
+  display: none;
+  transition: all 0.25s ease;
+}
+.n3J .n3JrowOut .n3Jout .Jout-item .Jout-value.visible {
+  display: block;
+}
+.n3J .n3JrowOut .n3Jout .Jout-primitive {
+  color: #191817;
+}
+.n3J .n3JrowOut .n3Jout .Jout-null {
+  color: #999;
+  font-style: italic;
+}
+.n4J {
+  margin-left: 16px;
+}
+.n4J .n4Jrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 8px;
+  background: linear-gradient(90deg, white 0%, white 100%);
+  border-left: 2px solid #c1acdf;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  animation: fadeIn 0.5s ease forwards;
+}
+.n4J .n4Jrow:hover {
+  background-color: #c590ff;
+  transform: scale(1.01);
+}
+.n4J .n4Jrow:active {
+  background-color: #a553ff;
+  transform: scale(0.99);
+}
+.n4J .n4Jrow .n4ComIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.n4J .n4Jrow .n4ComIcon svg {
+  width: 18px;
+  height: 18px;
+  color: #4d3273;
+  display: block;
+}
+.n4J .n4Jrow .n4Jname {
+  flex-grow: 1;
+  min-width: 0;
+  font-size: 0.88em;
+  color: #211832;
+  line-height: 1.4;
+  word-break: break-word;
+}
+.n4J .n4Jrow .n4Jstatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #211832;
+}
+.n4J .n4Jrow .n4Jstatus svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+.n4J .n4Jrow .n4Jstatus .status-text {
+  line-height: 1.2;
+}
+.n4J .n4Jrow .n4Jstatus.status-running {
+  color: #4caf50;
+}
+.n4J .n4Jrow .n4Jstatus.status-finished {
+  color: #2196f3;
+}
+.n4J .n4Jrow .n4Jstatus.status-pending {
+  color: #ff9800;
+}
+.n4J .n4Jrow .n4Jstatus.status-failed {
+  color: #f44336;
+}
+.n4J .n4Jactions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 2px 0 4px 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+.n4J .n4Jactions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  overflow: visible;
+  pointer-events: all;
+  animation: gentleAppear 0.5s ease forwards;
+}
+.n4J .n4Jactions .Jaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: rgba(135, 100, 184, 0.12);
+  color: #4d3273;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.n4J .n4Jactions .Jaction svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.n4J .n4Jactions .Jaction:hover {
+  background-color: rgba(135, 100, 184, 0.3);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+.n4J .n4Jactions .Jaction:active {
+  background-color: rgba(135, 100, 184, 0.45);
+  transform: scale(0.95);
+}
+.n4J .n4Jactions .Jaction.active {
+  opacity: 1;
+}
+.n4J .n4Jo {
+  margin: 2px 0 6px 22px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #3d3747;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.45s ease;
+}
+.n4J .n4Jo.visible {
+  opacity: 1;
+  height: auto;
+  transform: translateY(0);
+  overflow: visible;
+  animation: fadeSlide 0.5s ease forwards;
+}
+.n4J .n4Jo:empty {
+  display: none;
+}
+.n4J .n4JrowOut {
+  margin: 4px 0 6px 26px;
+  padding: 6px 10px;
+  border-left: 2px solid #e5dbf1;
+  background-color: #f6f2fc;
+  border-radius: 6px;
+  font-size: 0.9em;
+  animation: gentleAppear 0.6s ease forwards;
+}
+.n4J .n4JrowOut .Jout-container:empty {
+  display: none !important;
+}
+.n4J .n4JrowOut:has(.Jout-container:empty) {
+  display: none !important;
+}
+.n4J .n4JrowOut .n4Jout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #211832;
+}
+.n4J .n4JrowOut .n4Jout .Jout-item {
+  margin: 4px 0;
+  padding-left: 12px;
+  border-left: 2px solid #d7c9ea;
+  transition: all 0.2s ease;
+}
+.n4J .n4JrowOut .n4Jout .Jout-item:hover {
+  background-color: rgba(229, 205, 255, 0.25);
+  border-color: #bca4dc;
+}
+.n4J .n4JrowOut .n4Jout .Jout-item .Jout-key {
+  font-weight: 600;
+  color: #4d3273;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+}
+.n4J .n4JrowOut .n4Jout .Jout-item .Jout-key:hover {
+  text-decoration: underline;
+}
+.n4J .n4JrowOut .n4Jout .Jout-item .Jout-value {
+  margin-left: 8px;
+  padding: 2px 0;
+  display: none;
+  transition: all 0.25s ease;
+}
+.n4J .n4JrowOut .n4Jout .Jout-item .Jout-value.visible {
+  display: block;
+}
+.n4J .n4JrowOut .n4Jout .Jout-primitive {
+  color: #191817;
+}
+.n4J .n4JrowOut .n4Jout .Jout-null {
+  color: #999;
+  font-style: italic;
+}
+.n5J {
+  margin-left: 20px;
+}
+.n5J .n5Jrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 8px;
+  background: linear-gradient(90deg, white 0%, white 100%);
+  border-left: 2px solid #bca4dc;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  animation: fadeIn 0.5s ease forwards;
+}
+.n5J .n5Jrow:hover {
+  background-color: #bd81ff;
+  transform: scale(1.01);
+}
+.n5J .n5Jrow:active {
+  background-color: #9534ff;
+  transform: scale(0.99);
+}
+.n5J .n5Jrow .n5ComIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.n5J .n5Jrow .n5ComIcon svg {
+  width: 18px;
+  height: 18px;
+  color: #4d3273;
+  display: block;
+}
+.n5J .n5Jrow .n5Jname {
+  flex-grow: 1;
+  min-width: 0;
+  font-size: 0.85em;
+  color: #211832;
+  line-height: 1.4;
+  word-break: break-word;
+}
+.n5J .n5Jrow .n5Jstatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #211832;
+}
+.n5J .n5Jrow .n5Jstatus svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+.n5J .n5Jrow .n5Jstatus .status-text {
+  line-height: 1.2;
+}
+.n5J .n5Jrow .n5Jstatus.status-running {
+  color: #4caf50;
+}
+.n5J .n5Jrow .n5Jstatus.status-finished {
+  color: #2196f3;
+}
+.n5J .n5Jrow .n5Jstatus.status-pending {
+  color: #ff9800;
+}
+.n5J .n5Jrow .n5Jstatus.status-failed {
+  color: #f44336;
+}
+.n5J .n5Jactions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 2px 0 4px 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+.n5J .n5Jactions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  overflow: visible;
+  pointer-events: all;
+  animation: gentleAppear 0.5s ease forwards;
+}
+.n5J .n5Jactions .Jaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: rgba(135, 100, 184, 0.12);
+  color: #4d3273;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.n5J .n5Jactions .Jaction svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.n5J .n5Jactions .Jaction:hover {
+  background-color: rgba(135, 100, 184, 0.3);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+.n5J .n5Jactions .Jaction:active {
+  background-color: rgba(135, 100, 184, 0.45);
+  transform: scale(0.95);
+}
+.n5J .n5Jactions .Jaction.active {
+  opacity: 1;
+}
+.n5J .n5Jo {
+  margin: 2px 0 6px 22px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #3d3747;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.45s ease;
+}
+.n5J .n5Jo.visible {
+  opacity: 1;
+  height: auto;
+  transform: translateY(0);
+  overflow: visible;
+  animation: fadeSlide 0.5s ease forwards;
+}
+.n5J .n5Jo:empty {
+  display: none;
+}
+.n5J .n5JrowOut {
+  margin: 4px 0 6px 26px;
+  padding: 6px 10px;
+  border-left: 2px solid #e5dbf1;
+  background-color: #f6f2fc;
+  border-radius: 6px;
+  font-size: 0.9em;
+  animation: gentleAppear 0.6s ease forwards;
+}
+.n5J .n5JrowOut .Jout-container:empty {
+  display: none !important;
+}
+.n5J .n5JrowOut:has(.Jout-container:empty) {
+  display: none !important;
+}
+.n5J .n5JrowOut .n5Jout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #211832;
+}
+.n5J .n5JrowOut .n5Jout .Jout-item {
+  margin: 4px 0;
+  padding-left: 12px;
+  border-left: 2px solid #d7c9ea;
+  transition: all 0.2s ease;
+}
+.n5J .n5JrowOut .n5Jout .Jout-item:hover {
+  background-color: rgba(229, 205, 255, 0.25);
+  border-color: #bca4dc;
+}
+.n5J .n5JrowOut .n5Jout .Jout-item .Jout-key {
+  font-weight: 600;
+  color: #4d3273;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+}
+.n5J .n5JrowOut .n5Jout .Jout-item .Jout-key:hover {
+  text-decoration: underline;
+}
+.n5J .n5JrowOut .n5Jout .Jout-item .Jout-value {
+  margin-left: 8px;
+  padding: 2px 0;
+  display: none;
+  transition: all 0.25s ease;
+}
+.n5J .n5JrowOut .n5Jout .Jout-item .Jout-value.visible {
+  display: block;
+}
+.n5J .n5JrowOut .n5Jout .Jout-primitive {
+  color: #191817;
+}
+.n5J .n5JrowOut .n5Jout .Jout-null {
+  color: #999;
+  font-style: italic;
+}
+.n6J {
+  margin-left: 24px;
+}
+.n6J .n6Jrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 8px;
+  background: linear-gradient(90deg, white 0%, white 100%);
+  border-left: 2px solid #b69dd9;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  animation: fadeIn 0.5s ease forwards;
+}
+.n6J .n6Jrow:hover {
+  background-color: #b571ff;
+  transform: scale(1.01);
+}
+.n6J .n6Jrow:active {
+  background-color: #8615ff;
+  transform: scale(0.99);
+}
+.n6J .n6Jrow .n6ComIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.n6J .n6Jrow .n6ComIcon svg {
+  width: 18px;
+  height: 18px;
+  color: #4d3273;
+  display: block;
+}
+.n6J .n6Jrow .n6Jname {
+  flex-grow: 1;
+  min-width: 0;
+  font-size: 0.82em;
+  color: #211832;
+  line-height: 1.4;
+  word-break: break-word;
+}
+.n6J .n6Jrow .n6Jstatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #211832;
+}
+.n6J .n6Jrow .n6Jstatus svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+.n6J .n6Jrow .n6Jstatus .status-text {
+  line-height: 1.2;
+}
+.n6J .n6Jrow .n6Jstatus.status-running {
+  color: #4caf50;
+}
+.n6J .n6Jrow .n6Jstatus.status-finished {
+  color: #2196f3;
+}
+.n6J .n6Jrow .n6Jstatus.status-pending {
+  color: #ff9800;
+}
+.n6J .n6Jrow .n6Jstatus.status-failed {
+  color: #f44336;
+}
+.n6J .n6Jactions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 2px 0 4px 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+.n6J .n6Jactions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  overflow: visible;
+  pointer-events: all;
+  animation: gentleAppear 0.5s ease forwards;
+}
+.n6J .n6Jactions .Jaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: rgba(135, 100, 184, 0.12);
+  color: #4d3273;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.n6J .n6Jactions .Jaction svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.n6J .n6Jactions .Jaction:hover {
+  background-color: rgba(135, 100, 184, 0.3);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+.n6J .n6Jactions .Jaction:active {
+  background-color: rgba(135, 100, 184, 0.45);
+  transform: scale(0.95);
+}
+.n6J .n6Jactions .Jaction.active {
+  opacity: 1;
+}
+.n6J .n6Jo {
+  margin: 2px 0 6px 22px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #3d3747;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.45s ease;
+}
+.n6J .n6Jo.visible {
+  opacity: 1;
+  height: auto;
+  transform: translateY(0);
+  overflow: visible;
+  animation: fadeSlide 0.5s ease forwards;
+}
+.n6J .n6Jo:empty {
+  display: none;
+}
+.n6J .n6JrowOut {
+  margin: 4px 0 6px 26px;
+  padding: 6px 10px;
+  border-left: 2px solid #e5dbf1;
+  background-color: #f6f2fc;
+  border-radius: 6px;
+  font-size: 0.9em;
+  animation: gentleAppear 0.6s ease forwards;
+}
+.n6J .n6JrowOut .Jout-container:empty {
+  display: none !important;
+}
+.n6J .n6JrowOut:has(.Jout-container:empty) {
+  display: none !important;
+}
+.n6J .n6JrowOut .n6Jout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #211832;
+}
+.n6J .n6JrowOut .n6Jout .Jout-item {
+  margin: 4px 0;
+  padding-left: 12px;
+  border-left: 2px solid #d7c9ea;
+  transition: all 0.2s ease;
+}
+.n6J .n6JrowOut .n6Jout .Jout-item:hover {
+  background-color: rgba(229, 205, 255, 0.25);
+  border-color: #bca4dc;
+}
+.n6J .n6JrowOut .n6Jout .Jout-item .Jout-key {
+  font-weight: 600;
+  color: #4d3273;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+}
+.n6J .n6JrowOut .n6Jout .Jout-item .Jout-key:hover {
+  text-decoration: underline;
+}
+.n6J .n6JrowOut .n6Jout .Jout-item .Jout-value {
+  margin-left: 8px;
+  padding: 2px 0;
+  display: none;
+  transition: all 0.25s ease;
+}
+.n6J .n6JrowOut .n6Jout .Jout-item .Jout-value.visible {
+  display: block;
+}
+.n6J .n6JrowOut .n6Jout .Jout-primitive {
+  color: #191817;
+}
+.n6J .n6JrowOut .n6Jout .Jout-null {
+  color: #999;
+  font-style: italic;
+}
+.n7J {
+  margin-left: 28px;
+}
+.n7J .n7Jrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 8px;
+  background: linear-gradient(90deg, white 0%, white 100%);
+  border-left: 2px solid #b196d6;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  animation: fadeIn 0.5s ease forwards;
+}
+.n7J .n7Jrow:hover {
+  background-color: #ad62ff;
+  transform: scale(1.01);
+}
+.n7J .n7Jrow:active {
+  background-color: #7600f6;
+  transform: scale(0.99);
+}
+.n7J .n7Jrow .n7ComIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.n7J .n7Jrow .n7ComIcon svg {
+  width: 18px;
+  height: 18px;
+  color: #4d3273;
+  display: block;
+}
+.n7J .n7Jrow .n7Jname {
+  flex-grow: 1;
+  min-width: 0;
+  font-size: 0.79em;
+  color: #211832;
+  line-height: 1.4;
+  word-break: break-word;
+}
+.n7J .n7Jrow .n7Jstatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #211832;
+}
+.n7J .n7Jrow .n7Jstatus svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+.n7J .n7Jrow .n7Jstatus .status-text {
+  line-height: 1.2;
+}
+.n7J .n7Jrow .n7Jstatus.status-running {
+  color: #4caf50;
+}
+.n7J .n7Jrow .n7Jstatus.status-finished {
+  color: #2196f3;
+}
+.n7J .n7Jrow .n7Jstatus.status-pending {
+  color: #ff9800;
+}
+.n7J .n7Jrow .n7Jstatus.status-failed {
+  color: #f44336;
+}
+.n7J .n7Jactions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 2px 0 4px 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+.n7J .n7Jactions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  overflow: visible;
+  pointer-events: all;
+  animation: gentleAppear 0.5s ease forwards;
+}
+.n7J .n7Jactions .Jaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: rgba(135, 100, 184, 0.12);
+  color: #4d3273;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.n7J .n7Jactions .Jaction svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.n7J .n7Jactions .Jaction:hover {
+  background-color: rgba(135, 100, 184, 0.3);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+.n7J .n7Jactions .Jaction:active {
+  background-color: rgba(135, 100, 184, 0.45);
+  transform: scale(0.95);
+}
+.n7J .n7Jactions .Jaction.active {
+  opacity: 1;
+}
+.n7J .n7Jo {
+  margin: 2px 0 6px 22px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #3d3747;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.45s ease;
+}
+.n7J .n7Jo.visible {
+  opacity: 1;
+  height: auto;
+  transform: translateY(0);
+  overflow: visible;
+  animation: fadeSlide 0.5s ease forwards;
+}
+.n7J .n7Jo:empty {
+  display: none;
+}
+.n7J .n7JrowOut {
+  margin: 4px 0 6px 26px;
+  padding: 6px 10px;
+  border-left: 2px solid #e5dbf1;
+  background-color: #f6f2fc;
+  border-radius: 6px;
+  font-size: 0.9em;
+  animation: gentleAppear 0.6s ease forwards;
+}
+.n7J .n7JrowOut .Jout-container:empty {
+  display: none !important;
+}
+.n7J .n7JrowOut:has(.Jout-container:empty) {
+  display: none !important;
+}
+.n7J .n7JrowOut .n7Jout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #211832;
+}
+.n7J .n7JrowOut .n7Jout .Jout-item {
+  margin: 4px 0;
+  padding-left: 12px;
+  border-left: 2px solid #d7c9ea;
+  transition: all 0.2s ease;
+}
+.n7J .n7JrowOut .n7Jout .Jout-item:hover {
+  background-color: rgba(229, 205, 255, 0.25);
+  border-color: #bca4dc;
+}
+.n7J .n7JrowOut .n7Jout .Jout-item .Jout-key {
+  font-weight: 600;
+  color: #4d3273;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+}
+.n7J .n7JrowOut .n7Jout .Jout-item .Jout-key:hover {
+  text-decoration: underline;
+}
+.n7J .n7JrowOut .n7Jout .Jout-item .Jout-value {
+  margin-left: 8px;
+  padding: 2px 0;
+  display: none;
+  transition: all 0.25s ease;
+}
+.n7J .n7JrowOut .n7Jout .Jout-item .Jout-value.visible {
+  display: block;
+}
+.n7J .n7JrowOut .n7Jout .Jout-primitive {
+  color: #191817;
+}
+.n7J .n7JrowOut .n7Jout .Jout-null {
+  color: #999;
+  font-style: italic;
+}
+.n8J {
+  margin-left: 32px;
+}
+.n8J .n8Jrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 8px;
+  background: linear-gradient(90deg, white 0%, white 100%);
+  border-left: 2px solid #ab8ed3;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  animation: fadeIn 0.5s ease forwards;
+}
+.n8J .n8Jrow:hover {
+  background-color: #a553ff;
+  transform: scale(1.01);
+}
+.n8J .n8Jrow:active {
+  background-color: #6700d7;
+  transform: scale(0.99);
+}
+.n8J .n8Jrow .n8ComIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.n8J .n8Jrow .n8ComIcon svg {
+  width: 18px;
+  height: 18px;
+  color: #4d3273;
+  display: block;
+}
+.n8J .n8Jrow .n8Jname {
+  flex-grow: 1;
+  min-width: 0;
+  font-size: 0.76em;
+  color: #211832;
+  line-height: 1.4;
+  word-break: break-word;
+}
+.n8J .n8Jrow .n8Jstatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #211832;
+}
+.n8J .n8Jrow .n8Jstatus svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+.n8J .n8Jrow .n8Jstatus .status-text {
+  line-height: 1.2;
+}
+.n8J .n8Jrow .n8Jstatus.status-running {
+  color: #4caf50;
+}
+.n8J .n8Jrow .n8Jstatus.status-finished {
+  color: #2196f3;
+}
+.n8J .n8Jrow .n8Jstatus.status-pending {
+  color: #ff9800;
+}
+.n8J .n8Jrow .n8Jstatus.status-failed {
+  color: #f44336;
+}
+.n8J .n8Jactions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 2px 0 4px 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+.n8J .n8Jactions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  overflow: visible;
+  pointer-events: all;
+  animation: gentleAppear 0.5s ease forwards;
+}
+.n8J .n8Jactions .Jaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: rgba(135, 100, 184, 0.12);
+  color: #4d3273;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.n8J .n8Jactions .Jaction svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.n8J .n8Jactions .Jaction:hover {
+  background-color: rgba(135, 100, 184, 0.3);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+.n8J .n8Jactions .Jaction:active {
+  background-color: rgba(135, 100, 184, 0.45);
+  transform: scale(0.95);
+}
+.n8J .n8Jactions .Jaction.active {
+  opacity: 1;
+}
+.n8J .n8Jo {
+  margin: 2px 0 6px 22px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #3d3747;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.45s ease;
+}
+.n8J .n8Jo.visible {
+  opacity: 1;
+  height: auto;
+  transform: translateY(0);
+  overflow: visible;
+  animation: fadeSlide 0.5s ease forwards;
+}
+.n8J .n8Jo:empty {
+  display: none;
+}
+.n8J .n8JrowOut {
+  margin: 4px 0 6px 26px;
+  padding: 6px 10px;
+  border-left: 2px solid #e5dbf1;
+  background-color: #f6f2fc;
+  border-radius: 6px;
+  font-size: 0.9em;
+  animation: gentleAppear 0.6s ease forwards;
+}
+.n8J .n8JrowOut .Jout-container:empty {
+  display: none !important;
+}
+.n8J .n8JrowOut:has(.Jout-container:empty) {
+  display: none !important;
+}
+.n8J .n8JrowOut .n8Jout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #211832;
+}
+.n8J .n8JrowOut .n8Jout .Jout-item {
+  margin: 4px 0;
+  padding-left: 12px;
+  border-left: 2px solid #d7c9ea;
+  transition: all 0.2s ease;
+}
+.n8J .n8JrowOut .n8Jout .Jout-item:hover {
+  background-color: rgba(229, 205, 255, 0.25);
+  border-color: #bca4dc;
+}
+.n8J .n8JrowOut .n8Jout .Jout-item .Jout-key {
+  font-weight: 600;
+  color: #4d3273;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+}
+.n8J .n8JrowOut .n8Jout .Jout-item .Jout-key:hover {
+  text-decoration: underline;
+}
+.n8J .n8JrowOut .n8Jout .Jout-item .Jout-value {
+  margin-left: 8px;
+  padding: 2px 0;
+  display: none;
+  transition: all 0.25s ease;
+}
+.n8J .n8JrowOut .n8Jout .Jout-item .Jout-value.visible {
+  display: block;
+}
+.n8J .n8JrowOut .n8Jout .Jout-primitive {
+  color: #191817;
+}
+.n8J .n8JrowOut .n8Jout .Jout-null {
+  color: #999;
+  font-style: italic;
+}
+.n9J {
+  margin-left: 36px;
+}
+.n9J .n9Jrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 4px 8px;
+  background: linear-gradient(90deg, white 0%, white 100%);
+  border-left: 2px solid #a687d0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+  animation: fadeIn 0.5s ease forwards;
+}
+.n9J .n9Jrow:hover {
+  background-color: #9d43ff;
+  transform: scale(1.01);
+}
+.n9J .n9Jrow:active {
+  background-color: #5900b9;
+  transform: scale(0.99);
+}
+.n9J .n9Jrow .n9ComIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.n9J .n9Jrow .n9ComIcon svg {
+  width: 18px;
+  height: 18px;
+  color: #4d3273;
+  display: block;
+}
+.n9J .n9Jrow .n9Jname {
+  flex-grow: 1;
+  min-width: 0;
+  font-size: 0.73em;
+  color: #211832;
+  line-height: 1.4;
+  word-break: break-word;
+}
+.n9J .n9Jrow .n9Jstatus {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #211832;
+}
+.n9J .n9Jrow .n9Jstatus svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+  display: block;
+}
+.n9J .n9Jrow .n9Jstatus .status-text {
+  line-height: 1.2;
+}
+.n9J .n9Jrow .n9Jstatus.status-running {
+  color: #4caf50;
+}
+.n9J .n9Jrow .n9Jstatus.status-finished {
+  color: #2196f3;
+}
+.n9J .n9Jrow .n9Jstatus.status-pending {
+  color: #ff9800;
+}
+.n9J .n9Jrow .n9Jstatus.status-failed {
+  color: #f44336;
+}
+.n9J .n9Jactions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 2px 0 4px 28px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  pointer-events: none;
+}
+.n9J .n9Jactions.visible {
+  opacity: 1;
+  transform: translateY(0);
+  height: auto;
+  overflow: visible;
+  pointer-events: all;
+  animation: gentleAppear 0.5s ease forwards;
+}
+.n9J .n9Jactions .Jaction {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  background-color: rgba(135, 100, 184, 0.12);
+  color: #4d3273;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+.n9J .n9Jactions .Jaction svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+.n9J .n9Jactions .Jaction:hover {
+  background-color: rgba(135, 100, 184, 0.3);
+  color: #ffffff;
+  transform: scale(1.06);
+}
+.n9J .n9Jactions .Jaction:active {
+  background-color: rgba(135, 100, 184, 0.45);
+  transform: scale(0.95);
+}
+.n9J .n9Jactions .Jaction.active {
+  opacity: 1;
+}
+.n9J .n9Jo {
+  margin: 2px 0 6px 22px;
+  font-size: 0.85em;
+  font-style: italic;
+  color: #3d3747;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(2px);
+  height: 0;
+  overflow: hidden;
+  transition: all 0.45s ease;
+}
+.n9J .n9Jo.visible {
+  opacity: 1;
+  height: auto;
+  transform: translateY(0);
+  overflow: visible;
+  animation: fadeSlide 0.5s ease forwards;
+}
+.n9J .n9Jo:empty {
+  display: none;
+}
+.n9J .n9JrowOut {
+  margin: 4px 0 6px 26px;
+  padding: 6px 10px;
+  border-left: 2px solid #e5dbf1;
+  background-color: #f6f2fc;
+  border-radius: 6px;
+  font-size: 0.9em;
+  animation: gentleAppear 0.6s ease forwards;
+}
+.n9J .n9JrowOut .Jout-container:empty {
+  display: none !important;
+}
+.n9J .n9JrowOut:has(.Jout-container:empty) {
+  display: none !important;
+}
+.n9J .n9JrowOut .n9Jout {
+  font-family: system-ui, sans-serif;
+  font-size: 0.9em;
+  line-height: 1.4;
+  color: #211832;
+}
+.n9J .n9JrowOut .n9Jout .Jout-item {
+  margin: 4px 0;
+  padding-left: 12px;
+  border-left: 2px solid #d7c9ea;
+  transition: all 0.2s ease;
+}
+.n9J .n9JrowOut .n9Jout .Jout-item:hover {
+  background-color: rgba(229, 205, 255, 0.25);
+  border-color: #bca4dc;
+}
+.n9J .n9JrowOut .n9Jout .Jout-item .Jout-key {
+  font-weight: 600;
+  color: #4d3273;
+  display: inline-block;
+  user-select: none;
+  cursor: pointer;
+}
+.n9J .n9JrowOut .n9Jout .Jout-item .Jout-key:hover {
+  text-decoration: underline;
+}
+.n9J .n9JrowOut .n9Jout .Jout-item .Jout-value {
+  margin-left: 8px;
+  padding: 2px 0;
+  display: none;
+  transition: all 0.25s ease;
+}
+.n9J .n9JrowOut .n9Jout .Jout-item .Jout-value.visible {
+  display: block;
+}
+.n9J .n9JrowOut .n9Jout .Jout-primitive {
+  color: #191817;
+}
+.n9J .n9JrowOut .n9Jout .Jout-null {
+  color: #999;
+  font-style: italic;
+}

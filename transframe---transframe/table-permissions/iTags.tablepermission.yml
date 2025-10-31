@@ -1,0 +1,13 @@
+adx_append: false
+adx_appendto: false
+adx_create: false
+adx_delete: false
+adx_entitylogicalname: tf_itag
+adx_entityname: iTags
+adx_entitypermission_webrole:
+- 39e9b24e-0ad4-4c45-8b7d-6903ca6d9fdd
+- 87b41b35-ce13-419e-be48-99eaf0c30913
+adx_entitypermissionid: fde81d00-578b-ef11-8a6a-6045bd5f9b62
+adx_read: true
+adx_scope: 756150000
+adx_write: false

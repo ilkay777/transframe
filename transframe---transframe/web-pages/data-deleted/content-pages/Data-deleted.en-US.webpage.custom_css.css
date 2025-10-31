@@ -1,0 +1,1030 @@
+/*
+### SASS Style Description for Nested Code Elements
+
+**Purpose:**
+This SASS style is designed to create a nested structure for displaying code elements (`C`) and their associated properties in a modern, iPhone-like design. The structure supports up to 9 levels of nesting, with each level having a unique prefix (`n1` to `n9`). The styles are suitable for both mobile and desktop views.
+
+**Brand Colors:**
+- `$brandColor1: #e5cdff` (Main brand color)
+- `$brandColor2: #664b8c`
+- `$brandColor3: #ffffff`
+- `$brandColor4: #191817`
+- `$shadeColor1: #8764b8` (Additional shade color)
+- `$shadeColor2: #cdcdcd`
+- `$shadeColor3: #f9f8fc`
+- `$shadeColor4: #d7c9ea`
+- `$shadeColor5: #4d3273`
+
+**Base Styles:**
+- The main container `#cntMainC` uses a modern font stack and sets the primary text color and background color.
+
+**Nested Levels:**
+- Each level (`n1` to `n9`) has a unique class prefix.
+- Elements within each level include:
+  - `CTicon`: Icon for the code, vertically centered and sized relative to the level.
+  - `Cname`: Name of the code, left-aligned and sized relative to the level.
+  - `holderA`: An integer property, styled with a smaller font size and lighter color.
+  - `Crow`: A row containing `CTicon`, `Cname`, and `holderA`, with hover and active states for interactivity.
+  - `Ch`: Header or title for elements such as `CUs` and `CDs`, styled with a larger, bold font.
+  - `CUs`: Container for code's source codes, visually separated with margins, padding, and borders.
+  - `CDs`: Container for code's destination codes, visually separated similarly to `CUs`.
+  - `Co`: Code description, aligned with the end edge of `CTicon`.
+  - `Cs`: Container for child codes, nested within the current level.
+
+**Interactive Styles:**
+- `Crow` and `TLrow` are clickable with transition effects for hover and active states, providing a modern, interactive feel.
+- `CTicon` and `TLicon` are vertically centered within their rows.
+
+**Conditional Display:**
+- `Co`, `CUs` and `CDs` are hidden if they do not contain any child elements, using the `:empty` pseudo-class.
+
+**Example Structure:**
+```html
+<div id="cntMainC">
+  <div class="n1C">
+    <div class="n1Crow">
+      <div class="n1CTicon"></div>
+      <div class="n1Cname">Code Name</div>
+      <div class="n1holderA">123</div>
+    </div>
+    <div class="n1Ch">Sources</div>
+    <div class="n1CUs">
+      <!-- Source codes here -->
+    </div>
+    <div class="n1Ch">Destinations</div>
+    <div class="n1CDs">
+      <!-- Destination codes here -->
+    </div>
+    <div class="n1Co">Code Description</div>
+    <div class="n1Cs">
+      <!-- Child codes here -->
+    </div>
+  </div>
+</div>
+```
+
+This structure ensures a clean, organized, and visually appealing presentation of nested code elements, with interactive and responsive design elements.
+
+// Brand Colors
+$brandColor1: #e5cdff
+$brandColor2: #664b8c
+$brandColor3: #ffffff
+$brandColor4: #191817
+$shadeColor1: #8764b8
+$shadeColor2: #cdcdcd
+$shadeColor3: #f9f8fc
+$shadeColor4: #d7c9ea
+$shadeColor5: #4d3273
+
+// Main Container
+#cntMain
+   overflow-y: auto
+   width: 100%
+   height: 80vh
+   justify-content: center
+   border: 1px solid var(--shadeColor3)
+   box-shadow: 1px 1px 5px var(--brandColor3)
+   border-radius: 10px
+   margin: 0 auto
+   padding: 5px 5px
+   background-color: var(--shadeColor3)
+   
+// Breadcrumb Navigation Styles
+#cntMainP
+  display: flex
+  align-items: center
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif
+  color: $brandColor4
+  background-color: $shadeColor3
+  padding: 10px
+  border-radius: 5px
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
+
+.CP
+  font-size: 1em
+  color: $brandColor2
+  text-decoration: none
+  padding: 5px 10px
+  border-radius: 3px
+  transition: background-color 0.3s ease, color 0.3s ease
+  cursor: pointer
+  &:hover
+    background-color: $shadeColor1
+    color: $brandColor3
+  &:active
+    background-color: darken($shadeColor1, 10%)
+    color: $brandColor3
+
+.separator
+  margin: 0 5px
+  color: $shadeColor2
+
+// Base Styles
+#cntMainC
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif
+  color: $brandColor4
+  background-color: $shadeColor3
+  width: 95%
+
+// Nested Levels
+@for $i from 1 through 9
+  .n#{$i}C
+    margin-left: $i * 10px
+    .n#{$i}CTicon
+      width: 24px - $i * 2px
+      height: 100%
+      align-self: center
+    .n#{$i}Cname
+      font-size: 1em - $i * 0.05em
+      color: $brandColor2
+      text-align: left
+    .n#{$i}holderA
+      font-size: 0.8em - $i * 0.05em
+      color: $shadeColor1
+    .n#{$i}Crow
+      display: flex
+      justify-content: space-between
+      align-items: center
+      padding: 10px
+      border-bottom: 1px solid $shadeColor2
+      background-color: lighten($brandColor1, $i * 5%)
+      cursor: pointer
+      transition: background-color 0.3s ease, transform 0.3s ease
+      &:hover
+        background-color: darken($brandColor1, $i * 5%)
+        transform: scale(1.02)
+      &:active
+        background-color: darken($brandColor1, $i * 10%)
+        transform: scale(0.98)
+    .n#{$i}Ch
+      font-size: 1.2em
+      font-weight: bold
+      color: $brandColor2
+      margin: 10px 0
+    .n#{$i}CUs:empty
+      display: none
+    .n#{$i}CDs:empty
+      display: none
+    .n#{$i}CUs
+      margin: 10px 20px
+      background-color: $shadeColor3
+      padding: 10px
+      border-left: 2px solid $shadeColor1
+      border-top: 1px solid $shadeColor2
+      border-bottom: 1px solid $shadeColor2
+    .n#{$i}CDs
+      margin: 10px 20px
+      background-color: $shadeColor4
+      padding: 10px
+      border-left: 2px solid $shadeColor5
+      border-top: 1px solid $shadeColor2
+      border-bottom: 1px solid $shadeColor2
+    .n#{$i}Co, .n#{$i}Cs
+      margin-left: 20px
+    .n#{$i}Co:empty
+      display: none
+
+  .n#{$i}TL
+    margin-left: $i * 10px
+    .n#{$i}TLicon
+      width: 24px - $i * 2px
+      height: 100%
+      align-self: center
+    .n#{$i}TLname
+      font-size: 1em - $i * 0.05em
+      color: $brandColor2
+      text-align: left
+    .n#{$i}holderA
+      font-size: 0.8em - $i * 0.05em
+      color: $shadeColor1
+    .n#{$i}TLrow
+      display: flex
+      justify-content: space-between
+      align-items: center
+      padding: 10px
+      border-bottom: 1px solid $shadeColor2
+      background-color: lighten($shadeColor4, $i * 5%)
+      cursor: pointer
+      transition: background-color 0.3s ease, transform 0.3s ease
+      &:hover
+        background-color: darken($shadeColor4, $i * 5%)
+        transform: scale(1.02)
+      &:active
+        background-color: darken($shadeColor4, $i * 10%)
+        transform: scale(0.98)
+    .n#{$i}Cs
+      margin-left: 20px
+
+*/
+
+#cntMain {
+  overflow-y: auto;
+  width: 100%;
+  height: 80vh;
+  justify-content: center;
+  border: 1px solid var(--shadeColor3);
+  box-shadow: 1px 1px 5px var(--brandColor3);
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 5px 5px;
+  background-color: var(--shadeColor3); }
+
+#cntMainP {
+  display: flex;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #191817;
+  background-color: #f9f8fc;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+
+.CP {
+  font-size: 1em;
+  color: #664b8c;
+  text-decoration: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer; }
+  .CP:hover {
+    background-color: #8764b8;
+    color: #ffffff; }
+  .CP:active {
+    background-color: #6d49a0;
+    color: #ffffff; }
+
+.separator {
+  margin: 0 5px;
+  color: #cdcdcd; }
+
+#cntMainC {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #191817;
+  background-color: #f9f8fc;
+  width: 95%; }
+
+.n1C {
+  margin-left: 10px; }
+  .n1C .n1CTicon {
+    width: 22px;
+    height: 100%;
+    align-self: center; }
+  .n1C .n1Cname {
+    font-size: 0.95em;
+    color: #664b8c;
+    text-align: left; }
+  .n1C .n1holderA {
+    font-size: 0.75em;
+    color: #8764b8; }
+  .n1C .n1Crow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: #f2e7ff;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n1C .n1Crow:hover {
+      background-color: #d8b4ff;
+      transform: scale(1.02); }
+    .n1C .n1Crow:active {
+      background-color: #ca9aff;
+      transform: scale(0.98); }
+  .n1C .n1Ch {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #664b8c;
+    margin: 10px 0; }
+  .n1C .n1CUs:empty {
+    display: none; }
+  .n1C .n1CDs:empty {
+    display: none; }
+  .n1C .n1CUs {
+    margin: 10px 20px;
+    background-color: #f9f8fc;
+    padding: 10px;
+    border-left: 2px solid #8764b8;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n1C .n1CDs {
+    margin: 10px 20px;
+    background-color: #d7c9ea;
+    padding: 10px;
+    border-left: 2px solid #4d3273;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n1C .n1Co, .n1C .n1Cs {
+    margin-left: 20px; }
+
+.n1TL {
+  margin-left: 10px; }
+  .n1TL .n1TLicon {
+    width: 22px;
+    height: 100%;
+    align-self: center; }
+  .n1TL .n1TLname {
+    font-size: 0.95em;
+    color: #664b8c;
+    text-align: left; }
+  .n1TL .n1holderA {
+    font-size: 0.75em;
+    color: #8764b8; }
+  .n1TL .n1TLrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: #e5dbf1;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n1TL .n1TLrow:hover {
+      background-color: #c9b7e3;
+      transform: scale(1.02); }
+    .n1TL .n1TLrow:active {
+      background-color: #bca4dc;
+      transform: scale(0.98); }
+  .n1TL .n1Cs {
+    margin-left: 20px; }
+
+.n2C {
+  margin-left: 20px; }
+  .n2C .n2CTicon {
+    width: 20px;
+    height: 100%;
+    align-self: center; }
+  .n2C .n2Cname {
+    font-size: 0.9em;
+    color: #664b8c;
+    text-align: left; }
+  .n2C .n2holderA {
+    font-size: 0.7em;
+    color: #8764b8; }
+  .n2C .n2Crow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n2C .n2Crow:hover {
+      background-color: #ca9aff;
+      transform: scale(1.02); }
+    .n2C .n2Crow:active {
+      background-color: #b067ff;
+      transform: scale(0.98); }
+  .n2C .n2Ch {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #664b8c;
+    margin: 10px 0; }
+  .n2C .n2CUs:empty {
+    display: none; }
+  .n2C .n2CDs:empty {
+    display: none; }
+  .n2C .n2CUs {
+    margin: 10px 20px;
+    background-color: #f9f8fc;
+    padding: 10px;
+    border-left: 2px solid #8764b8;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n2C .n2CDs {
+    margin: 10px 20px;
+    background-color: #d7c9ea;
+    padding: 10px;
+    border-left: 2px solid #4d3273;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n2C .n2Co, .n2C .n2Cs {
+    margin-left: 20px; }
+
+.n2TL {
+  margin-left: 20px; }
+  .n2TL .n2TLicon {
+    width: 20px;
+    height: 100%;
+    align-self: center; }
+  .n2TL .n2TLname {
+    font-size: 0.9em;
+    color: #664b8c;
+    text-align: left; }
+  .n2TL .n2holderA {
+    font-size: 0.7em;
+    color: #8764b8; }
+  .n2TL .n2TLrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: #f2eef8;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n2TL .n2TLrow:hover {
+      background-color: #bca4dc;
+      transform: scale(1.02); }
+    .n2TL .n2TLrow:active {
+      background-color: #a180cd;
+      transform: scale(0.98); }
+  .n2TL .n2Cs {
+    margin-left: 20px; }
+
+.n3C {
+  margin-left: 30px; }
+  .n3C .n3CTicon {
+    width: 18px;
+    height: 100%;
+    align-self: center; }
+  .n3C .n3Cname {
+    font-size: 0.85em;
+    color: #664b8c;
+    text-align: left; }
+  .n3C .n3holderA {
+    font-size: 0.65em;
+    color: #8764b8; }
+  .n3C .n3Crow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n3C .n3Crow:hover {
+      background-color: #bd81ff;
+      transform: scale(1.02); }
+    .n3C .n3Crow:active {
+      background-color: #9534ff;
+      transform: scale(0.98); }
+  .n3C .n3Ch {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #664b8c;
+    margin: 10px 0; }
+  .n3C .n3CUs:empty {
+    display: none; }
+  .n3C .n3CDs:empty {
+    display: none; }
+  .n3C .n3CUs {
+    margin: 10px 20px;
+    background-color: #f9f8fc;
+    padding: 10px;
+    border-left: 2px solid #8764b8;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n3C .n3CDs {
+    margin: 10px 20px;
+    background-color: #d7c9ea;
+    padding: 10px;
+    border-left: 2px solid #4d3273;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n3C .n3Co, .n3C .n3Cs {
+    margin-left: 20px; }
+
+.n3TL {
+  margin-left: 30px; }
+  .n3TL .n3TLicon {
+    width: 18px;
+    height: 100%;
+    align-self: center; }
+  .n3TL .n3TLname {
+    font-size: 0.85em;
+    color: #664b8c;
+    text-align: left; }
+  .n3TL .n3holderA {
+    font-size: 0.65em;
+    color: #8764b8; }
+  .n3TL .n3TLrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n3TL .n3TLrow:hover {
+      background-color: #ae92d5;
+      transform: scale(1.02); }
+    .n3TL .n3TLrow:active {
+      background-color: #855bbf;
+      transform: scale(0.98); }
+  .n3TL .n3Cs {
+    margin-left: 20px; }
+
+.n4C {
+  margin-left: 40px; }
+  .n4C .n4CTicon {
+    width: 16px;
+    height: 100%;
+    align-self: center; }
+  .n4C .n4Cname {
+    font-size: 0.8em;
+    color: #664b8c;
+    text-align: left; }
+  .n4C .n4holderA {
+    font-size: 0.6em;
+    color: #8764b8; }
+  .n4C .n4Crow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n4C .n4Crow:hover {
+      background-color: #b067ff;
+      transform: scale(1.02); }
+    .n4C .n4Crow:active {
+      background-color: #7b01ff;
+      transform: scale(0.98); }
+  .n4C .n4Ch {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #664b8c;
+    margin: 10px 0; }
+  .n4C .n4CUs:empty {
+    display: none; }
+  .n4C .n4CDs:empty {
+    display: none; }
+  .n4C .n4CUs {
+    margin: 10px 20px;
+    background-color: #f9f8fc;
+    padding: 10px;
+    border-left: 2px solid #8764b8;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n4C .n4CDs {
+    margin: 10px 20px;
+    background-color: #d7c9ea;
+    padding: 10px;
+    border-left: 2px solid #4d3273;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n4C .n4Co, .n4C .n4Cs {
+    margin-left: 20px; }
+
+.n4TL {
+  margin-left: 40px; }
+  .n4TL .n4TLicon {
+    width: 16px;
+    height: 100%;
+    align-self: center; }
+  .n4TL .n4TLname {
+    font-size: 0.8em;
+    color: #664b8c;
+    text-align: left; }
+  .n4TL .n4holderA {
+    font-size: 0.6em;
+    color: #8764b8; }
+  .n4TL .n4TLrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n4TL .n4TLrow:hover {
+      background-color: #a180cd;
+      transform: scale(1.02); }
+    .n4TL .n4TLrow:active {
+      background-color: #6c41a6;
+      transform: scale(0.98); }
+  .n4TL .n4Cs {
+    margin-left: 20px; }
+
+.n5C {
+  margin-left: 50px; }
+  .n5C .n5CTicon {
+    width: 14px;
+    height: 100%;
+    align-self: center; }
+  .n5C .n5Cname {
+    font-size: 0.75em;
+    color: #664b8c;
+    text-align: left; }
+  .n5C .n5holderA {
+    font-size: 0.55em;
+    color: #8764b8; }
+  .n5C .n5Crow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n5C .n5Crow:hover {
+      background-color: #a34eff;
+      transform: scale(1.02); }
+    .n5C .n5Crow:active {
+      background-color: #6200cd;
+      transform: scale(0.98); }
+  .n5C .n5Ch {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #664b8c;
+    margin: 10px 0; }
+  .n5C .n5CUs:empty {
+    display: none; }
+  .n5C .n5CDs:empty {
+    display: none; }
+  .n5C .n5CUs {
+    margin: 10px 20px;
+    background-color: #f9f8fc;
+    padding: 10px;
+    border-left: 2px solid #8764b8;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n5C .n5CDs {
+    margin: 10px 20px;
+    background-color: #d7c9ea;
+    padding: 10px;
+    border-left: 2px solid #4d3273;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n5C .n5Co, .n5C .n5Cs {
+    margin-left: 20px; }
+
+.n5TL {
+  margin-left: 50px; }
+  .n5TL .n5TLicon {
+    width: 14px;
+    height: 100%;
+    align-self: center; }
+  .n5TL .n5TLname {
+    font-size: 0.75em;
+    color: #664b8c;
+    text-align: left; }
+  .n5TL .n5holderA {
+    font-size: 0.55em;
+    color: #8764b8; }
+  .n5TL .n5TLrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n5TL .n5TLrow:hover {
+      background-color: #936dc6;
+      transform: scale(1.02); }
+    .n5TL .n5TLrow:active {
+      background-color: #543282;
+      transform: scale(0.98); }
+  .n5TL .n5Cs {
+    margin-left: 20px; }
+
+.n6C {
+  margin-left: 60px; }
+  .n6C .n6CTicon {
+    width: 12px;
+    height: 100%;
+    align-self: center; }
+  .n6C .n6Cname {
+    font-size: 0.7em;
+    color: #664b8c;
+    text-align: left; }
+  .n6C .n6holderA {
+    font-size: 0.5em;
+    color: #8764b8; }
+  .n6C .n6Crow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n6C .n6Crow:hover {
+      background-color: #9534ff;
+      transform: scale(1.02); }
+    .n6C .n6Crow:active {
+      background-color: #4a009a;
+      transform: scale(0.98); }
+  .n6C .n6Ch {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #664b8c;
+    margin: 10px 0; }
+  .n6C .n6CUs:empty {
+    display: none; }
+  .n6C .n6CDs:empty {
+    display: none; }
+  .n6C .n6CUs {
+    margin: 10px 20px;
+    background-color: #f9f8fc;
+    padding: 10px;
+    border-left: 2px solid #8764b8;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n6C .n6CDs {
+    margin: 10px 20px;
+    background-color: #d7c9ea;
+    padding: 10px;
+    border-left: 2px solid #4d3273;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n6C .n6Co, .n6C .n6Cs {
+    margin-left: 20px; }
+
+.n6TL {
+  margin-left: 60px; }
+  .n6TL .n6TLicon {
+    width: 12px;
+    height: 100%;
+    align-self: center; }
+  .n6TL .n6TLname {
+    font-size: 0.7em;
+    color: #664b8c;
+    text-align: left; }
+  .n6TL .n6holderA {
+    font-size: 0.5em;
+    color: #8764b8; }
+  .n6TL .n6TLrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n6TL .n6TLrow:hover {
+      background-color: #855bbf;
+      transform: scale(1.02); }
+    .n6TL .n6TLrow:active {
+      background-color: #3c245d;
+      transform: scale(0.98); }
+  .n6TL .n6Cs {
+    margin-left: 20px; }
+
+.n7C {
+  margin-left: 70px; }
+  .n7C .n7CTicon {
+    width: 10px;
+    height: 100%;
+    align-self: center; }
+  .n7C .n7Cname {
+    font-size: 0.65em;
+    color: #664b8c;
+    text-align: left; }
+  .n7C .n7holderA {
+    font-size: 0.45em;
+    color: #8764b8; }
+  .n7C .n7Crow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n7C .n7Crow:hover {
+      background-color: #881bff;
+      transform: scale(1.02); }
+    .n7C .n7Crow:active {
+      background-color: #310067;
+      transform: scale(0.98); }
+  .n7C .n7Ch {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #664b8c;
+    margin: 10px 0; }
+  .n7C .n7CUs:empty {
+    display: none; }
+  .n7C .n7CDs:empty {
+    display: none; }
+  .n7C .n7CUs {
+    margin: 10px 20px;
+    background-color: #f9f8fc;
+    padding: 10px;
+    border-left: 2px solid #8764b8;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n7C .n7CDs {
+    margin: 10px 20px;
+    background-color: #d7c9ea;
+    padding: 10px;
+    border-left: 2px solid #4d3273;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n7C .n7Co, .n7C .n7Cs {
+    margin-left: 20px; }
+
+.n7TL {
+  margin-left: 70px; }
+  .n7TL .n7TLicon {
+    width: 10px;
+    height: 100%;
+    align-self: center; }
+  .n7TL .n7TLname {
+    font-size: 0.65em;
+    color: #664b8c;
+    text-align: left; }
+  .n7TL .n7holderA {
+    font-size: 0.45em;
+    color: #8764b8; }
+  .n7TL .n7TLrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n7TL .n7TLrow:hover {
+      background-color: #7848b8;
+      transform: scale(1.02); }
+    .n7TL .n7TLrow:active {
+      background-color: #241638;
+      transform: scale(0.98); }
+  .n7TL .n7Cs {
+    margin-left: 20px; }
+
+.n8C {
+  margin-left: 80px; }
+  .n8C .n8CTicon {
+    width: 8px;
+    height: 100%;
+    align-self: center; }
+  .n8C .n8Cname {
+    font-size: 0.6em;
+    color: #664b8c;
+    text-align: left; }
+  .n8C .n8holderA {
+    font-size: 0.4em;
+    color: #8764b8; }
+  .n8C .n8Crow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n8C .n8Crow:hover {
+      background-color: #7b01ff;
+      transform: scale(1.02); }
+    .n8C .n8Crow:active {
+      background-color: #190034;
+      transform: scale(0.98); }
+  .n8C .n8Ch {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #664b8c;
+    margin: 10px 0; }
+  .n8C .n8CUs:empty {
+    display: none; }
+  .n8C .n8CDs:empty {
+    display: none; }
+  .n8C .n8CUs {
+    margin: 10px 20px;
+    background-color: #f9f8fc;
+    padding: 10px;
+    border-left: 2px solid #8764b8;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n8C .n8CDs {
+    margin: 10px 20px;
+    background-color: #d7c9ea;
+    padding: 10px;
+    border-left: 2px solid #4d3273;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n8C .n8Co, .n8C .n8Cs {
+    margin-left: 20px; }
+
+.n8TL {
+  margin-left: 80px; }
+  .n8TL .n8TLicon {
+    width: 8px;
+    height: 100%;
+    align-self: center; }
+  .n8TL .n8TLname {
+    font-size: 0.6em;
+    color: #664b8c;
+    text-align: left; }
+  .n8TL .n8holderA {
+    font-size: 0.4em;
+    color: #8764b8; }
+  .n8TL .n8TLrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n8TL .n8TLrow:hover {
+      background-color: #6c41a6;
+      transform: scale(1.02); }
+    .n8TL .n8TLrow:active {
+      background-color: #0d0813;
+      transform: scale(0.98); }
+  .n8TL .n8Cs {
+    margin-left: 20px; }
+
+.n9C {
+  margin-left: 90px; }
+  .n9C .n9CTicon {
+    width: 6px;
+    height: 100%;
+    align-self: center; }
+  .n9C .n9Cname {
+    font-size: 0.55em;
+    color: #664b8c;
+    text-align: left; }
+  .n9C .n9holderA {
+    font-size: 0.35em;
+    color: #8764b8; }
+  .n9C .n9Crow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n9C .n9Crow:hover {
+      background-color: #6f00e7;
+      transform: scale(1.02); }
+    .n9C .n9Crow:active {
+      background-color: #000001;
+      transform: scale(0.98); }
+  .n9C .n9Ch {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #664b8c;
+    margin: 10px 0; }
+  .n9C .n9CUs:empty {
+    display: none; }
+  .n9C .n9CDs:empty {
+    display: none; }
+  .n9C .n9CUs {
+    margin: 10px 20px;
+    background-color: #f9f8fc;
+    padding: 10px;
+    border-left: 2px solid #8764b8;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n9C .n9CDs {
+    margin: 10px 20px;
+    background-color: #d7c9ea;
+    padding: 10px;
+    border-left: 2px solid #4d3273;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd; }
+  .n9C .n9Co, .n9C .n9Cs {
+    margin-left: 20px; }
+
+.n9TL {
+  margin-left: 90px; }
+  .n9TL .n9TLicon {
+    width: 6px;
+    height: 100%;
+    align-self: center; }
+  .n9TL .n9TLname {
+    font-size: 0.55em;
+    color: #664b8c;
+    text-align: left; }
+  .n9TL .n9holderA {
+    font-size: 0.35em;
+    color: #8764b8; }
+  .n9TL .n9TLrow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #cdcdcd;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; }
+    .n9TL .n9TLrow:hover {
+      background-color: #603a94;
+      transform: scale(1.02); }
+    .n9TL .n9TLrow:active {
+      background-color: black;
+      transform: scale(0.98); }
+  .n9TL .n9Cs {
+    margin-left: 20px; }

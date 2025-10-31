@@ -1,0 +1,17 @@
+- adx_name: Grant Change to Content
+  adx_right: 1
+  adx_webpageaccesscontrolruleid: 501f6b2b-f745-46f9-8e05-74a68dcb2cb6
+- adx_name: Restrict Read on Home
+  adx_right: 2
+  adx_scope: 2
+  adx_webpageaccesscontrolrule_webrole: []
+  adx_webpageaccesscontrolruleid: 63a32eac-0d29-c31b-185b-b494a8e077f6
+  adx_webpageid: ad963c6d-0123-4433-857d-d28ae429b6c9
+  statecode: 1
+  statuscode: 2
+- adx_name: Grant Change to Administrators
+  adx_right: 1
+  adx_webpageaccesscontrolrule_webrole:
+  - 96ce68de-8150-4a86-92f6-8dc1d303bd64
+  adx_webpageaccesscontrolruleid: 682f4fe0-b05b-46fe-8e0e-c765d1239f03
+  adx_webpageid: ad963c6d-0123-4433-857d-d28ae429b6c9
