@@ -38,14 +38,14 @@ async function wrJ(strJid = strJidRoot, nLevel = 1, strCntId = 'Jmaster', bolAss
   }
 
   let filledLayout = await fillLayout(
-    bolAssoc ? J.Com.WAssoc.def : J.Com.W.def, { nLevel, J });
+    bolAssoc ? J.com.WAssoc.def : J.com.W.def, { nLevel, J });
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Filled layout (', 
-    (bolAssoc ? J.Com.WAssoc.name : J.Com.W.name), '): ', filledLayout);
+    (bolAssoc ? J.com.WAssoc.name : J.com.W.name), '): ', filledLayout);
   container.innerHTML = (bolAssoc ? container.innerHTML : '') + filledLayout;
 
   await handleComponents(container, { nLevel, J });
   await handleLoops(container, { nLevel, J });
-  if (nLevel < curJ.Com.W.nLevels) await handleExpands(container, nLevel);
+  if (nLevel < curJ.com.W.nLevels) await handleExpands(container, nLevel);
 }
 
 async function fetchData(dataType, context) {
@@ -196,9 +196,9 @@ async function mapApiJs(apiJs) {
     const normalized = rawStatus.toLowerCase();
     const status = runningStatuses.includes(normalized) ? 'running' : normalized;
 
-    const Com = apiJ.tf_Com || {};
-    const W = Com.tf_Layout || {};
-    const WAssoc = Com.tf_LayoutAssoc || {};
+    const com = apiJ.tf_Com || {};
+    const W = com.tf_Layout || {};
+    const WAssoc = com.tf_LayoutAssoc || {};
 
     const outParsed = JSON.parse(apiJ.tf_out || '{}');
     const outHtml = JoutHtml((outParsed.pssOut || {}).value || {});
@@ -213,10 +213,10 @@ async function mapApiJs(apiJs) {
       srcJ: { id: apiJ._tf_sourcejob_value },
       status,
       statusHtml: strIcon[status] || strIcon.clear,
-      Com: {
-        id: Com.tf_comid,
-        name: Com.tf_com,
-        svgIcon: Com.tf_svgicon,
+      com: {
+        id: com.tf_comid,
+        name: com.tf_com,
+        svgIcon: com.tf_svgicon,
         W: {
           id: W.tf_layoutid,
           name: W.tf_layout,
