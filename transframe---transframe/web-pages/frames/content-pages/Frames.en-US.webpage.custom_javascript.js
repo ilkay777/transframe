@@ -64,7 +64,7 @@ async function wrC(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', bolAss
     }
     curC = C;
     wrCP(C.id);
-    curJs = getJs(await getJs('', 'F', -1, '')?.id, 'S', 0, '') || [];
+    curJs = await getJs(await getJs('', 'F', -1, '')?.id, 'S', 0, '') || [];
     if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('curJs:', curJs);
     wrCTmap(C.id, curJs);
   }
