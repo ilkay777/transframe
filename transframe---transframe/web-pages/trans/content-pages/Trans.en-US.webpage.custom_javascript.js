@@ -48,18 +48,6 @@ async function wrJ(strJid = strJidRoot, nLevel = 1, strCntId = 'Jmaster', bolAss
   if (nLevel < curJ.com.w.nLevels) await handleExpands(container, nLevel);
 }
 
-async function fetchData(dataType, context) {
-  const dataFetchMap = {
-    'JLs': async (context) => {
-      return await getJs(context.J.id, 'L');
-    }
-  };
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log(`Fetching ${dataType}...`);
-  const fetchedData = await dataFetchMap[dataType](context);
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log(`Fetched ${dataType}:`, fetchedData);
-  return fetchedData.map(item => ({ ...context, [dataType.slice(0, -1)]: item }));
-}
-
 async function handleExpands(element, nLevel) {
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Checking for expand elements.');
   const expandElements = element.querySelectorAll('[data-expand="true"]');
@@ -110,72 +98,6 @@ async function getJPs(strJid) {
   return myJPs.reverse();
 }
 
-async function getJs(strJid, strScope, nLimit = 0, strFilter = '') {
-  const safeFilter = strFilter ? ` and ${strFilter}` : '';
-
-  // Base expand (sans espaces ni sauts de ligne parasites)
-  const baseExpand = [
-    "tf_Com($select=tf_com,tf_comid,tf_svgicon;",
-    "$expand=tf_Layout($select=tf_layout,tf_layoutid,tf_levels,tf_def),",
-    "tf_LayoutAssoc($select=tf_layout,tf_layoutid,tf_levels,tf_def))"
-  ].join('');
-
-  let filterQuery;
-  switch (strScope) {
-    case 'R':
-      filterQuery = `_tf_child_value eq '${strJid}'${safeFilter}`;
-      break; // parents
-    case 'L':
-      filterQuery = `_tf_sourcejob_value eq '${strJid}'${safeFilter}`;
-      break; // children
-    default:
-      filterQuery = `tf_jobid eq '${strJid}'${safeFilter}`;
-      nLimit = -1;
-      break; // self
-  }
-
-  const topQuery = nLimit > 0 ? `&$top=${Math.abs(nLimit)}` : '';
-
-  // Nettoyage automatique des espaces inutiles
-  const myStrQry = [
-    "tf_jobs?",
-    "$select=tf_jobid,tf_job,tf_o,tf_v,tf_out,_tf_sourcejob_value,statuscode",
-    `&$expand=${baseExpand}`,
-    "&$orderby=tf_job",
-    `&$filter=${filterQuery}`,
-    topQuery
-  ].join('');
-
-  try {
-    const myValues = await DVapiValues(myStrQry.trim());
-    const myMappedValues = await mapApiJs(myValues);
-    return nLimit === -1 ? myMappedValues[0] : myMappedValues;
-  } catch (err) {
-    if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.error('⚠️ getJs error:', err);
-    return [];
-  }
-}
-
-async function getTLs(strTid, strJid) {
-  let myTLs = await getTs(strTid, 'L');
-  return await Promise.all(myTLs.map(async (myTL) => {
-    return { ...myTL, nCs: await getTnCs(myTL.id, strJid) };
-  }));
-}
-
-async function getTnCs(strTid, strCRid, strFilter) {
-  let myStrQry;
-  strFilter = strFilter ? ' and ' + strFilter : '';
-  myStrQry = 'tf_icodes?' +
-    '$select=tf_icodeid&' +
-    '$expand=tf_Child($select=_tf_tag_value)&' +
-    `$filter=tf_Child/_tf_tag_value eq '${strTid}'` +
-    (strCRid ? ` and _tf_parent_value eq '${strCRid}' ` : '') +
-    strFilter;
-
-  return await DVapiCount(myStrQry);
-}
-
 async function startupProc() {
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Startup procedure initiated.');
 
@@ -186,52 +108,6 @@ async function startupProc() {
   const urlParams = new URLSearchParams(window.location.search);
   let strJid = urlParams.get('jid');
   if (strJid) wrJ(strJid); else wrJ();
-}
-
-async function mapApiJs(apiJs) {
-  const runningStatuses = ['reset', 'ready', 'validated', 'packed', 'batched'];
-
-  return apiJs.map(apiJ => {
-    const rawStatus = apiJ["statuscode@OData.Community.Display.V1.FormattedValue"] || '';
-    const normalized = rawStatus.toLowerCase();
-    const status = runningStatuses.includes(normalized) ? 'running' : normalized;
-
-    const com = apiJ.tf_Com || {};
-    const w = com.tf_Layout || {};
-    const wAssoc = com.tf_LayoutAssoc || {};
-
-    const outParsed = JSON.parse(apiJ.tf_out || '{}');
-    const outHtml = JoutHtml((outParsed.pssOut || {}).value || {});
-
-    return {
-      id: apiJ.tf_jobid,
-      name: apiJ.tf_job,
-      o: apiJ.tf_o || '',
-      v: apiJ.tf_v,
-      out: outParsed,
-      outHtml,
-      srcJ: { id: apiJ._tf_sourcejob_value },
-      status,
-      statusHtml: strIcon[status] || strIcon.clear,
-      com: {
-        id: com.tf_comid,
-        name: com.tf_com,
-        svgIcon: com.tf_svgicon,
-        w: {
-          id: w.tf_layoutid,
-          name: w.tf_layout,
-          nLevels: w.tf_levels,
-          def: w.tf_def
-        },
-        wAssoc: {
-          id: wAssoc.tf_layoutid,
-          name: wAssoc.tf_layout,
-          nLevels: wAssoc.tf_levels,
-          def: wAssoc.tf_def
-        }
-      }
-    };
-  });
 }
 
 function JoutHtml(myJout) {
