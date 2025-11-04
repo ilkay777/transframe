@@ -64,8 +64,8 @@ async function wrC(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', bolAss
     }
     curC = C;
     wrCP(C.id);
-    curJs = getJs(await getJs('', 'F', -1, '')?.id, 'S', 0, '');
-    wrCTmap(C.id);
+    curJs = getJs(await getJs('', 'F', -1, '')?.id, 'S', 0, '') || [];
+    wrCTmap(C.id, curJs);
   }
 
   let filledLayout = await fillLayout(
