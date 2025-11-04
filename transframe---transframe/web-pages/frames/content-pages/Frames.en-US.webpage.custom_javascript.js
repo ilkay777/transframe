@@ -284,6 +284,7 @@ async function wrCTmap(strCid, arrJs = []) {
 
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) {
     console.log('[wrCTmap] strCid:', strCid);
+    console.log('[wrCTmap] arrJs:', arrJs);
     console.log('[wrCTmap] strTid:', strTid);
     console.log('[wrCTmap] maxDepth:', maxDepth);
     console.log('[wrCTmap] elements:', elements);
