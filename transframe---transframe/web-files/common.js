@@ -237,30 +237,59 @@ async function getW(strWid) {
 async function getJs(strJid, strScope, nLimit = 0, strFilter = '') {
   const safeFilter = strFilter ? ` and ${strFilter}` : '';
 
-  // Base expand (sans espaces ni sauts de ligne parasites)
   const baseExpand = [
     "tf_Com($select=tf_com,tf_comid,tf_svgicon;",
     "$expand=tf_Layout($select=tf_layout,tf_layoutid,tf_levels,tf_def),",
     "tf_LayoutAssoc($select=tf_layout,tf_layoutid,tf_levels,tf_def))"
   ].join('');
 
+  const topQuery = nLimit > 0 ? `&$top=${Math.abs(nLimit)}` : '';
+
+  // Fonction récursive pour collecter tous les descendants
+  async function getDescendants(rootId, collected = new Set()) {
+    if (collected.has(rootId)) return []; // éviter les boucles
+    collected.add(rootId);
+
+    const query = [
+      "tf_jobs?",
+      "$select=tf_jobid,tf_job,tf_o,tf_v,tf_out,_tf_sourcejob_value,statuscode",
+      `&$expand=${baseExpand}`,
+      "&$orderby=tf_job",
+      `&$filter=_tf_sourcejob_value eq '${rootId}'${safeFilter}`
+    ].join('');
+
+    try {
+      const children = await DVapiValues(query.trim());
+      const mapped = await mapApiJs(children);
+      const subResults = await Promise.all(
+        mapped.map(child => getDescendants(child.tf_jobid, collected))
+      );
+      return [...mapped, ...subResults.flat()];
+    } catch (err) {
+      if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.error('⚠️ getDescendants error:', err);
+      return [];
+    }
+  }
+
   let filterQuery;
   switch (strScope) {
     case 'R':
       filterQuery = `_tf_child_value eq '${strJid}'${safeFilter}`;
-      break; // parents
+      break;
     case 'L':
       filterQuery = `_tf_sourcejob_value eq '${strJid}'${safeFilter}`;
-      break; // children
+      break;
+    case 'F':
+      filterQuery = `tf_Com/tf_com eq 'Jfld' and _tf_zc_value eq '${curC}'`;
+      break;
+    case 'S':
+      return await getDescendants(strJid);
     default:
       filterQuery = `tf_jobid eq '${strJid}'${safeFilter}`;
       nLimit = -1;
-      break; // self
+      break;
   }
 
-  const topQuery = nLimit > 0 ? `&$top=${Math.abs(nLimit)}` : '';
-
-  // Nettoyage automatique des espaces inutiles
   const myStrQry = [
     "tf_jobs?",
     "$select=tf_jobid,tf_job,tf_o,tf_v,tf_out,_tf_sourcejob_value,statuscode",

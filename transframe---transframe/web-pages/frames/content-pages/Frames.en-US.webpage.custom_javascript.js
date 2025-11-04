@@ -1,6 +1,7 @@
 console.log("Javascript Initiated.")
 // globals and constants
 var curC;
+var curJs;
 let bolCTmapEditMode = false;
 
 
@@ -63,6 +64,7 @@ async function wrC(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', bolAss
     }
     curC = C;
     wrCP(C.id);
+    curJs = getJs(await getJs('', 'F', -1, '')?.id, 'S', 0, '');
     wrCTmap(C.id);
   }
 
@@ -133,96 +135,11 @@ function tglCTmapEdit() {
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log(`🆕 Toggled New button`);
 }
 
-function buildCytoscapeElements(arrCTmap, arrJs = []) {
-  const elements = [];
-
-  // 🔁 Traverse les objets T classiques
-  function traverse(TL, parentId = null) {
-    const nodeId = TL.id;
-    elements.push({
-      data: { id: nodeId, label: TL.name || '(No name)' }
-    });
-
-    if (parentId) {
-      elements.push({
-        data: { source: parentId, target: nodeId }
-      });
-    }
-
-    if (Array.isArray(TL.TLs)) {
-      TL.TLs.forEach(subTL => traverse(subTL, nodeId));
-    }
-  }
-
-  // 🧩 Ajoute les T classiques
-  arrCTmap.forEach(rootTL => traverse(rootTL));
-
-  // 🎯 Ajoute les Tnew issus des Jobs actifs
-  arrJs.forEach(J => {
-    const isTnew = J.com?.name === "Tnew";
-    const isActive = J.status !== arrJstatuses?.finished?.value;
-    const Tnew = J.v?.Tnew;
-    const TR = J.v?.TR;
-
-    if (isTnew && isActive && Tnew) {
-      const tempId = `job-${J.id}-Tnew`;
-
-      // 🔷 Nœud Tnew avec style personnalisé
-      elements.push({
-        data: {
-          id: tempId,
-          label: Tnew.name || '(New T)',
-          description: Tnew.o || '',
-          jobId: J.id,
-          isPreview: true
-        },
-        classes: 'CTmapLabelNew'
-      });
-
-      // 🔗 Lien vers TR si présent
-      if (TR?.id) {
-        elements.push({
-          data: {
-            source: TR.id,
-            target: tempId
-          },
-          classes: 'CTmapLinkNew'
-        });
-      }
-
-      // 🔁 Enfants TLs de Tnew
-      if (Array.isArray(Tnew.TLs)) {
-        Tnew.TLs.forEach((subTL, i) => {
-          const subId = `${tempId}-TL-${i}`;
-          elements.push({
-            data: {
-              id: subId,
-              label: subTL.name || '(Child)',
-              parentJobId: J.id,
-              isPreview: true
-            },
-            classes: 'CTmapLabelNew'
-          });
-          elements.push({
-            data: {
-              source: tempId,
-              target: subId
-            },
-            classes: 'CTmapLinkNew'
-          });
-        });
-      }
-    }
-  });
-
-  return elements;
-}
-
-async function wrCTmap(strCid) {
+async function wrCTmap(strCid, arrJs = []) {
   const strTid = (await getCs(strCid)).T.id;
   if (strTid === strTidFolder) {
     if (window.cy) {
-      window.cy.destroy(); 
+      window.cy.destroy();
       window.cy = null;
     }
     const container = document.getElementById('cntMainCTmap');
@@ -230,20 +147,23 @@ async function wrCTmap(strCid) {
     container.style.height = '0px';
     return null;
   }
+
   const arrCTmap = await getTLs(strTid, strCid, 'tree');
   const elements = [];
 
-  function traverse(TL, parentId = null) {
-    const nodeId = TL.id;
+  function addNode(T, parentId = null, isNew = false) {
+    const nodeId = T.id || `Tnew_${Math.random().toString(36).slice(2)}`;
+    const labelClass = isNew ? 'CTmapLabelNew' : 'CTmapLabel';
+    const edgeClass = isNew ? 'CTmapLinkNew' : '';
 
     elements.push({
       data: {
         id: nodeId,
-        TLid: TL.id,
+        TLid: T.id,
         html: `
-          <div class="CTmapLabel" data-id="${TL.id}">
-            ${TL.svgIcon || ''}
-            <span>${TL.name || '(Sans nom)'}</span>
+          <div class="${labelClass}" data-id="${T.id || ''}">
+            ${T.svgIcon || ''}
+            <span>${T.name || '(Sans nom)'}</span>
           </div>
         `
       },
@@ -252,16 +172,35 @@ async function wrCTmap(strCid) {
 
     if (parentId) {
       elements.push({
-        data: { source: parentId, target: nodeId }
+        data: { source: parentId, target: nodeId },
+        classes: edgeClass
       });
     }
 
-    if (TL.TLs?.length) {
-      TL.TLs.forEach(subTL => traverse(subTL, nodeId));
+    if (Array.isArray(T.TLs)) {
+      T.TLs.forEach(subT => addNode(subT, nodeId, isNew));
     }
   }
 
-  arrCTmap.forEach(rootTL => traverse(rootTL));
+  // 1. Arbre réel
+  arrCTmap.forEach(rootTL => addNode(rootTL));
+
+  // 2. Jobs Tnew non terminés
+  arrJs
+    .filter(J =>
+      J.com?.name === 'Tnew' &&
+      J.status !== arrJstatuses.finished.value &&
+      J.v?.Tnew && J.v.Tnew.name
+    )
+    .forEach(J => {
+      const Tnew = J.v.Tnew;
+      const TR = J.v.TR;
+      const parentId = TR?.id;
+      if (!parentId) return;
+
+      // Injecte le Tnew et ses TLs sous TR
+      addNode(Tnew, parentId, true);
+    });
 
   const maxDepth = Math.max(...arrCTmap.map(t => getMaxDepth(t)));
   const graphHeight = Math.min(500, Math.max(50, maxDepth * 50));
@@ -288,12 +227,12 @@ async function wrCTmap(strCid) {
       {
         selector: 'edge',
         style: {
-          'background-opacity': 0, 
+          'background-opacity': 0,
           'border-width': 10,
-          'width': 10,             
+          'width': 10,
           'height': 10,
           'padding': 0,
-          'label': '',            
+          'label': '',
           'text-opacity': 0,
           'cursor': 'pointer'
         }
@@ -328,8 +267,8 @@ async function wrCTmap(strCid) {
     }
   });
 
-  document.getElementById('cntMainCTmap').addEventListener('click', async (e) => {
-    const el = e.target.closest('.CTmapLabel[data-id]');
+  container.addEventListener('click', async (e) => {
+    const el = e.target.closest('.CTmapLabel, .CTmapLabelNew');
     if (el) {
       const TLid = el.dataset.id;
       if (bolCTmapEditMode) {
