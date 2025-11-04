@@ -133,9 +133,10 @@ function tglCTmapEdit() {
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log(`🆕 Toggled New button`);
 }
 
-function buildCytoscapeElements(arrCTmap) {
+function buildCytoscapeElements(arrCTmap, arrJs = []) {
   const elements = [];
 
+  // 🔁 Traverse les objets T classiques
   function traverse(TL, parentId = null) {
     const nodeId = TL.id;
     elements.push({
@@ -148,12 +149,72 @@ function buildCytoscapeElements(arrCTmap) {
       });
     }
 
-    if (TL.TLs && TL.TLs.length > 0) {
+    if (Array.isArray(TL.TLs)) {
       TL.TLs.forEach(subTL => traverse(subTL, nodeId));
     }
   }
 
+  // 🧩 Ajoute les T classiques
   arrCTmap.forEach(rootTL => traverse(rootTL));
+
+  // 🎯 Ajoute les Tnew issus des Jobs actifs
+  arrJs.forEach(J => {
+    const isTnew = J.com?.name === "Tnew";
+    const isActive = J.status !== arrJstatuses?.finished?.value;
+    const Tnew = J.v?.Tnew;
+    const TR = J.v?.TR;
+
+    if (isTnew && isActive && Tnew) {
+      const tempId = `job-${J.id}-Tnew`;
+
+      // 🔷 Nœud Tnew avec style personnalisé
+      elements.push({
+        data: {
+          id: tempId,
+          label: Tnew.name || '(New T)',
+          description: Tnew.o || '',
+          jobId: J.id,
+          isPreview: true
+        },
+        classes: 'CTmapLabelNew'
+      });
+
+      // 🔗 Lien vers TR si présent
+      if (TR?.id) {
+        elements.push({
+          data: {
+            source: TR.id,
+            target: tempId
+          },
+          classes: 'CTmapLinkNew'
+        });
+      }
+
+      // 🔁 Enfants TLs de Tnew
+      if (Array.isArray(Tnew.TLs)) {
+        Tnew.TLs.forEach((subTL, i) => {
+          const subId = `${tempId}-TL-${i}`;
+          elements.push({
+            data: {
+              id: subId,
+              label: subTL.name || '(Child)',
+              parentJobId: J.id,
+              isPreview: true
+            },
+            classes: 'CTmapLabelNew'
+          });
+          elements.push({
+            data: {
+              source: tempId,
+              target: subId
+            },
+            classes: 'CTmapLinkNew'
+          });
+        });
+      }
+    }
+  });
+
   return elements;
 }
 

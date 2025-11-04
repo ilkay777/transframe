@@ -38,14 +38,14 @@ async function wrJ(strJid = strJidRoot, nLevel = 1, strCntId = 'Jmaster', bolAss
   }
 
   let filledLayout = await fillLayout(
-    bolAssoc ? J.com.WAssoc.def : J.com.W.def, { nLevel, J });
+    bolAssoc ? J.com.wAssoc.def : J.com.w.def, { nLevel, J });
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Filled layout (', 
-    (bolAssoc ? J.com.WAssoc.name : J.com.W.name), '): ', filledLayout);
+    (bolAssoc ? J.com.wAssoc.name : J.com.w.name), '): ', filledLayout);
   container.innerHTML = (bolAssoc ? container.innerHTML : '') + filledLayout;
 
   await handleComponents(container, { nLevel, J });
   await handleLoops(container, { nLevel, J });
-  if (nLevel < curJ.com.W.nLevels) await handleExpands(container, nLevel);
+  if (nLevel < curJ.com.w.nLevels) await handleExpands(container, nLevel);
 }
 
 async function fetchData(dataType, context) {
@@ -197,8 +197,8 @@ async function mapApiJs(apiJs) {
     const status = runningStatuses.includes(normalized) ? 'running' : normalized;
 
     const com = apiJ.tf_Com || {};
-    const W = com.tf_Layout || {};
-    const WAssoc = com.tf_LayoutAssoc || {};
+    const w = com.tf_Layout || {};
+    const wAssoc = com.tf_LayoutAssoc || {};
 
     const outParsed = JSON.parse(apiJ.tf_out || '{}');
     const outHtml = JoutHtml((outParsed.pssOut || {}).value || {});
@@ -217,17 +217,17 @@ async function mapApiJs(apiJs) {
         id: com.tf_comid,
         name: com.tf_com,
         svgIcon: com.tf_svgicon,
-        W: {
-          id: W.tf_layoutid,
-          name: W.tf_layout,
-          nLevels: W.tf_levels,
-          def: W.tf_def
+        w: {
+          id: w.tf_layoutid,
+          name: w.tf_layout,
+          nLevels: w.tf_levels,
+          def: w.tf_def
         },
-        WAssoc: {
-          id: WAssoc.tf_layoutid,
-          name: WAssoc.tf_layout,
-          nLevels: WAssoc.tf_levels,
-          def: WAssoc.tf_def
+        wAssoc: {
+          id: wAssoc.tf_layoutid,
+          name: wAssoc.tf_layout,
+          nLevels: wAssoc.tf_levels,
+          def: wAssoc.tf_def
         }
       }
     };
