@@ -280,7 +280,7 @@ async function getJs(strJid, strScope, nLimit = 0, strFilter = '') {
       filterQuery = `_tf_sourcejob_value eq '${strJid}'${safeFilter}`;
       break;
     case 'F':
-      filterQuery = `tf_Com/tf_com eq 'Jfld' and _tf_zc_value eq '${curC}'`;
+      filterQuery = `tf_Com/tf_com eq 'Jfld' and _tf_zc_value eq '${curC.id}'`;
       break;
     case 'S':
       return await getDescendants(strJid);
