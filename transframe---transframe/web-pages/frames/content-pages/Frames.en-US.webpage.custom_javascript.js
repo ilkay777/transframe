@@ -65,6 +65,7 @@ async function wrC(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', bolAss
     curC = C;
     wrCP(C.id);
     curJs = getJs(await getJs('', 'F', -1, '')?.id, 'S', 0, '') || [];
+    if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('curJs:', curJs);
     wrCTmap(C.id, curJs);
   }
 
@@ -136,8 +137,6 @@ function tglCTmapEdit() {
 }
 
 async function wrCTmap(strCid, arrJs = []) {
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('wrCTmap started arrJs:', arrJs);
-
   const strTid = (await getCs(strCid)).T.id;
   if (strTid === strTidFolder) {
     if (window.cy) {
