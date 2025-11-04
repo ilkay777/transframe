@@ -136,6 +136,8 @@ function tglCTmapEdit() {
 }
 
 async function wrCTmap(strCid, arrJs = []) {
+  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('wrCTmap started arrJs:', arrJs);
+
   const strTid = (await getCs(strCid)).T.id;
   if (strTid === strTidFolder) {
     if (window.cy) {
@@ -190,7 +192,7 @@ async function wrCTmap(strCid, arrJs = []) {
     .filter(J =>
       J.com?.name === 'Tnew' &&
       J.status !== arrJstatuses.finished.value &&
-      J.v?.Tnew && J.v.Tnew.name
+      J.v?.Tnew && J.v.Tnew["T Name"]
     )
     .forEach(J => {
       const Tnew = J.v.Tnew;
