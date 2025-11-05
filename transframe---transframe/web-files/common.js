@@ -237,10 +237,13 @@ async function getW(strWid) {
 async function getJs(strJid, strScope, nLimit = 0, strFilter = '') {
   const safeFilter = strFilter ? ` and ${strFilter}` : '';
 
+  const dynamicFields = ['x', 'y', 'z']
+    .flatMap(i => ['c', 't'].map(j => `tf_${i}${j}_value`));
+
   const baseExpand = [
-    "tf_Com($select=tf_com,tf_comid,tf_svgicon;",
-    "$expand=tf_Layout($select=tf_layout,tf_layoutid,tf_levels,tf_def),",
-    "tf_LayoutAssoc($select=tf_layout,tf_layoutid,tf_levels,tf_def))"
+    `tf_Com($select=tf_com,tf_comid,tf_svgicon,${dynamicFields.join(',')};`,
+    `$expand=tf_Layout($select=tf_layout,tf_layoutid,tf_levels,tf_def),`,
+    `tf_LayoutAssoc($select=tf_layout,tf_layoutid,tf_levels,tf_def))`
   ].join('');
 
   const topQuery = nLimit > 0 ? `&$top=${Math.abs(nLimit)}` : '';
@@ -426,6 +429,14 @@ async function mapApiJs(apiJs) {
           nLevels: wAssoc.tf_levels,
           def: wAssoc.tf_def
         }
+      },
+      x: {
+        C: {id: apiJ._tf_xc_value || '' },
+        T: {id: apiJ._tf_xt_value || '' }
+      },
+      y: {
+        C: {id: apiJ._tf_yc_value || '' },
+        T: {id: apiJ._tf_yt_value || '' }
       },
       z: {
         C: {id: apiJ._tf_zc_value || '' },
