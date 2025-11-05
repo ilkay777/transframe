@@ -1,5 +1,3 @@
-/*
-// ---------- GLOBALS ----------
 *,
 *::before,
 *::after {
@@ -20,400 +18,6 @@
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
-// 🎨 Brand Colors
-$brandColor1: #e5cdff;
-$brandColor2: #664b8c;
-$brandColor3: #ffffff;
-$brandColor4: #191817;
-
-$shadeColor1: #8764b8;
-$shadeColor2: #cdcdcd;
-$shadeColor3: #f9f8fc;
-$shadeColor4: #d7c9ea;
-$shadeColor5: #4d3273;
-
-$typeColor1: #dde4f5;
-$typeColor2: #4a5e8c;
-
-// ---------- CONTENEUR PRINCIPAL ----------
-#cntMain {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
-  height: 80vh;
-  padding: 12px;
-  background-color: $shadeColor3;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  overflow-y: auto;
-}
-
-#cntMainControl {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-#cntMainBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 0;
-  background-color: transparent;
-  border-radius: 0;
-  box-shadow: none;
-  flex-wrap: nowrap;
-}
-
-#cntMainToolbar {
-  display: none;
-}
-
-#cntMainPwrapper {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-grow: 1;
-  min-width: 0;
-}
-
-#cntMainPwrapper svg {
-  width: 20px;
-  height: 20px;
-  fill: $brandColor2;
-  opacity: 0.85;
-  flex-shrink: 0;
-}
-
-#cntMainP {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.95rem;
-  color: $brandColor4;
-  overflow-x: auto;
-  overflow-y: hidden; 
-  white-space: nowrap;
-  height: 28px;
-  line-height: 28px;
-  padding-bottom: 2px;
-  flex-grow: 1;
-  min-width: 0; 
-
-  scrollbar-width: thin;
-  scrollbar-color: $shadeColor2 transparent;
-
-  &::-webkit-scrollbar {
-    height: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: $shadeColor2;
-    border-radius: 2px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
-}
-
-#btnEdit {
-  height: 28px;
-  display: flex;
-  align-items: center;
-  background-color: $brandColor2;
-  color: $brandColor3;
-  font-weight: 500;
-  font-family: 'Inter', sans-serif;
-  padding: 0 10px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  white-space: nowrap;
-  font-size: 0.85rem;
-  box-shadow: none;
-  transition: background-color 0.2s ease;
-
-  &:hover {
-    background-color: $shadeColor5;
-  }
-
-  &:active {
-    background-color: $shadeColor1;
-  }
-}
-
-.CP {
-  font-size: 0.95em;
-  color: $brandColor2;
-  text-decoration: none;
-  padding: 0 6px;
-  border-radius: 4px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  transition: background-color 0.25s ease, color 0.25s ease;
-  cursor: pointer;
-
-  &:hover {
-    background-color: $shadeColor1;
-    color: $brandColor3;
-  }
-}
-  
-.separator {
-  color: $shadeColor2;
-  opacity: 0.6;
-}
-
-// ---------- CTMap ----------
-#cntMainCTmap {
-  width: 100%;
-  max-height: 500px;
-  background-color: rgba(#fff, 0.8);
-  border-radius: 6px;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  position: relative;
-
-  canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-  }
-
-  .CTmapLabel {
-    display: inline-flex;
-    align-items: center;
-    gap: 15px;
-    padding: 10px 40px;
-    white-space: nowrap;
-    background: lighten($typeColor1, 20%);
-    border: 10px solid #4a5e8c;
-    border-radius: 40px;
-    font-size: 0;
-    pointer-events: auto; 
-    cursor: pointer;      
-
-    span {
-      font-size: 90px;
-      font-weight: 4000;
-      color: $typeColor2;
-    }
-
-    svg {
-      width: 110px;
-      height: 110px;
-      flex-shrink: 0;
-    }
-    
-    &:hover {
-      transform: scale(1.05);
-      background-color: $typeColor1;
-      color: $brandColor3;
-    }
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(255,255,255,0.03), rgba(0,0,0,0.02));
-    pointer-events: none;
-  }
-}
-
-// ---------- CONTENU DOCUMENTAIRE ----------
-#cntMainC {
-  background-color: $brandColor3;
-  padding: 16px;
-  border-radius: 8px;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  color: $brandColor4;
-  line-height: 1.6;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-// ---------- COLLAPSIBLES ----------
-[class*='Co'] {
-  display: none;
-  overflow: hidden;
-  transition: max-height 0.3s ease, opacity 0.25s ease;
-  max-height: 0;
-  opacity: 0;
-
-  &.visible {
-    display: block;
-    max-height: 600px;
-    opacity: 1;
-  }
-}
-
-.nCrow.no-hover:hover {
-  background-color: transparent !important;
-  box-shadow: none !important;
-}
-
-// ---------- ICONES DOUCES ----------
-[class$='CTicon'],
-[class$='TLicon'],
-[class$='CTmapTicon'] {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  margin-right: 3px;
-  color: lighten($shadeColor5, 25%);
-  opacity: 0.8;
-  font-size: 0.9em;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-
-  svg {
-    width: 18px;
-    height: 18px;
-    fill: currentColor;
-  }
-
-  &:hover {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
-
-// ---------- HIÉRARCHIE VISUELLE ----------
-@for $i from 1 through 9 {
-  .n#{$i}C {
-    margin-left: ($i * 0px);
-    margin-bottom: 3px;
-    background-color: lighten($brandColor3, $i * 2%);
-    border-radius: 4px;
-
-    // --- TITRE PRINCIPAL ---
-    .n#{$i}Crow {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1px 4px;
-      cursor: pointer;
-      font-weight: 600;
-      color: darken($brandColor2, $i * 1%);
-      background-color: lighten($brandColor1, $i * 4%);
-      border-radius: 4px;
-      transition: background-color 0.2s ease;
-
-      &:hover {
-        background-color: lighten($shadeColor1, 20%);
-        color: $brandColor3;
-      }
-
-      .n#{$i}Cname {
-        flex-grow: 1;
-        font-size: calc(1em - #{$i * 0.03em});
-        margin-left: 3px;
-      }
-
-      .n#{$i}CholderA {
-        width: 22px;
-        height: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: $shadeColor5;
-        border-radius: 50%;
-        background-color: rgba($shadeColor5, 0.08);
-        transition: background-color 0.2s ease;
-
-        &:hover { background-color: rgba($shadeColor5, 0.18); }
-      }
-    }
-
-    // --- CONTENU DU BLOC ---
-    .n#{$i}Co {
-      margin: 4px 0 6px 12px;
-      font-size: 0.85em;
-      color: lighten($brandColor2, 15%);
-      font-style: italic;
-    }
-
-    // --- SOUS-CATÉGORIES (TL) ---
-    .n#{$i}TLs {
-      margin-left: 0px;
-      margin-top: 4px;
-    }
-  }
-
-  // ---------- BLOCS TYPE-LEVEL ----------
-  .n#{$i}TL {
-    margin-left: ($i * 1px);
-    margin-bottom: 2px;
-    padding: 0px 3px;
-    background-color: lighten($typeColor1, $i * 3%);
-    border-left: 1px solid lighten($typeColor2, $i * 10%);
-    border-radius: 4px;
-
-    .n#{$i}TLrow {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0px 4px;
-      cursor: pointer;
-      font-weight: 500;
-      font-size: calc(0.95em - #{$i * 0.03em});
-      color: $typeColor2;
-      background-color: rgba(#fff, 0.8);
-      border-radius: 4px;
-      transition: background-color 0.2s ease;
-
-      &:hover {
-        background-color: rgba($typeColor2, 0.08);
-      }
-
-      .n#{$i}TLname {
-        flex-grow: 1;
-        margin-left: 6px;
-      }
-
-      .n#{$i}TLholderA {
-        min-width: 22px;
-        height: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: calc(0.8em - #{$i * 0.02em});
-        font-weight: 600;
-        color: $shadeColor5;
-        background-color: lighten($shadeColor5, 35%);
-        border-radius: 10px;
-        padding: 0 5px;
-      }
-    }
-
-    .n#{$i}Cs {
-      margin-left: 5px;
-      margin-top: 2px;
-    }
-  }
-}
-*/
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
-}
-.visible {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
-}
 #cntMain {
   display: flex;
   flex-direction: column;
@@ -426,11 +30,13 @@ $typeColor2: #4a5e8c;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   overflow-y: auto;
 }
+
 #cntMainControl {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
+
 #cntMainBar {
   display: flex;
   align-items: center;
@@ -442,9 +48,11 @@ $typeColor2: #4a5e8c;
   box-shadow: none;
   flex-wrap: nowrap;
 }
+
 #cntMainToolbar {
   display: none;
 }
+
 #cntMainPwrapper {
   display: flex;
   align-items: center;
@@ -452,6 +60,7 @@ $typeColor2: #4a5e8c;
   flex-grow: 1;
   min-width: 0;
 }
+
 #cntMainPwrapper svg {
   width: 20px;
   height: 20px;
@@ -459,6 +68,7 @@ $typeColor2: #4a5e8c;
   opacity: 0.85;
   flex-shrink: 0;
 }
+
 #cntMainP {
   display: flex;
   align-items: center;
@@ -486,6 +96,7 @@ $typeColor2: #4a5e8c;
 #cntMainP::-webkit-scrollbar-track {
   background: transparent;
 }
+
 #btnEdit {
   height: 28px;
   display: flex;
@@ -493,7 +104,7 @@ $typeColor2: #4a5e8c;
   background-color: #664b8c;
   color: #ffffff;
   font-weight: 500;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   padding: 0 10px;
   border: none;
   border-radius: 4px;
@@ -509,6 +120,7 @@ $typeColor2: #4a5e8c;
 #btnEdit:active {
   background-color: #8764b8;
 }
+
 .CP {
   font-size: 0.95em;
   color: #664b8c;
@@ -525,10 +137,12 @@ $typeColor2: #4a5e8c;
   background-color: #8764b8;
   color: #ffffff;
 }
+
 .separator {
   color: #cdcdcd;
   opacity: 0.6;
 }
+
 #cntMainCTmap {
   width: 100%;
   max-height: 500px;
@@ -572,12 +186,13 @@ $typeColor2: #4a5e8c;
   color: #ffffff;
 }
 #cntMainCTmap::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0.02));
   pointer-events: none;
 }
+
 #cntMainC {
   background-color: #ffffff;
   padding: 16px;
@@ -587,43 +202,53 @@ $typeColor2: #4a5e8c;
   line-height: 1.6;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
-[class*='Co'] {
+
+[class*=Co] {
   display: none;
   overflow: hidden;
   transition: max-height 0.3s ease, opacity 0.25s ease;
   max-height: 0;
   opacity: 0;
 }
-[class*='Co'].visible {
+[class*=Co].visible {
   display: block;
   max-height: 600px;
   opacity: 1;
 }
+
 .nCrow.no-hover:hover {
   background-color: transparent !important;
   box-shadow: none !important;
 }
-[class$='CTicon'], [class$='TLicon'], [class$='CTmapTicon'] {
+
+[class$=CTicon],
+[class$=TLicon],
+[class$=CTmapTicon] {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 20px;
   height: 20px;
   margin-right: 3px;
-  color: #8b67bd;
+  color: rgb(139, 103.4090909091, 189.0909090909);
   opacity: 0.8;
   font-size: 0.9em;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
-[class$='CTicon'] svg, [class$='TLicon'] svg, [class$='CTmapTicon'] svg {
+[class$=CTicon] svg,
+[class$=TLicon] svg,
+[class$=CTmapTicon] svg {
   width: 18px;
   height: 18px;
   fill: currentColor;
 }
-[class$='CTicon']:hover, [class$='TLicon']:hover, [class$='CTmapTicon']:hover {
+[class$=CTicon]:hover,
+[class$=TLicon]:hover,
+[class$=CTmapTicon]:hover {
   opacity: 1;
   transform: scale(1.05);
 }
+
 .n1C {
   margin-left: 0px;
   margin-bottom: 3px;
@@ -637,13 +262,13 @@ $typeColor2: #4a5e8c;
   padding: 1px 4px;
   cursor: pointer;
   font-weight: 600;
-  color: #644989;
-  background-color: #f0e1ff;
+  color: rgb(99.5804651163, 73.2209302326, 136.6790697674);
+  background-color: rgb(239.608, 225.4, 255);
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 .n1C .n1Crow:hover {
-  background-color: #bdaad8;
+  background-color: rgb(189.1592920354, 169.9557522124, 216.0442477876);
   color: #ffffff;
 }
 .n1C .n1Crow .n1Cname {
@@ -668,19 +293,20 @@ $typeColor2: #4a5e8c;
 .n1C .n1Co {
   margin: 4px 0 6px 12px;
   font-size: 0.85em;
-  color: #8c71b3;
+  color: rgb(140.1604651163, 112.7209302326, 178.7790697674);
   font-style: italic;
 }
 .n1C .n1TLs {
   margin-left: 0px;
   margin-top: 4px;
 }
+
 .n1TL {
   margin-left: 1px;
   margin-bottom: 2px;
   padding: 0px 3px;
-  background-color: #e9edf8;
-  border-left: 1px solid #5f76aa;
+  background-color: rgb(232.8227272727, 237.3886363636, 248.4772727273);
+  border-left: 1px solid rgb(94.7196261682, 117.6168224299, 170.2803738318);
   border-radius: 4px;
 }
 .n1TL .n1TLrow {
@@ -712,7 +338,7 @@ $typeColor2: #4a5e8c;
   font-size: calc(0.8em - 0.02em);
   font-weight: 600;
   color: #4d3273;
-  background-color: #a68bcd;
+  background-color: rgb(166.2, 138.9545454545, 204.5454545455);
   border-radius: 10px;
   padding: 0 5px;
 }
@@ -720,6 +346,7 @@ $typeColor2: #4a5e8c;
   margin-left: 5px;
   margin-top: 2px;
 }
+
 .n2C {
   margin-left: 0px;
   margin-bottom: 3px;
@@ -733,13 +360,13 @@ $typeColor2: #4a5e8c;
   padding: 1px 4px;
   cursor: pointer;
   font-weight: 600;
-  color: #614785;
-  background-color: #faf6ff;
+  color: rgb(97.1609302326, 71.4418604651, 133.3581395349);
+  background-color: rgb(250.216, 245.8, 255);
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 .n2C .n2Crow:hover {
-  background-color: #bdaad8;
+  background-color: rgb(189.1592920354, 169.9557522124, 216.0442477876);
   color: #ffffff;
 }
 .n2C .n2Crow .n2Cname {
@@ -764,19 +391,20 @@ $typeColor2: #4a5e8c;
 .n2C .n2Co {
   margin: 4px 0 6px 12px;
   font-size: 0.85em;
-  color: #8c71b3;
+  color: rgb(140.1604651163, 112.7209302326, 178.7790697674);
   font-style: italic;
 }
 .n2C .n2TLs {
   margin-left: 0px;
   margin-top: 4px;
 }
+
 .n2TL {
   margin-left: 2px;
   margin-bottom: 2px;
   padding: 0px 3px;
-  background-color: #f5f7fc;
-  border-left: 1px solid #8092bc;
+  background-color: rgb(244.6454545455, 246.7772727273, 251.9545454545);
+  border-left: 1px solid rgb(128.0841121495, 146.214953271, 187.9158878505);
   border-radius: 4px;
 }
 .n2TL .n2TLrow {
@@ -808,7 +436,7 @@ $typeColor2: #4a5e8c;
   font-size: calc(0.8em - 0.04em);
   font-weight: 600;
   color: #4d3273;
-  background-color: #a68bcd;
+  background-color: rgb(166.2, 138.9545454545, 204.5454545455);
   border-radius: 10px;
   padding: 0 5px;
 }
@@ -816,6 +444,7 @@ $typeColor2: #4a5e8c;
   margin-left: 5px;
   margin-top: 2px;
 }
+
 .n3C {
   margin-left: 0px;
   margin-bottom: 3px;
@@ -829,13 +458,13 @@ $typeColor2: #4a5e8c;
   padding: 1px 4px;
   cursor: pointer;
   font-weight: 600;
-  color: #5f4682;
+  color: rgb(94.7413953488, 69.6627906977, 130.0372093023);
   background-color: white;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 .n3C .n3Crow:hover {
-  background-color: #bdaad8;
+  background-color: rgb(189.1592920354, 169.9557522124, 216.0442477876);
   color: #ffffff;
 }
 .n3C .n3Crow .n3Cname {
@@ -860,19 +489,20 @@ $typeColor2: #4a5e8c;
 .n3C .n3Co {
   margin: 4px 0 6px 12px;
   font-size: 0.85em;
-  color: #8c71b3;
+  color: rgb(140.1604651163, 112.7209302326, 178.7790697674);
   font-style: italic;
 }
 .n3C .n3TLs {
   margin-left: 0px;
   margin-top: 4px;
 }
+
 .n3TL {
   margin-left: 3px;
   margin-bottom: 2px;
   padding: 0px 3px;
   background-color: white;
-  border-left: 1px solid #a1afce;
+  border-left: 1px solid rgb(161.4485981308, 174.8130841121, 205.5514018692);
   border-radius: 4px;
 }
 .n3TL .n3TLrow {
@@ -904,7 +534,7 @@ $typeColor2: #4a5e8c;
   font-size: calc(0.8em - 0.06em);
   font-weight: 600;
   color: #4d3273;
-  background-color: #a68bcd;
+  background-color: rgb(166.2, 138.9545454545, 204.5454545455);
   border-radius: 10px;
   padding: 0 5px;
 }
@@ -912,6 +542,7 @@ $typeColor2: #4a5e8c;
   margin-left: 5px;
   margin-top: 2px;
 }
+
 .n4C {
   margin-left: 0px;
   margin-bottom: 3px;
@@ -925,13 +556,13 @@ $typeColor2: #4a5e8c;
   padding: 1px 4px;
   cursor: pointer;
   font-weight: 600;
-  color: #5c447f;
+  color: rgb(92.3218604651, 67.8837209302, 126.7162790698);
   background-color: white;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 .n4C .n4Crow:hover {
-  background-color: #bdaad8;
+  background-color: rgb(189.1592920354, 169.9557522124, 216.0442477876);
   color: #ffffff;
 }
 .n4C .n4Crow .n4Cname {
@@ -956,19 +587,20 @@ $typeColor2: #4a5e8c;
 .n4C .n4Co {
   margin: 4px 0 6px 12px;
   font-size: 0.85em;
-  color: #8c71b3;
+  color: rgb(140.1604651163, 112.7209302326, 178.7790697674);
   font-style: italic;
 }
 .n4C .n4TLs {
   margin-left: 0px;
   margin-top: 4px;
 }
+
 .n4TL {
   margin-left: 4px;
   margin-bottom: 2px;
   padding: 0px 3px;
   background-color: white;
-  border-left: 1px solid #c3cbdf;
+  border-left: 1px solid rgb(194.8130841121, 203.4112149533, 223.1869158879);
   border-radius: 4px;
 }
 .n4TL .n4TLrow {
@@ -1000,7 +632,7 @@ $typeColor2: #4a5e8c;
   font-size: calc(0.8em - 0.08em);
   font-weight: 600;
   color: #4d3273;
-  background-color: #a68bcd;
+  background-color: rgb(166.2, 138.9545454545, 204.5454545455);
   border-radius: 10px;
   padding: 0 5px;
 }
@@ -1008,6 +640,7 @@ $typeColor2: #4a5e8c;
   margin-left: 5px;
   margin-top: 2px;
 }
+
 .n5C {
   margin-left: 0px;
   margin-bottom: 3px;
@@ -1021,13 +654,13 @@ $typeColor2: #4a5e8c;
   padding: 1px 4px;
   cursor: pointer;
   font-weight: 600;
-  color: #5a427b;
+  color: rgb(89.9023255814, 66.1046511628, 123.3953488372);
   background-color: white;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 .n5C .n5Crow:hover {
-  background-color: #bdaad8;
+  background-color: rgb(189.1592920354, 169.9557522124, 216.0442477876);
   color: #ffffff;
 }
 .n5C .n5Crow .n5Cname {
@@ -1052,19 +685,20 @@ $typeColor2: #4a5e8c;
 .n5C .n5Co {
   margin: 4px 0 6px 12px;
   font-size: 0.85em;
-  color: #8c71b3;
+  color: rgb(140.1604651163, 112.7209302326, 178.7790697674);
   font-style: italic;
 }
 .n5C .n5TLs {
   margin-left: 0px;
   margin-top: 4px;
 }
+
 .n5TL {
   margin-left: 5px;
   margin-bottom: 2px;
   padding: 0px 3px;
   background-color: white;
-  border-left: 1px solid #e4e8f1;
+  border-left: 1px solid rgb(228.1775700935, 232.0093457944, 240.8224299065);
   border-radius: 4px;
 }
 .n5TL .n5TLrow {
@@ -1096,7 +730,7 @@ $typeColor2: #4a5e8c;
   font-size: calc(0.8em - 0.1em);
   font-weight: 600;
   color: #4d3273;
-  background-color: #a68bcd;
+  background-color: rgb(166.2, 138.9545454545, 204.5454545455);
   border-radius: 10px;
   padding: 0 5px;
 }
@@ -1104,6 +738,7 @@ $typeColor2: #4a5e8c;
   margin-left: 5px;
   margin-top: 2px;
 }
+
 .n6C {
   margin-left: 0px;
   margin-bottom: 3px;
@@ -1117,13 +752,13 @@ $typeColor2: #4a5e8c;
   padding: 1px 4px;
   cursor: pointer;
   font-weight: 600;
-  color: #574078;
+  color: rgb(87.4827906977, 64.3255813953, 120.0744186047);
   background-color: white;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 .n6C .n6Crow:hover {
-  background-color: #bdaad8;
+  background-color: rgb(189.1592920354, 169.9557522124, 216.0442477876);
   color: #ffffff;
 }
 .n6C .n6Crow .n6Cname {
@@ -1148,13 +783,14 @@ $typeColor2: #4a5e8c;
 .n6C .n6Co {
   margin: 4px 0 6px 12px;
   font-size: 0.85em;
-  color: #8c71b3;
+  color: rgb(140.1604651163, 112.7209302326, 178.7790697674);
   font-style: italic;
 }
 .n6C .n6TLs {
   margin-left: 0px;
   margin-top: 4px;
 }
+
 .n6TL {
   margin-left: 6px;
   margin-bottom: 2px;
@@ -1192,7 +828,7 @@ $typeColor2: #4a5e8c;
   font-size: calc(0.8em - 0.12em);
   font-weight: 600;
   color: #4d3273;
-  background-color: #a68bcd;
+  background-color: rgb(166.2, 138.9545454545, 204.5454545455);
   border-radius: 10px;
   padding: 0 5px;
 }
@@ -1200,6 +836,7 @@ $typeColor2: #4a5e8c;
   margin-left: 5px;
   margin-top: 2px;
 }
+
 .n7C {
   margin-left: 0px;
   margin-bottom: 3px;
@@ -1213,13 +850,13 @@ $typeColor2: #4a5e8c;
   padding: 1px 4px;
   cursor: pointer;
   font-weight: 600;
-  color: #553f75;
+  color: rgb(85.063255814, 62.5465116279, 116.7534883721);
   background-color: white;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 .n7C .n7Crow:hover {
-  background-color: #bdaad8;
+  background-color: rgb(189.1592920354, 169.9557522124, 216.0442477876);
   color: #ffffff;
 }
 .n7C .n7Crow .n7Cname {
@@ -1244,13 +881,14 @@ $typeColor2: #4a5e8c;
 .n7C .n7Co {
   margin: 4px 0 6px 12px;
   font-size: 0.85em;
-  color: #8c71b3;
+  color: rgb(140.1604651163, 112.7209302326, 178.7790697674);
   font-style: italic;
 }
 .n7C .n7TLs {
   margin-left: 0px;
   margin-top: 4px;
 }
+
 .n7TL {
   margin-left: 7px;
   margin-bottom: 2px;
@@ -1288,7 +926,7 @@ $typeColor2: #4a5e8c;
   font-size: calc(0.8em - 0.14em);
   font-weight: 600;
   color: #4d3273;
-  background-color: #a68bcd;
+  background-color: rgb(166.2, 138.9545454545, 204.5454545455);
   border-radius: 10px;
   padding: 0 5px;
 }
@@ -1296,6 +934,7 @@ $typeColor2: #4a5e8c;
   margin-left: 5px;
   margin-top: 2px;
 }
+
 .n8C {
   margin-left: 0px;
   margin-bottom: 3px;
@@ -1309,13 +948,13 @@ $typeColor2: #4a5e8c;
   padding: 1px 4px;
   cursor: pointer;
   font-weight: 600;
-  color: #533d71;
+  color: rgb(82.6437209302, 60.7674418605, 113.4325581395);
   background-color: white;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 .n8C .n8Crow:hover {
-  background-color: #bdaad8;
+  background-color: rgb(189.1592920354, 169.9557522124, 216.0442477876);
   color: #ffffff;
 }
 .n8C .n8Crow .n8Cname {
@@ -1340,13 +979,14 @@ $typeColor2: #4a5e8c;
 .n8C .n8Co {
   margin: 4px 0 6px 12px;
   font-size: 0.85em;
-  color: #8c71b3;
+  color: rgb(140.1604651163, 112.7209302326, 178.7790697674);
   font-style: italic;
 }
 .n8C .n8TLs {
   margin-left: 0px;
   margin-top: 4px;
 }
+
 .n8TL {
   margin-left: 8px;
   margin-bottom: 2px;
@@ -1384,7 +1024,7 @@ $typeColor2: #4a5e8c;
   font-size: calc(0.8em - 0.16em);
   font-weight: 600;
   color: #4d3273;
-  background-color: #a68bcd;
+  background-color: rgb(166.2, 138.9545454545, 204.5454545455);
   border-radius: 10px;
   padding: 0 5px;
 }
@@ -1392,6 +1032,7 @@ $typeColor2: #4a5e8c;
   margin-left: 5px;
   margin-top: 2px;
 }
+
 .n9C {
   margin-left: 0px;
   margin-bottom: 3px;
@@ -1405,13 +1046,13 @@ $typeColor2: #4a5e8c;
   padding: 1px 4px;
   cursor: pointer;
   font-weight: 600;
-  color: #503b6e;
+  color: rgb(80.2241860465, 58.988372093, 110.111627907);
   background-color: white;
   border-radius: 4px;
   transition: background-color 0.2s ease;
 }
 .n9C .n9Crow:hover {
-  background-color: #bdaad8;
+  background-color: rgb(189.1592920354, 169.9557522124, 216.0442477876);
   color: #ffffff;
 }
 .n9C .n9Crow .n9Cname {
@@ -1436,13 +1077,14 @@ $typeColor2: #4a5e8c;
 .n9C .n9Co {
   margin: 4px 0 6px 12px;
   font-size: 0.85em;
-  color: #8c71b3;
+  color: rgb(140.1604651163, 112.7209302326, 178.7790697674);
   font-style: italic;
 }
 .n9C .n9TLs {
   margin-left: 0px;
   margin-top: 4px;
 }
+
 .n9TL {
   margin-left: 9px;
   margin-bottom: 2px;
@@ -1480,7 +1122,7 @@ $typeColor2: #4a5e8c;
   font-size: calc(0.8em - 0.18em);
   font-weight: 600;
   color: #4d3273;
-  background-color: #a68bcd;
+  background-color: rgb(166.2, 138.9545454545, 204.5454545455);
   border-radius: 10px;
   padding: 0 5px;
 }
@@ -1488,3 +1130,5 @@ $typeColor2: #4a5e8c;
   margin-left: 5px;
   margin-top: 2px;
 }
+
+/*# sourceMappingURL=Frames.en-US.webpage.custom_css.css.map */
