@@ -392,15 +392,20 @@ async function mapApiJs(apiJs) {
     const w = com.tf_Layout || {};
     const wAssoc = com.tf_LayoutAssoc || {};
 
-    const outParsed = JSON.parse(apiJ.tf_out || '{}');
-    const outHtml = JoutHtml((outParsed.pssOut || {}).value || {});
+    // ✅ Parsing sécurisé de v et out
+    let parsedV = {};
+    let parsedOut = {};
+    try { parsedV = JSON.parse(apiJ.tf_v || '{}'); } catch (e) { parsedV = {}; }
+    try { parsedOut = JSON.parse(apiJ.tf_out || '{}'); } catch (e) { parsedOut = {}; }
+
+    const outHtml = JoutHtml((parsedOut.pssOut || {}).value || {});
 
     return {
       id: apiJ.tf_jobid,
       name: apiJ.tf_job,
       o: apiJ.tf_o || '',
-      v: apiJ.tf_v,
-      out: outParsed,
+      v: parsedV,
+      out: parsedOut,
       outHtml,
       srcJ: { id: apiJ._tf_sourcejob_value },
       status,
