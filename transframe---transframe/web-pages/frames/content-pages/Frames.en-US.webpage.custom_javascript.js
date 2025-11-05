@@ -160,6 +160,11 @@ async function wrCTmap2(strCid, arrJs = []) {
     const labelClass = isNew ? 'CTmapLabelNew' : 'CTmapLabel';
     const edgeClass = isNew ? 'CTmapLinkNew' : '';
 
+    if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) {
+      console.log('Adding T Map Element: ', nodeId);
+      console.log('T: ', T);
+    }
+    
     elements.push({
       data: {
         nodeId: nodeId,
