@@ -238,7 +238,7 @@ async function getJs(strJid, strScope, nLimit = 0, strFilter = '') {
   const safeFilter = strFilter ? ` and ${strFilter}` : '';
 
   const dynamicFields = ['x', 'y', 'z']
-    .flatMap(i => ['c', 't'].map(j => `tf_${i}${j}_value`));
+    .flatMap(i => ['c', 't'].map(j => `_tf_${i}${j}_value`));
 
   const baseExpand = [
     `tf_Com($select=tf_com,tf_comid,tf_svgicon,${dynamicFields.join(',')};`,
