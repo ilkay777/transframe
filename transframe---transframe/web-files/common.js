@@ -426,6 +426,10 @@ async function mapApiJs(apiJs) {
           nLevels: wAssoc.tf_levels,
           def: wAssoc.tf_def
         }
+      },
+      z: {
+        C: {id: apiJ._tf_zc_value || '' },
+        T: {id: apiJ._tf_zt_value || '' }
       }
     };
   });

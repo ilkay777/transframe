@@ -139,7 +139,7 @@ function tglCTmapEdit() {
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log(`🆕 Toggled New button`);
 }
 
-async function wrCTmap(strCid, arrJs = []) {
+async function wrCTmap2(strCid, arrJs = []) {
   const strTid = (await getCs(strCid)).T.id;
   if (strTid === strTidFolder) {
     if (window.cy) {
@@ -155,15 +155,15 @@ async function wrCTmap(strCid, arrJs = []) {
   const arrCTmap = await getTLs(strTid, strCid, 'tree');
   const elements = [];
 
-  function addNode(T, parentId = null, isNew = false) {
+  function addNode(T, parentNodeId = null, isNew = false) {
     const nodeId = T.id || `Tnew_${Math.random().toString(36).slice(2)}`;
     const labelClass = isNew ? 'CTmapLabelNew' : 'CTmapLabel';
     const edgeClass = isNew ? 'CTmapLinkNew' : '';
 
     elements.push({
       data: {
-        id: nodeId,
-        TLid: T.id,
+        nodeId: nodeId,
+        id: T.id,
         html: `
           <div class="${labelClass}" data-id="${T.id || ''}">
             ${T.svgIcon || ''}
@@ -197,11 +197,11 @@ async function wrCTmap(strCid, arrJs = []) {
     .forEach(J => {
       const rawT = J.v.newT;
       const Tname = rawT["T Name"];
-      const parentT = J.z?.T?.[Tname];
+      const parentT = J.z?.T?.[id];
 
       if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) {
         console.log('🔍 Job Tnew détecté:', J);
-        console.log('🧩 Tname extrait:', Tname);
+        console.log('🧩 Tname extrait:', id);
         console.log('📌 Parent TR via .z.T[Tname]:', parentT);
       }
 
@@ -312,6 +312,193 @@ async function wrCTmap(strCid, arrJs = []) {
     console.log('[wrCTmap] strCid:', strCid);
     console.log('[wrCTmap] arrJs:', arrJs);
     console.log('[wrCTmap] strTid:', strTid);
+    console.log('[wrCTmap] maxDepth:', maxDepth);
+    console.log('[wrCTmap] elements:', elements);
+  }
+}
+
+function mapTfromConventions(T) {
+  return {
+    id: T.id || null,
+    name: T["T Name"] || '(Sans nom)',
+    o: T["T Description"] || '',
+    svgIcon: T["T svgIcon"] || '',
+    TLs: Array.isArray(T.TLs) ? T.TLs.map(mapTfromConventions) : []
+  };
+}
+
+async function wrCTmap(strCid, arrJs = []) {
+  const strTid = (await getCs(strCid)).T.id;
+  if (strTid === strTidFolder) {
+    if (window.cy) {
+      window.cy.destroy();
+      window.cy = null;
+    }
+    const container = document.getElementById('cntMainCTmap');
+    container.innerHTML = '';
+    container.style.height = '0px';
+    return null;
+  }
+
+  const arrCTmap = await getTLs(strTid, strCid, 'tree');
+  const elements = [];
+
+  function addNode(T, parentId = null, isNew = false, styleSuffix = '') {
+    const nodeId = T.id || `Tnew_${Math.random().toString(36).slice(2)}`;
+    const labelClass = isNew ? `CTmapLabelNew${styleSuffix}` : 'CTmapLabel';
+    const edgeClass = isNew ? `CTmapLinkNew${styleSuffix}` : '';
+
+    elements.push({
+      data: {
+        nodeId,
+        id: T.id || null,
+        TLid: T.id || null,
+        html: `
+          <div class="${labelClass}" data-id="${T.id || ''}">
+            ${T.svgIcon || ''}
+            <span>${T.name || '(Sans nom)'}</span>
+          </div>
+        `
+      },
+      classes: 'clickable'
+    });
+
+    if (parentId) {
+      elements.push({
+        data: { source: parentId, target: nodeId },
+        classes: edgeClass
+      });
+    }
+
+    if (Array.isArray(T.TLs)) {
+      T.TLs.forEach(subT => addNode(subT, nodeId, isNew, styleSuffix));
+    }
+  }
+
+  // 1. Arbre réel
+  arrCTmap.forEach(rootTL => addNode(rootTL));
+
+  // 2. Jobs Tnew non terminés
+  arrJs
+    .filter(J =>
+      J.com?.name === 'Tnew' &&
+      J.status !== "finished" &&
+      J.v?.Tnew && J.v.Tnew["T Name"]
+    )
+    .forEach(J => {
+      const rawT = J.v.Tnew;
+      const mappedT = mapTfromConventions(rawT);
+      const parentId = J.z?.T?.id;
+
+      if (!parentId || typeof mappedT.name !== 'string') {
+        if (bolLogEnabled) console.warn('⚠️ Tnew ignoré : parentId ou Tname invalide');
+        return;
+      }
+
+      let parentNode = arrCTmap.find(t => t.id === parentId);
+      let parentVisualId = parentId;
+      let styleSuffix = '';
+
+      if (parentId === strTid) {
+        parentVisualId = null; // racine
+      } else if (!parentNode) {
+        styleSuffix = 'External';
+      }
+
+      if (bolLogEnabled) {
+        console.log('🔍 Job Tnew détecté:', J);
+        console.log('🧩 Tnew mappé:', mappedT);
+        console.log('📌 Parent id:', parentId);
+        console.log('🔗 Style:', styleSuffix || 'Local');
+      }
+
+      addNode(mappedT, parentVisualId, true, styleSuffix);
+    });
+
+  const maxDepth = Math.max(...arrCTmap.map(t => getMaxDepth(t)));
+  const graphHeight = Math.min(500, Math.max(50, maxDepth * 50));
+  const container = document.getElementById('cntMainCTmap');
+  container.style.height = `${graphHeight}px`;
+
+  const cy = cytoscape({
+    container,
+    elements,
+    style: [
+      {
+        selector: 'node',
+        style: {
+          'background-color': '#dde4f5',
+          'border-width': 1,
+          'border-color': '#4a5e8c',
+          'shape': 'roundrectangle',
+          'width': '1px',
+          'hight': '1px',
+          'padding': '0px',
+          'cursor': 'pointer'
+        }
+      },
+      {
+        selector: 'edge',
+        style: {
+          'background-opacity': 0,
+          'border-width': 10,
+          'width': 10,
+          'height': 10,
+          'padding': 0,
+          'label': '',
+          'text-opacity': 0,
+          'cursor': 'pointer'
+        }
+      }
+    ],
+    layout: {
+      name: 'breadthfirst',
+      spacingFactor: 10,
+      directed: true,
+      padding: 25,
+      animate: false
+    }
+  });
+
+  cy.nodeHtmlLabel([
+    {
+      query: 'node',
+      halign: 'center',
+      valign: 'center',
+      halignBox: 'center',
+      valignBox: 'center',
+      tpl: (data) => data.html || ''
+    }
+  ]);
+
+  cy.on('tap', 'node', async (evt) => {
+    const TLid = evt.target.data('TLid');
+    if (bolCTmapEditMode) {
+      await tglToolbar(TLid);
+    } else {
+      await tglCLs('', 1, TLid);
+    }
+  });
+
+  container.addEventListener('click', async (e) => {
+    const el = e.target.closest('.CTmapLabel, .CTmapLabelNew, .CTmapLabelNewExternal');
+    if (el) {
+      const TLid = el.dataset.id;
+      if (bolCTmapEditMode) {
+        await tglToolbar(TLid);
+      } else {
+        await tglCLs('', 1, TLid);
+      }
+      e.stopPropagation();
+    }
+  });
+
+  window.cy = cy;
+
+  if (bolLogEnabled) {
+    console.log('[wrCTmap] strCid:', strCid);
+    console.log('[wrCTmap] strTid:', strTid);
+    console.log('[wrCTmap] arrJs:', arrJs);
     console.log('[wrCTmap] maxDepth:', maxDepth);
     console.log('[wrCTmap] elements:', elements);
   }
