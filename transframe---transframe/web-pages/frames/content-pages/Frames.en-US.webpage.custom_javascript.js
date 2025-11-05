@@ -55,7 +55,6 @@ async function wrC(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', bolAss
   let C = await getCs(strCid);
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Fetched C:', C);
   let container = document.getElementById(strCntId);
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Container element:', container);
 
   if (nLevel === 1) {
     if (curC) {
@@ -187,10 +186,8 @@ async function wrCTmap(strCid, arrJs = []) {
     }
   }
 
-  // 1. Arbre réel
   arrCTmap.forEach(rootTL => addNode(rootTL));
 
-  // 2. Jobs Tnew non terminés
   arrJs
     .filter(J =>
       J.com?.name === 'Tnew' &&
@@ -202,9 +199,19 @@ async function wrCTmap(strCid, arrJs = []) {
       const Tname = rawT["T Name"];
       const parentT = J.z?.T?.[Tname];
 
-      if (!parentT || typeof Tname !== 'string') return;
+      if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) {
+        console.log('🔍 Job Tnew détecté:', J);
+        console.log('🧩 Tname extrait:', Tname);
+        console.log('📌 Parent TR via .z.T[Tname]:', parentT);
+      }
 
-      // ✅ Mapping explicite du newT
+      if (!parentT || typeof Tname !== 'string') {
+        if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) {
+          console.warn('⚠️ Tnew ignoré : parent introuvable ou Tname invalide');
+        }
+        return;
+      }
+
       const newT = {
         id: rawT.id || null,
         name: Tname,
@@ -213,10 +220,14 @@ async function wrCTmap(strCid, arrJs = []) {
         TLs: Array.isArray(rawT.TLs) ? rawT.TLs : []
       };
 
-      // Injecte le newT et ses TLs sous le parent trouvé via .z.T["T Name"]
+      if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) {
+        console.log('✅ Tnew mappé :', newT);
+        console.log(`🔗 Injection dans la carte sous parent id ${parentT.id}`);
+      }
+
       addNode(newT, parentT.id, true);
     });
-
+  
   const maxDepth = Math.max(...arrCTmap.map(t => getMaxDepth(t)));
   const graphHeight = Math.min(500, Math.max(50, maxDepth * 50));
   const container = document.getElementById('cntMainCTmap');
