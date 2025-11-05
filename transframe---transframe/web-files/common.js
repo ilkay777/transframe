@@ -352,6 +352,34 @@ async function mapApiTs(apiTs) {
   }));
 }
 
+function JoutHtml(myJout) {
+  if (!myJout || typeof myJout !== "object") return "";
+
+  function render(value) {
+    if (value === null || value === undefined) return `<span class="Jout-null">null</span>`;
+    if (typeof value !== "object") return `<span class="Jout-primitive">${value}</span>`;
+
+    return Object.entries(value)
+      .map(([key, val]) => {
+        const isObjectWithValue = val && typeof val === "object" && "value" in val;
+        const innerVal = isObjectWithValue ? val.value : val;
+
+        // Affiche la clé avec un conteneur caché pour la valeur
+        return `
+          <div class="Jout-item">
+            <span class="Jout-key" onclick="this.nextElementSibling.classList.toggle('visible')">
+              ${key}
+            </span>
+            <div class="Jout-value">${render(innerVal)}</div>
+          </div>
+        `;
+      })
+      .join("");
+  }
+
+  return `<div class="Jout-container">${render(myJout)}</div>`;
+}
+
 async function mapApiJs(apiJs) {
   const runningStatuses = ['reset', 'ready', 'validated', 'packed', 'batched'];
 
