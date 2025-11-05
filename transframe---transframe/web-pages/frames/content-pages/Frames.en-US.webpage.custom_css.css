@@ -185,6 +185,34 @@
   background-color: #dde4f5;
   color: #ffffff;
 }
+#cntMainCTmap .CTmapLabelNew {
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 40px;
+  white-space: nowrap;
+  background: white;
+  border: 10px solid #4a5e8c;
+  border-radius: 40px;
+  font-size: 0;
+  pointer-events: auto;
+  cursor: pointer;
+}
+#cntMainCTmap .CTmapLabelNew span {
+  font-size: 90px;
+  font-weight: 4000;
+  color: #664b8c;
+}
+#cntMainCTmap .CTmapLabelNew svg {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+}
+#cntMainCTmap .CTmapLabelNew:hover {
+  transform: scale(1.05);
+  background-color: #e5cdff;
+  color: #ffffff;
+}
 #cntMainCTmap::before {
   content: "";
   position: absolute;
