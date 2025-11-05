@@ -65,10 +65,10 @@ async function wrC(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', bolAss
     curC = C;
     wrCP(C.id);
 
-    logJ = await getJs('', 'F', -1, '');
+    let logJ = await getJs('', 'F', -1, '');
     if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('logJ 629:', logJ);
 
-    curJs = await getJs(logJ?.id, 'S', 0, '') || [];
+    curJs = await getJs(logJ.id, 'S', 0, '') || [];
     if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('curJs:', curJs);
     wrCTmap(C.id, curJs);
   }
@@ -195,16 +195,16 @@ async function wrCTmap(strCid, arrJs = []) {
     .filter(J =>
       J.com?.name === 'Tnew' &&
       J.status !== arrJstatuses.finished.value &&
-      J.v?.Tnew && J.v.Tnew["T Name"]
+      J.v?.newT && J.v.newT["T Name"]
     )
     .forEach(J => {
-      const Tnew = J.v.Tnew;
+      const newT = J.v.newT;
       const TR = J.v.TR;
       const parentId = TR?.id;
       if (!parentId) return;
 
-      // Injecte le Tnew et ses TLs sous TR
-      addNode(Tnew, parentId, true);
+      // Injecte le newT et ses TLs sous TR
+      addNode(newT, parentId, true);
     });
 
   const maxDepth = Math.max(...arrCTmap.map(t => getMaxDepth(t)));
