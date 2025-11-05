@@ -262,7 +262,7 @@ async function getJs(strJid, strScope, nLimit = 0, strFilter = '') {
       const children = await DVapiValues(query.trim());
       const mapped = await mapApiJs(children);
       const subResults = await Promise.all(
-        mapped.map(child => getDescendants(child.tf_jobid, collected))
+        mapped.map(child => getDescendants(child.id, collected))
       );
       return [...mapped, ...subResults.flat()];
     } catch (err) {
