@@ -46,7 +46,7 @@ function findElements(element, strAttr) {
 }
 
 async function handleComponents(element, context) {
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Handling components for element:', element);
+  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Handling components');
   const componentElements = findElements(element, 'data-component');
 
   for (const componentElement of componentElements) {
@@ -61,7 +61,7 @@ async function handleComponents(element, context) {
 }
 
 async function handleLoops(element, context) {
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Handling loops for element:', element);
+  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Handling loops');
   const loopElements = findElements(element, 'data-loop');
 
   for (const loopElement of loopElements) {
@@ -532,7 +532,7 @@ $(document).ready(function () {
       function logDuration(success, textStatus, errorThrown) {
         if (!bolLogEnabled) return;
         var duration = performance.now() - startTime;
-        console.log(`${success ? "✅" : "❌"} WebAPI call ${success ? "succeeded" : "failed"}: ${ajaxOptions.url}`);
+        console.log(`${success ? "✅" : "❌"} WebAPI call ${success ? "succeeded" : "failed"}`);
         console.log(`⏱️ Duration: ${duration.toFixed(2)} ms`);
         if (!success && errorThrown) console.log(`Error: ${textStatus}, ${errorThrown}`);
       }
