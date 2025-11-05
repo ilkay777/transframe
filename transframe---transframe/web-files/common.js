@@ -16,7 +16,7 @@ function tglO(strElemType, elemId) {
 }
 
 async function fillLayout(strW, context) {
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Filling layout with strW:', strW);
+  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Filling layout');
   return strW.replace(/\{\{(.*?)\}\}/g, (match, myMatch) => {
     try {
       return new Function("with(this) { return " + myMatch + "; }").call(context);
