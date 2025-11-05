@@ -165,6 +165,10 @@ async function wrCTmap(strCid, arrJs = []) {
   const arrCTmap = await getTLs(strTid, strCid, 'tree');
   const elements = [];
 
+
+      console.log('######################');
+
+
   function addNode(T, parentId = null, isNew = false, styleSuffix = '') {
     const nodeId = T.id || `Tnew_${Math.random().toString(36).slice(2)}`;
     const labelClass = isNew ? `CTmapLabelNew${styleSuffix}` : 'CTmapLabel';
