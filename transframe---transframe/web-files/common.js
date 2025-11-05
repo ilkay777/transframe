@@ -86,7 +86,7 @@ async function handleLoops(element, context) {
     } else {
       for (const dataItem of dataItems) {
         let filledLayout = await fillLayout(loopLayout, dataItem);
-        if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Filled item:', filledLayout);
+        if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Filled item');
 
         let tempContainer = document.createElement('div');
         tempContainer.innerHTML = filledLayout;
