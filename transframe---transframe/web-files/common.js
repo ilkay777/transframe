@@ -240,22 +240,31 @@ async function getJs(strJid, strScope, nLimit = 0, strFilter = '') {
   const dynamicFields = ['x', 'y', 'z']
     .flatMap(i => ['c', 't'].map(j => `_tf_${i}${j}_value`));
 
+  const selectFields = [
+    'tf_jobid', 'tf_job', 'tf_o', 'tf_v', 'tf_out',
+    '_tf_sourcejob_value', 'statuscode',
+    ...dynamicFields
+  ].join(',');
+
   const baseExpand = [
-    `tf_Com($select=tf_com,tf_comid,tf_svgicon,${dynamicFields.join(',')};`,
-    `$expand=tf_Layout($select=tf_layout,tf_layoutid,tf_levels,tf_def),`,
-    `tf_LayoutAssoc($select=tf_layout,tf_layoutid,tf_levels,tf_def))`
+    `tf_Com(` +
+      `$select=tf_com,tf_comid,tf_svgicon;` +
+      `$expand=` +
+        `tf_Layout($select=tf_layout,tf_layoutid,tf_levels,tf_def),` +
+        `tf_LayoutAssoc($select=tf_layout,tf_layoutid,tf_levels,tf_def)` +
+    `)`
   ].join('');
 
   const topQuery = nLimit > 0 ? `&$top=${Math.abs(nLimit)}` : '';
 
   // Fonction récursive pour collecter tous les descendants
   async function getDescendants(rootId, collected = new Set()) {
-    if (collected.has(rootId)) return []; // éviter les boucles
+    if (collected.has(rootId)) return [];
     collected.add(rootId);
 
     const query = [
       "tf_jobs?",
-      "$select=tf_jobid,tf_job,tf_o,tf_v,tf_out,_tf_sourcejob_value,statuscode",
+      `$select=${selectFields}`,
       `&$expand=${baseExpand}`,
       "&$orderby=tf_job",
       `&$filter=_tf_sourcejob_value eq '${rootId}'${safeFilter}`
