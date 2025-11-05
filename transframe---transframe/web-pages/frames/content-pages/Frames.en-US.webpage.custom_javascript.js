@@ -194,17 +194,27 @@ async function wrCTmap(strCid, arrJs = []) {
   arrJs
     .filter(J =>
       J.com?.name === 'Tnew' &&
-      J.status !== arrJstatuses.finished.value &&
+      J.status !== "finished" &&
       J.v?.newT && J.v.newT["T Name"]
     )
     .forEach(J => {
-      const newT = J.v.newT;
-      const TR = J.v.TR;
-      const parentId = TR?.id;
-      if (!parentId) return;
+      const rawT = J.v.newT;
+      const Tname = rawT["T Name"];
+      const parentT = J.z?.T?.[Tname];
 
-      // Injecte le newT et ses TLs sous TR
-      addNode(newT, parentId, true);
+      if (!parentT || typeof Tname !== 'string') return;
+
+      // ✅ Mapping explicite du newT
+      const newT = {
+        id: rawT.id || null,
+        name: Tname,
+        svgIcon: rawT["T svgIcon"] || '',
+        o: rawT["T Description"] || '',
+        TLs: Array.isArray(rawT.TLs) ? rawT.TLs : []
+      };
+
+      // Injecte le newT et ses TLs sous le parent trouvé via .z.T["T Name"]
+      addNode(newT, parentT.id, true);
     });
 
   const maxDepth = Math.max(...arrCTmap.map(t => getMaxDepth(t)));
