@@ -181,9 +181,8 @@ async function wrCTmap(strCid, arrJs = []) {
 
     elements.push({
       data: {
-        nodeId,
-        id: T.id || null,
-        TLid: T.id || null,
+        id: nodeId,
+        Tid: T.id || null,
         html: `
           <div class="${labelClass}" data-id="${T.id || ''}">
             ${T.svgIcon || ''}
@@ -217,16 +216,15 @@ async function wrCTmap(strCid, arrJs = []) {
       J.v?.newT && J.v.newT["T Name"]
     )
     .forEach(J => {
-      const rawT = J.v.newT;
-      const mappedT = mapTfromConventions(rawT);
+      const newTmapped = mapTfromConventions(J.v.newT);
       const parentId = J.z?.T?.id;
 
-      if (!parentId || typeof mappedT.name !== 'string') {
+      if (!parentId || typeof newTmapped.name !== 'string') {
         if (bolLogEnabled) console.warn('⚠️ Tnew ignoré : parentId ou Tname invalide');
         return;
       }
 
-      let parentNode = arrCTmap.find(t => t.id === parentId);
+      let parentNode = arrCTmap.find(T => T.id === parentId);
       let parentVisualId = parentId;
       let styleSuffix = '';
 
@@ -238,12 +236,12 @@ async function wrCTmap(strCid, arrJs = []) {
 
       if (bolLogEnabled) {
         console.log('🔍 Job Tnew détecté:', J);
-        console.log('🧩 newT mappé:', mappedT);
+        console.log('🧩 newTmapped:', newTmapped);
         console.log('📌 Parent id:', parentId);
         console.log('🔗 Style:', styleSuffix || 'Local');
       }
 
-      addNode(mappedT, parentVisualId, true, styleSuffix);
+      addNode(newTmapped, parentVisualId, true, styleSuffix);
     });
 
   const maxDepth = Math.max(...arrCTmap.map(t => getMaxDepth(t)));
@@ -303,22 +301,22 @@ async function wrCTmap(strCid, arrJs = []) {
   ]);
 
   cy.on('tap', 'node', async (evt) => {
-    const TLid = evt.target.data('TLid');
+    const Tid = evt.target.data('Tid');
     if (bolCTmapEditMode) {
-      await tglToolbar(TLid);
+      await tglToolbar(Tid);
     } else {
-      await tglCLs('', 1, TLid);
+      await tglCLs('', 1, Tid);
     }
   });
 
   container.addEventListener('click', async (e) => {
     const el = e.target.closest('.CTmapLabel, .CTmapLabelNew, .CTmapLabelNewExternal');
     if (el) {
-      const TLid = el.dataset.id;
+      const Tid = el.dataset.Tid;
       if (bolCTmapEditMode) {
-        await tglToolbar(TLid);
+        await tglToolbar(Tid);
       } else {
-        await tglCLs('', 1, TLid);
+        await tglCLs('', 1, Tid);
       }
       e.stopPropagation();
     }
