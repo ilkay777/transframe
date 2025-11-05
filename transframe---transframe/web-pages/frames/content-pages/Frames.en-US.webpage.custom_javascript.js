@@ -383,10 +383,10 @@ async function wrCTmap(strCid, arrJs = []) {
     .filter(J =>
       J.com?.name === 'Tnew' &&
       J.status !== "finished" &&
-      J.v?.Tnew && J.v.Tnew["T Name"]
+      J.v?.newT && J.v.newT["T Name"]
     )
     .forEach(J => {
-      const rawT = J.v.Tnew;
+      const rawT = J.v.newT;
       const mappedT = mapTfromConventions(rawT);
       const parentId = J.z?.T?.id;
 
@@ -407,7 +407,7 @@ async function wrCTmap(strCid, arrJs = []) {
 
       if (bolLogEnabled) {
         console.log('🔍 Job Tnew détecté:', J);
-        console.log('🧩 Tnew mappé:', mappedT);
+        console.log('🧩 newT mappé:', mappedT);
         console.log('📌 Parent id:', parentId);
         console.log('🔗 Style:', styleSuffix || 'Local');
       }
@@ -535,13 +535,6 @@ async function getCPs(strCid) {
   }
 
   return myCPs.reverse();
-}
-
-async function getTLs2(strTid, strCid) {
-  let myTLs = await getTs(strTid, 'L');
-  return await Promise.all(myTLs.map(async (myTL) => {
-    return { ...myTL, nCs: await getTnCs(myTL.id, strCid) };
-  }));
 }
 
 async function getTLs(strTid, strCid, mode = '') {
