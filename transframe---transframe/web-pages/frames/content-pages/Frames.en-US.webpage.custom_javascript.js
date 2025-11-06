@@ -91,7 +91,7 @@ async function wrC(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', bolAss
 async function fetchData(dataType, context) {
   const dataFetchMap = {
     'TLs': async (context) => {
-      return await getTLs(context.C.T.id, context.C.id);
+      return await getTs(context.C.T.id, 'L', 0, '', 'normal');
     },
     'TLCLs': async (context) => {
       return await getCs(context.C.id, 'L', 0, `tf_Child/tf_Tag/tf_tagid eq '${context.TL.id}'`);
@@ -162,12 +162,8 @@ async function wrCTmap(strCid, arrJs = []) {
     return null;
   }
 
-  const arrCTmap = await getTLs(strTid, strCid, 'tree');
+  const arrCTmap = await getTs(strTid, 'L', 0, '', 'tree');
   const elements = [];
-
-
-      console.log('######################');
-
 
   function addNode(T, parentId = null, isNew = false, styleSuffix = '') {
     const nodeId = T.id || `Tnew_${Math.random().toString(36).slice(2)}`;
@@ -234,13 +230,6 @@ async function wrCTmap(strCid, arrJs = []) {
         styleSuffix = 'External';
       }
 
-      if (bolLogEnabled) {
-        console.log('🔍 Job Tnew détecté:', J);
-        console.log('🧩 newTmapped:', newTmapped);
-        console.log('📌 Parent id:', parentId);
-        console.log('🔗 Style:', styleSuffix || 'Local');
-      }
-
       addNode(newTmapped, parentVisualId, true, styleSuffix);
     });
 
@@ -302,8 +291,13 @@ async function wrCTmap(strCid, arrJs = []) {
 
   cy.on('tap', 'node', async (evt) => {
     const Tid = evt.target.data('Tid');
+    const nodeId = evt.target.data('id');
+
+    const T = findTById(Tid); 
+    if (!T) return;
+
     if (bolCTmapEditMode) {
-      await tglToolbar(Tid);
+      openTEditor(T, nodeId); 
     } else {
       await tglCLs('', 1, Tid);
     }
@@ -364,32 +358,6 @@ async function getCPs(strCid) {
   }
 
   return myCPs.reverse();
-}
-
-async function getTLs(strTid, strCid, mode = '') {
-  let myTLs = await getTs(strTid, 'L');
-
-  if (mode !== 'tree') {
-    return await Promise.all(
-      myTLs.map(async (myTL) => ({
-        ...myTL,
-        nCs: await getTnCs(myTL.id, strCid)
-      }))
-    );
-  }
-
-  const result = [];
-  for (const myTL of myTLs) {
-    const subTLs = await getTLs(myTL.id, strCid, 'tree'); 
-    const node = {
-      ...myTL,
-      TLs: subTLs.length > 0 ? subTLs : []
-    };
-
-    result.push(node);
-  }
-
-  return result;
 }
 
 async function getTnCs(strTid, strCRid, strFilter) {
