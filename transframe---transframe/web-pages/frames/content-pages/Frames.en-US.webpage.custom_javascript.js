@@ -149,6 +149,29 @@ function mapTfromConventions(T) {
   };
 }
 
+function flattenNewT(T, parentId, srcJid, scope, idPrefix, Ts, iTs) {
+  const localId = `${idPrefix}_${Math.random().toString(36).slice(2)}`;
+  const mapped = mapTfromConventions(T);
+  const flatT = {
+    ...mapped,
+    id: localId,
+    srcJid,
+    state: 'new',
+    scope
+  };
+  Ts.push(flatT);
+
+  if (parentId) {
+    iTs.push({ TRid: parentId, TLid: localId });
+  }
+
+  if (Array.isArray(T.TLs)) {
+    T.TLs.forEach(subT => {
+      flattenNewT(subT, localId, srcJid, scope, idPrefix, Ts, iTs);
+    });
+  }
+}
+
 async function wrCTmap(strCid, arrJs = []) {
   const rootT = (await getCs(strCid)).T;
   const strTid = rootT.id;
@@ -177,7 +200,7 @@ async function wrCTmap(strCid, arrJs = []) {
     Ts.push({ ...T, state: 'ready', scope: 'local' });
   });
 
-  // Tnew
+  // Tnew hiérarchiques
   arrJs
     .filter(J =>
       J.com?.name === 'Tnew' &&
@@ -185,25 +208,12 @@ async function wrCTmap(strCid, arrJs = []) {
       J.v?.newT && J.v.newT["T Name"]
     )
     .forEach(J => {
-      const newTmapped = mapTfromConventions(J.v.newT);
       const parentId = J.z?.T?.id;
       const isParentKnown = parentId === strTid || flatTLs.some(T => T.id === parentId);
       const scope = isParentKnown ? 'local' : 'external';
+      const idPrefix = `Tnew_${J.id}`;
 
-      const generatedId = `Tnew_${J.id}`;
-      const newT = {
-        ...newTmapped,
-        id: generatedId,
-        srcJid: J.id,
-        state: 'new',
-        scope
-      };
-
-      Ts.push(newT);
-
-      if (parentId) {
-        iTs.push({ TRid: parentId, TLid: generatedId });
-      }
+      flattenNewT(J.v.newT, parentId, J.id, scope, idPrefix, Ts, iTs);
     });
 
   // Calcul profondeur
