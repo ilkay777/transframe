@@ -165,48 +165,19 @@ async function wrCTmap(strCid, arrJs = []) {
   }
 
   const { flatTLs, iTLs } = await getTs(strTid, 'L', 0, '', 'flat', strCid);
-  const elements = [];
 
-  function addNode(T, parentId = null, isNew = false, styleSuffix = '') {
-    const nodeId = T.id || `Tnew_${Math.random().toString(36).slice(2)}`;
-    const labelClass = isNew ? `CTmapLabelNew${styleSuffix}` : 'CTmapLabel';
-    const edgeClass = isNew ? `CTmapLinkNew${styleSuffix}` : '';
+  const Ts = [];
+  const iTs = [...iTLs];
 
-    elements.push({
-      data: {
-        id: nodeId,
-        Tid: T.id || null,
-        html: `
-          <div class="${labelClass}" data-id="${T.id || ''}">
-            ${T.svgIcon || ''}
-            <span>${T.name || '(Sans nom)'}</span>
-          </div>
-        `
-      },
-      classes: 'clickable'
-    });
+  // Racine
+  Ts.push({ ...rootT, state: 'ready', scope: 'local' });
 
-    if (parentId) {
-      elements.push({
-        data: { source: parentId, target: nodeId },
-        classes: edgeClass
-      });
-    }
-  }
-
-  // 1. Ajouter la racine
-  addNode(rootT, null);
-
-  // 2. Ajouter les TLs plats
-  flatTLs.forEach(T => addNode(T));
-  iTLs.forEach(({ TRid, TLid }) => {
-    elements.push({
-      data: { source: TRid, target: TLid },
-      classes: ''
-    });
+  // TLs
+  flatTLs.forEach(T => {
+    Ts.push({ ...T, state: 'ready', scope: 'local' });
   });
 
-  // 3. Ajouter les Tnew
+  // Tnew
   arrJs
     .filter(J =>
       J.com?.name === 'Tnew' &&
@@ -216,21 +187,69 @@ async function wrCTmap(strCid, arrJs = []) {
     .forEach(J => {
       const newTmapped = mapTfromConventions(J.v.newT);
       const parentId = J.z?.T?.id;
+      const isParentKnown = parentId === strTid || flatTLs.some(T => T.id === parentId);
+      const scope = isParentKnown ? 'local' : 'external';
 
-      if (!parentId || typeof newTmapped.name !== 'string') {
-        if (bolLogEnabled) console.warn('⚠️ Tnew ignoré : parentId ou Tname invalide');
-        return;
+      Ts.push({ ...newTmapped, state: 'new', scope });
+
+      if (parentId) {
+        iTs.push({ TRid: parentId, TLid: newTmapped.id });
       }
-
-      const parentExists = flatTLs.some(T => T.id === parentId) || parentId === strTid;
-      const styleSuffix = parentExists ? '' : 'External';
-      const parentVisualId = parentId === strTid ? null : parentId;
-
-      addNode(newTmapped, parentVisualId, true, styleSuffix);
     });
 
+  // Calcul profondeur
+  function computeDepths(rootId, edges) {
+    const childMap = new Map();
+    edges.forEach(({ TRid, TLid }) => {
+      if (!childMap.has(TRid)) childMap.set(TRid, []);
+      childMap.get(TRid).push(TLid);
+    });
+
+    const visited = new Set();
+    function dfs(nodeId, depth = 0) {
+      if (visited.has(nodeId)) return depth;
+      visited.add(nodeId);
+      const children = childMap.get(nodeId) || [];
+      return Math.max(depth, ...children.map(child => dfs(child, depth + 1)));
+    }
+
+    return dfs(rootId, 1);
+  }
+
+  const maxDepth = computeDepths(strTid, iTs);
+  const graphHeight = Math.min(500, Math.max(50, maxDepth * 50));
+
   const container = document.getElementById('cntMainCTmap');
-  container.style.height = '500px'; // fixe ou calculé si tu veux
+  container.style.height = `${graphHeight}px`;
+
+  const elements = [];
+
+  Ts.forEach(T => {
+    const labelClass = (T.state === 'new')
+      ? `CTmapLabelNew${T.scope === 'external' ? 'External' : ''}`
+      : 'CTmapLabel';
+
+    elements.push({
+      data: {
+        id: T.id,
+        Tid: T.id,
+        html: `
+          <div class="${labelClass}" data-id="${T.id}">
+            ${T.svgIcon || ''}
+            <span>${T.name || '(Sans nom)'}</span>
+          </div>
+        `
+      },
+      classes: 'clickable'
+    });
+  });
+
+  iTs.forEach(({ TRid, TLid }) => {
+    elements.push({
+      data: { source: TRid, target: TLid },
+      classes: ''
+    });
+  });
 
   const cy = cytoscape({
     container,
@@ -285,12 +304,11 @@ async function wrCTmap(strCid, arrJs = []) {
 
   cy.on('tap', 'node', async (evt) => {
     const Tid = evt.target.data('Tid');
-    const nodeId = evt.target.data('id');
-    const T = flatTLs.find(t => t.id === Tid) || arrJs.find(j => j.v?.newT?.id === Tid)?.v?.newT || rootT;
+    const T = Ts.find(t => t.id === Tid);
     if (!T) return;
 
     if (bolCTmapEditMode) {
-      openTEditor(T, nodeId);
+      openTEditor(T, Tid);
     } else {
       await tglCLs('', 1, Tid);
     }
@@ -299,9 +317,6 @@ async function wrCTmap(strCid, arrJs = []) {
   container.addEventListener('click', async (e) => {
     const el = e.target.closest('.CTmapLabel, .CTmapLabelNew, .CTmapLabelNewExternal');
     if (el) {
-      console.log('Clicked element:', el);
-            console.log('Clicked element dataset:', el.dataset);
-
       const Tid = el.dataset.id;
       if (bolCTmapEditMode) {
         await tglToolbar(Tid);
@@ -317,9 +332,9 @@ async function wrCTmap(strCid, arrJs = []) {
   if (bolLogEnabled) {
     console.log('[wrCTmap] strCid:', strCid);
     console.log('[wrCTmap] strTid:', strTid);
-    console.log('[wrCTmap] flatTLs:', flatTLs);
-    console.log('[wrCTmap] iTLs:', iTLs);
-    console.log('[wrCTmap] arrJs:', arrJs);
+    console.log('[wrCTmap] Ts:', Ts);
+    console.log('[wrCTmap] iTs:', iTs);
+    console.log('[wrCTmap] maxDepth:', maxDepth);
     console.log('[wrCTmap] elements:', elements);
   }
 }
