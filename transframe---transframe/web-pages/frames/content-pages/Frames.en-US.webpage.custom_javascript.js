@@ -299,7 +299,7 @@ async function wrCTmap(strCid, arrJs = []) {
   container.addEventListener('click', async (e) => {
     const el = e.target.closest('.CTmapLabel, .CTmapLabelNew, .CTmapLabelNewExternal');
     if (el) {
-      const Tid = el.dataset.Tid;
+      const Tid = el.dataset.id;
       if (bolCTmapEditMode) {
         await tglToolbar(Tid);
       } else {
