@@ -181,7 +181,93 @@ async function getCs(strCid, strScope = '', nLimit = 0, strFilter) {
   return nLimit == -1 ? myMappedValues[0] : myMappedValues;
 }
 
-async function getTs(strTid, strScope, nLimit = 0, strFilter) {
+async function getTs(strTid, strScope, nLimit = 0, strFilter = '', mode = 'normal', strCid = '') {
+  strFilter = strFilter ? ' and ' + strFilter + ' ' : '';
+
+  let myStrQry;
+  switch (strScope) {
+    case 'R': // parents
+      myStrQry = 'tf_itags?' +
+        '$select=tf_itagid&' +
+        '$expand=tf_Parent($select=tf_tag,tf_tagid,tf_o,tf_svgicon)&' +
+        '$orderby=tf_porder&' +
+        `$filter=_tf_child_value eq '${strTid}'${strFilter}`;
+      break;
+    case 'L': // childs
+      myStrQry = 'tf_itags?' +
+        '$select=tf_itagid&' +
+        '$expand=tf_Child($select=tf_tag,tf_tagid,tf_o,tf_svgicon)&' +
+        '$orderby=tf_corder&' +
+        `$filter=_tf_parent_value eq '${strTid}'${strFilter}`;
+      break;
+    case '': // self
+    default:
+      nLimit = -1;
+      myStrQry = 'tf_tags?' +
+        '$select=tf_tag,tf_tagid,tf_o,tf_svgicon&' +
+        `$filter=tf_tagid eq '${strTid}'${strFilter}`;
+      break;
+  }
+
+  if (nLimit) {
+    myStrQry += `&$top=${Math.abs(nLimit)}`;
+  }
+
+  let myValues = await DVapiValues(myStrQry);
+  switch (strScope) {
+    case 'R': myValues = myValues.map(item => item.tf_Parent); break;
+    case 'L': myValues = myValues.map(item => item.tf_Child); break;
+  }
+
+  let myMappedValues = await mapApiTs(myValues);
+
+  // 🧩 Enrichir avec nCs si applicable
+  if (strScope === 'L' && (mode === 'normal' || mode === '')) {
+    myMappedValues = await Promise.all(
+      myMappedValues.map(async TL => ({
+        ...TL,
+        nCs: strCid ? await getTnCs(TL.id, strCid) : undefined
+      }))
+    );
+  }
+
+  // 🌳 Mode 'tree' : hiérarchie imbriquée
+  if (mode === 'tree') {
+    const result = [];
+    for (const TL of myMappedValues) {
+      const subTLs = await getTs(TL.id, 'L', 0, strFilter, 'tree', strCid);
+      result.push({ ...TL, TLs: subTLs.length > 0 ? subTLs : [] });
+    }
+    return result;
+  }
+
+  // 🧱 Mode 'flat' : structure aplatie + liens
+  if (mode === 'flat') {
+    const flatTLs = [];
+    const iTLs = [];
+
+    async function walk(TL, TRid = null) {
+      flatTLs.push(TL);
+      if (TRid) iTLs.push({ TRid, TLid: TL.id });
+
+      const children = await getTs(TL.id, 'L', 0, strFilter, 'normal', strCid);
+      for (const subTL of children) {
+        await walk(subTL, TL.id);
+      }
+    }
+
+    for (const TL of myMappedValues) {
+      await walk(TL, strTid);
+    }
+
+    return { flatTLs, iTLs };
+  }
+
+  return nLimit === -1 ? myMappedValues[0] : myMappedValues;
+}
+
+/*
+async function getTs2(strTid, strScope, nLimit = 0, strFilter) {
   let myStrQry;
   strFilter = strFilter ? ' and ' + strFilter + ' ' : '';
   switch (strScope) {
@@ -220,6 +306,33 @@ async function getTs(strTid, strScope, nLimit = 0, strFilter) {
 
   return nLimit == -1 ? myMappedValues[0] : myMappedValues;
 }
+
+async function getTLs2(strTid, strCid, mode = '') {
+  let myTLs = await getTs(strTid, 'L');
+
+  if (mode !== 'tree') {
+    return await Promise.all(
+      myTLs.map(async (myTL) => ({
+        ...myTL,
+        nCs: await getTnCs(myTL.id, strCid)
+      }))
+    );
+  }
+
+  const result = [];
+  for (const myTL of myTLs) {
+    const subTLs = await getTLs(myTL.id, strCid, 'tree'); 
+    const node = {
+      ...myTL,
+      TLs: subTLs.length > 0 ? subTLs : []
+    };
+
+    result.push(node);
+  }
+
+  return result;
+}
+*/
 
 async function getW(strWid) {
   let myStrQry
