@@ -1,10 +1,10 @@
 console.log("Javascript Initiated.")
-// globals and constants
-var curC;
-var curJs;
+// globals & constants
+let curC;
+let curJs;
+let Ts = [];
+let iTs = [];
 let bolCTmapEditMode = false;
-
-
 
 async function tglCLs(strCid, nLevel = 1, strTLid) {
 
@@ -189,8 +189,8 @@ async function wrCTmap(strCid, arrJs = []) {
 
   const { flatTLs, iTLs } = await getTs(strTid, 'L', 0, '', 'flat', strCid);
 
-  const Ts = [];
-  const iTs = [...iTLs];
+  Ts = [];
+  iTs = [...iTLs];
 
   // Racine
   Ts.push({ ...rootT, state: 'ready', scope: 'local' });
