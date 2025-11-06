@@ -91,7 +91,7 @@ async function wrC(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', bolAss
 async function fetchData(dataType, context) {
   const dataFetchMap = {
     'TLs': async (context) => {
-      return await getTs(context.C.T.id, 'L', 0, '', 'normal');
+      return await getTs(context.C.T.id, 'L', 0, '', 'normal', context.C.id);
     },
     'TLCLs': async (context) => {
       return await getCs(context.C.id, 'L', 0, `tf_Child/tf_Tag/tf_tagid eq '${context.TL.id}'`);
@@ -163,6 +163,8 @@ async function wrCTmap(strCid, arrJs = []) {
   }
 
   const arrCTmap = await getTs(strTid, 'L', 0, '', 'tree');
+  console.log('arrCTmap:', arrCTmap);
+
   const elements = [];
 
   function addNode(T, parentId = null, isNew = false, styleSuffix = '') {
