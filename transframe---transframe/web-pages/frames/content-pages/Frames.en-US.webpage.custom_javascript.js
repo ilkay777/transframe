@@ -190,10 +190,19 @@ async function wrCTmap(strCid, arrJs = []) {
       const isParentKnown = parentId === strTid || flatTLs.some(T => T.id === parentId);
       const scope = isParentKnown ? 'local' : 'external';
 
-      Ts.push({ ...newTmapped, state: 'new', scope });
+      const generatedId = `Tnew_${J.id}`;
+      const newT = {
+        ...newTmapped,
+        id: generatedId,
+        srcJid: J.id,
+        state: 'new',
+        scope
+      };
+
+      Ts.push(newT);
 
       if (parentId) {
-        iTs.push({ TRid: parentId, TLid: newTmapped.id });
+        iTs.push({ TRid: parentId, TLid: generatedId });
       }
     });
 
