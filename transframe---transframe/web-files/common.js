@@ -4,7 +4,36 @@ let bolLogEnabled = true;
 const cacheTs = new Map();   // clé = tagid, valeur = tag ou tableau
 const cacheiTs = new Map();  // clé = `${scope}:${tid}:${filter}:${mode}:${cid}`, valeur = tableau
 
+const DEFAULT_TTL = 300000; // 5 minutes
 
+function createTypedCache() {
+  const map = new Map();
+
+  return {
+    get(key, ttl = DEFAULT_TTL) {
+      const entry = map.get(key);
+      if (!entry) return null;
+      return Date.now() - entry.timestamp < ttl ? entry.value : null;
+    },
+    set(key, value) {
+      map.set(key, { value, timestamp: Date.now() });
+    },
+    clear(key) {
+      map.delete(key);
+    },
+    clearAll() {
+      map.clear();
+    },
+  };
+}
+
+// 🧠 Caches typés
+const cache = {
+  T: createTypedCache(), // Tags
+  C: createTypedCache(), // Codes
+  J: createTypedCache(), // Jobs
+  // Ajoute d'autres types ici si besoin
+};
 
 function tglO(strElemType, elemId) {
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Toggling:', strElemType, elemId);
@@ -192,9 +221,11 @@ async function getTs(strTid, strScope, nLimit = 0, strFilter = '', mode = 'norma
 
   // 🧱 Vérifier le cache
   if (strScope === '') {
-    if (cacheTs.has(strTid)) return cacheTs.get(strTid);
+    const cached = cache.T.get(strTid);
+    if (cached) return cached;
   } else if (mode === 'normal' || mode === '') {
-    if (cacheiTs.has(cacheKey)) return cacheiTs.get(cacheKey);
+    const cached = cache.iT?.get?.(cacheKey);
+    if (cached) return cached;
   }
 
   // 🔍 Construire la requête
@@ -280,10 +311,10 @@ async function getTs(strTid, strScope, nLimit = 0, strFilter = '', mode = 'norma
   // 🗃️ Stocker dans le cache
   if (strScope === '') {
     const result = nLimit === -1 ? myMappedValues[0] : myMappedValues;
-    cacheTs.set(strTid, result);
+    cache.T.set(strTid, result);
     return result;
   } else if (mode === 'normal' || mode === '') {
-    cacheiTs.set(cacheKey, myMappedValues);
+    cache.iT?.set?.(cacheKey, myMappedValues);
     return myMappedValues;
   }
 
@@ -425,12 +456,26 @@ async function mapApiWs(apiWs) {
 }
 
 async function mapApiTs(apiTs) {
-  return apiTs.map(apiT => ({
-    id: apiT.tf_tagid,
-    name: apiT.tf_tag,
-    svgIcon: apiT.tf_svgicon,
-    o: apiT.tf_o,
-  }));
+  const mapped = [];
+
+  for (const apiT of apiTs) {
+    const tagid = apiT.tf_tagid;
+    const cached = cache.T.get(tagid);
+    if (cached) {
+      mapped.push(cached);
+    } else {
+      const mappedT = {
+        id: tagid,
+        name: apiT.tf_tag,
+        svgIcon: apiT.tf_svgicon,
+        o: apiT.tf_o,
+      };
+      cache.T.set(tagid, mappedT);
+      mapped.push(mappedT);
+    }
+  }
+
+  return mapped;
 }
 
 function JoutHtml(myJout) {
