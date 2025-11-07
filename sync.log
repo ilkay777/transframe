@@ -1122,3 +1122,143 @@ Run in verbose mode to see all warnings.
 2025-11-07 01:24:03 - 🚀 Publication sur Power Pages...
 2025-11-07 01:24:14 - ✅ Terminé. Fermeture dans 30 secondes...
 2025-11-07 01:26:14 - 📤 Commit et push vers GitHub...
+2025-11-07 01:26:15 - 🚀 Publication sur Power Pages...
+2025-11-07 01:26:26 - ✅ Terminé. Fermeture dans 30 secondes...
+2025-11-07 01:29:55 - 🧵 Compilation SCSS pour les pages : home trans frames
+2025-11-07 01:29:55 - 🔍 Page: home
+2025-11-07 01:29:55 - 📄 CSS:  /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/home/content-pages/Home.en-US.webpage.custom_css.css
+2025-11-07 01:29:55 - 📄 SCSS: /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/home/content-pages/Home.en-US.webpage.custom_css.scss
+2025-11-07 01:29:55 - ⚠️ Aucun fichier SCSS trouvé pour home
+2025-11-07 01:29:55 - 🔍 Page: trans
+2025-11-07 01:29:55 - 📄 CSS:  /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/trans/content-pages/Trans.en-US.webpage.custom_css.css
+2025-11-07 01:29:55 - 📄 SCSS: /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/trans/content-pages/Trans.en-US.webpage.custom_css.scss
+2025-11-07 01:29:55 - ⚠️ Aucun fichier SCSS trouvé pour trans
+2025-11-07 01:29:55 - 🔍 Page: frames
+2025-11-07 01:29:55 - 📄 CSS:  /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.css
+2025-11-07 01:29:55 - 📄 SCSS: /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss
+[33m[1mDeprecation Warning[0m [[34mglobal-builtin[0m]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+[34m    ╷[0m
+[34m112 │[0m       background-color: [31mlighten($shadeColor3, 3%)[0m;
+[34m    │[0m [31m                        ^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss 112:25  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mcolor-functions[0m]: lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 100%)
+color.adjust($color, $lightness: 3%)
+
+More info: https://sass-lang.com/d/color-functions
+
+[34m    ╷[0m
+[34m112 │[0m       background-color: [31mlighten($shadeColor3, 3%)[0m;
+[34m    │[0m [31m                        ^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss 112:25  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mglobal-builtin[0m]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+[34m    ╷[0m
+[34m165 │[0m       background-color: [31mdarken($shadeColor5, 5%)[0m;
+[34m    │[0m [31m                        ^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss 165:25  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mcolor-functions[0m]: darken() is deprecated. Suggestions:
+
+color.scale($color, $lightness: -15.4545454545%)
+color.adjust($color, $lightness: -5%)
+
+More info: https://sass-lang.com/d/color-functions
+
+[34m    ╷[0m
+[34m165 │[0m       background-color: [31mdarken($shadeColor5, 5%)[0m;
+[34m    │[0m [31m                        ^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss 165:25  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mglobal-builtin[0m]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+[34m    ╷[0m
+[34m289 │[0m     background-color: [31mlighten($typeColor1, 20%)[0m;
+[34m    │[0m [31m                      ^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss 289:23  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mcolor-functions[0m]: lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 100%)
+color.adjust($color, $lightness: 20%)
+
+More info: https://sass-lang.com/d/color-functions
+
+[34m    ╷[0m
+[34m289 │[0m     background-color: [31mlighten($typeColor1, 20%)[0m;
+[34m    │[0m [31m                      ^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss 289:23  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mglobal-builtin[0m]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+[34m    ╷[0m
+[34m321 │[0m     background-color: [31mlighten($brandColor1, 20%)[0m;
+[34m    │[0m [31m                      ^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss 321:23  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mcolor-functions[0m]: lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 100%)
+color.adjust($color, $lightness: 20%)
+
+More info: https://sass-lang.com/d/color-functions
+
+[34m    ╷[0m
+[34m321 │[0m     background-color: [31mlighten($brandColor1, 20%)[0m;
+[34m    │[0m [31m                      ^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss 321:23  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mglobal-builtin[0m]: Global built-in functions are deprecated and will be removed in Dart Sass 3.0.0.
+Use color.adjust instead.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+[34m    ╷[0m
+[34m397 │[0m   color: [31mlighten($shadeColor5, 25%)[0m;
+[34m    │[0m [31m         ^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss 397:10  root stylesheet
+
+[33m[1mDeprecation Warning[0m [[34mcolor-functions[0m]: lighten() is deprecated. Suggestions:
+
+color.scale($color, $lightness: 36.9565217391%)
+color.adjust($color, $lightness: 25%)
+
+More info: https://sass-lang.com/d/color-functions
+
+[34m    ╷[0m
+[34m397 │[0m   color: [31mlighten($shadeColor5, 25%)[0m;
+[34m    │[0m [31m         ^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[34m    ╵[0m
+    Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss 397:10  root stylesheet
+
+[33m[1mWarning[0m: 56 repetitive deprecation warnings omitted.
+Run in verbose mode to see all warnings.
+
+2025-11-07 01:29:55 - ✅ Compilation réussie pour frames
+2025-11-07 01:29:55 - ✅ Terminé. Fermeture dans 30 secondes...
+2025-11-07 01:30:09 - 📤 Commit et push vers GitHub...

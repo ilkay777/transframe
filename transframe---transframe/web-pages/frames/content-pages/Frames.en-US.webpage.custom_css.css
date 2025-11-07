@@ -51,6 +51,92 @@
 
 #cntMainToolbar {
   display: none;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  font-family: "Inter", sans-serif;
+  color: #191817;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 12px;
+}
+#cntMainToolbar h2, #cntMainToolbar h3 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+  color: #664b8c;
+}
+#cntMainToolbar label {
+  display: block;
+  margin-top: 12px;
+  margin-bottom: 4px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #4d3273;
+}
+#cntMainToolbar input[type=text],
+#cntMainToolbar textarea,
+#cntMainToolbar select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #cdcdcd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: #f9f8fc;
+  color: #191817;
+  font-family: inherit;
+  transition: border-color 0.2s ease;
+}
+#cntMainToolbar input[type=text]:focus,
+#cntMainToolbar textarea:focus,
+#cntMainToolbar select:focus {
+  outline: none;
+  border-color: #664b8c;
+  background-color: white;
+}
+#cntMainToolbar textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+#cntMainToolbar button {
+  margin-top: 16px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.2s ease;
+}
+#cntMainToolbar #btnTupdate {
+  background-color: #664b8c;
+  color: #ffffff;
+}
+#cntMainToolbar #btnTupdate:hover {
+  background-color: #4d3273;
+}
+#cntMainToolbar #btnTupdate:active {
+  background-color: #8764b8;
+}
+#cntMainToolbar hr {
+  margin: 20px 0 12px;
+  border: none;
+  border-top: 1px solid #cdcdcd;
+}
+#cntMainToolbar .btnTaction {
+  display: inline-block;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  background-color: #cdcdcd;
+  color: #191817;
+}
+#cntMainToolbar .btnTaction:hover {
+  background-color: #4d3273;
+  color: #ffffff;
+}
+#cntMainToolbar .btnTaction:active {
+  background-color: rgb(65.1, 42.2727272727, 97.2272727273);
 }
 
 #cntMainPwrapper {
