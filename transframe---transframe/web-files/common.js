@@ -1,5 +1,10 @@
 console.log("Javascript-Common Initiated.")
 let bolLogEnabled = true;
+// 🧠 Caches globaux
+const cacheTs = new Map();   // clé = tagid, valeur = tag ou tableau
+const cacheiTs = new Map();  // clé = `${scope}:${tid}:${filter}:${mode}:${cid}`, valeur = tableau
+
+
 
 function tglO(strElemType, elemId) {
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Toggling:', strElemType, elemId);
@@ -183,24 +188,32 @@ async function getCs(strCid, strScope = '', nLimit = 0, strFilter) {
 
 async function getTs(strTid, strScope, nLimit = 0, strFilter = '', mode = 'normal', strCid = '') {
   strFilter = strFilter ? ' and ' + strFilter + ' ' : '';
+  const cacheKey = `${strScope}:${strTid}:${strFilter}:${mode}:${strCid}`;
 
+  // 🧱 Vérifier le cache
+  if (strScope === '') {
+    if (cacheTs.has(strTid)) return cacheTs.get(strTid);
+  } else if (mode === 'normal' || mode === '') {
+    if (cacheiTs.has(cacheKey)) return cacheiTs.get(cacheKey);
+  }
+
+  // 🔍 Construire la requête
   let myStrQry;
   switch (strScope) {
-    case 'R': // parents
+    case 'R':
       myStrQry = 'tf_itags?' +
         '$select=tf_itagid&' +
         '$expand=tf_Parent($select=tf_tag,tf_tagid,tf_o,tf_svgicon)&' +
         '$orderby=tf_porder&' +
         `$filter=_tf_child_value eq '${strTid}'${strFilter}`;
       break;
-    case 'L': // childs
+    case 'L':
       myStrQry = 'tf_itags?' +
         '$select=tf_itagid&' +
         '$expand=tf_Child($select=tf_tag,tf_tagid,tf_o,tf_svgicon)&' +
         '$orderby=tf_corder&' +
         `$filter=_tf_parent_value eq '${strTid}'${strFilter}`;
       break;
-    case '': // self
     default:
       nLimit = -1;
       myStrQry = 'tf_tags?' +
@@ -213,6 +226,7 @@ async function getTs(strTid, strScope, nLimit = 0, strFilter = '', mode = 'norma
     myStrQry += `&$top=${Math.abs(nLimit)}`;
   }
 
+  // 📡 Appel API
   let myValues = await DVapiValues(myStrQry);
   switch (strScope) {
     case 'R': myValues = myValues.map(item => item.tf_Parent); break;
@@ -231,7 +245,7 @@ async function getTs(strTid, strScope, nLimit = 0, strFilter = '', mode = 'norma
     );
   }
 
-  // 🌳 Mode 'tree' : hiérarchie imbriquée
+  // 🌳 Mode 'tree'
   if (mode === 'tree') {
     const result = [];
     for (const TL of myMappedValues) {
@@ -241,7 +255,7 @@ async function getTs(strTid, strScope, nLimit = 0, strFilter = '', mode = 'norma
     return result;
   }
 
-  // 🧱 Mode 'flat' : structure aplatie + liens
+  // 🧱 Mode 'flat'
   if (mode === 'flat') {
     const flatTLs = [];
     const iTLs = [];
@@ -263,9 +277,18 @@ async function getTs(strTid, strScope, nLimit = 0, strFilter = '', mode = 'norma
     return { flatTLs, iTLs };
   }
 
-  return nLimit === -1 ? myMappedValues[0] : myMappedValues;
-}
+  // 🗃️ Stocker dans le cache
+  if (strScope === '') {
+    const result = nLimit === -1 ? myMappedValues[0] : myMappedValues;
+    cacheTs.set(strTid, result);
+    return result;
+  } else if (mode === 'normal' || mode === '') {
+    cacheiTs.set(cacheKey, myMappedValues);
+    return myMappedValues;
+  }
 
+  return myMappedValues;
+}
 
 async function getW(strWid) {
   let myStrQry
