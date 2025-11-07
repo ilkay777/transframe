@@ -16,28 +16,28 @@
           </div>
           <div id="cntMainCTmap"></div>
           <div id="cntMainToolbar">
-            <h2>Edit Tag</h2>
+            <div class="rowField" id="rowName">
+              <label for="inputName">Name</label>
+              <input type="text" id="inputName">
+              <button class="btnCancel" onclick="cancelField('inputName')">✖</button>
+            </div>
 
-            <label for="inputName">Name</label>
-            <input type="text" id="inputName" placeholder="Tag name">
+            <div class="rowField" id="rowIcon">
+              <label for="inputIcon">Icon</label>
+              <select id="inputIcon">
+                <option value="">— Select —</option>
+                <option value="new">➕ New</option>
+                <option value="view">👁️ View</option>
+                <option value="folder">📁 Folder</option>
+              </select>
+            </div>
 
-            <label for="inputDesc">Description</label>
-            <textarea id="inputDesc" placeholder="Tag description"></textarea>
+            <div class="rowDesc" id="rowDesc">
+              <textarea id="inputDesc" placeholder="Description"></textarea>
+              <button class="btnCancel" onclick="cancelField('inputDesc')">✖</button>
+            </div>
 
-            <label for="inputIcon">Icon</label>
-            <select id="inputIcon">
-              <option value="">— Select an icon —</option>
-              <option value="new">➕ New</option>
-              <option value="view">👁️ View</option>
-              <option value="folder">📁 Folder</option>
-            </select>
-
-            <button id="btnTupdate">💾 Save Changes</button>
-
-            <hr>
-
-            <h3>Actions</h3>
-            <button class="btnTaction" data-action="delete">🗑️ Delete Tag</button>
+            <button class="btnTaction" data-action="delete">🗑️ Delete</button>
             <button class="btnTaction" data-action="deleteCodes">🧹 Delete Codes</button>
             <button class="btnTaction" data-action="generateCodes">⚙️ Generate Codes</button>
           </div>

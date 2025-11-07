@@ -68,93 +68,123 @@ $typeColor2: #4a5e8c;
 
 #cntMainToolbar {
   display: none;
+  width: 100%;
   background-color: $brandColor3;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  padding: 12px 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   font-family: 'Inter', sans-serif;
   color: $brandColor4;
-  width: 100%;
-  max-width: 400px;
-  margin-top: 12px;
 
-  h2, h3 {
-    margin: 0 0 12px;
-    font-size: 1.2rem;
-    color: $brandColor2;
-  }
+  // Ligne compacte label + champ
+  .rowField {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
 
-  label {
-    display: block;
-    margin-top: 12px;
-    margin-bottom: 4px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: $shadeColor5;
-  }
+    label {
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: $shadeColor5;
+      min-width: 60px;
+    }
 
-  input[type="text"],
-  textarea,
-  select {
-    width: 100%;
-    padding: 8px 10px;
-    border: 1px solid $shadeColor2;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    background-color: $shadeColor3;
-    color: $brandColor4;
-    font-family: inherit;
-    transition: border-color 0.2s ease;
+    input[type="text"],
+    select {
+      flex-grow: 1;
+      padding: 6px 8px;
+      font-size: 0.85rem;
+      border: 1px solid $shadeColor2;
+      border-radius: 4px;
+      background-color: $shadeColor3;
+      color: $brandColor4;
 
-    &:focus {
-      outline: none;
-      border-color: $brandColor2;
-      background-color: lighten($shadeColor3, 3%);
+      &:focus {
+        outline: none;
+        border-color: $brandColor2;
+        background-color: lighten($shadeColor3, 3%);
+      }
+    }
+
+    .btnCancel {
+      display: none;
+      margin-left: 4px;
+      font-size: 0.8rem;
+      color: $shadeColor5;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &:hover {
+        color: $brandColor2;
+      }
+    }
+
+    &.modified .btnCancel {
+      display: inline;
     }
   }
 
-  textarea {
-    resize: vertical;
-    min-height: 60px;
-  }
+  // Description séparée
+  .rowDesc {
+    position: relative;
+    margin-bottom: 8px;
 
-  button {
-    margin-top: 16px;
-    padding: 8px 12px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: inherit;
-    transition: background-color 0.2s ease;
-  }
+    textarea {
+      width: 100%;
+      padding: 6px 8px;
+      font-size: 0.85rem;
+      border: 1px solid $shadeColor2;
+      border-radius: 4px;
+      background-color: $shadeColor3;
+      color: $brandColor4;
+      resize: vertical;
+      min-height: 50px;
 
-  #btnTupdate {
-    background-color: $brandColor2;
-    color: $brandColor3;
-
-    &:hover {
-      background-color: $shadeColor5;
+      &:focus {
+        outline: none;
+        border-color: $brandColor2;
+        background-color: lighten($shadeColor3, 3%);
+      }
     }
 
-    &:active {
-      background-color: $shadeColor1;
+    .btnCancel {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      font-size: 0.8rem;
+      color: $shadeColor5;
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: none;
+
+      &:hover {
+        color: $brandColor2;
+      }
+    }
+
+    &.modified .btnCancel {
+      display: inline;
     }
   }
 
-  hr {
-    margin: 20px 0 12px;
-    border: none;
-    border-top: 1px solid $shadeColor2;
-  }
-
+  // Boutons d'action
   .btnTaction {
     display: inline-block;
-    margin-right: 8px;
-    margin-bottom: 8px;
+    margin-right: 6px;
+    margin-top: 6px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 4px;
     background-color: $shadeColor2;
     color: $brandColor4;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 
     &:hover {
       background-color: $shadeColor5;
