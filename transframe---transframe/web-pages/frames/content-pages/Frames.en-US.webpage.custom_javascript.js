@@ -404,7 +404,7 @@ function registerMainToolbar(Tid) {
 
 function tglCTmapEdit() {
   bolCTmapEditMode = !bolCTmapEditMode;
-  document.getElementById('cntMainToolbar').style.display = bolCTmapEdit ? 'block' : 'none';
+  document.getElementById('cntMainToolbar').style.display = bolCTmapEditMode ? 'block' : 'none';
 }
 
 async function handleExpands(element, nLevel) {
