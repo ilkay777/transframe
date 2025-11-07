@@ -245,7 +245,7 @@ async function wrCTmap(strCid, arrJs = []) {
 
   Ts.forEach(T => {
     const labelClass = (T.state === 'new')
-      ? `CTmapLabelNew${T.scope === 'external' ? 'External' : ''}`
+      ? `CTmapLabel${T.scope === 'external' ? 'External' : 'New'}`
       : 'CTmapLabel';
 
     elements.push({
@@ -327,18 +327,18 @@ async function wrCTmap(strCid, arrJs = []) {
     if (!T) return;
 
     if (bolCTmapEditMode) {
-      openTEditor(T, Tid);
+      registerMainToolbar(Tid);
     } else {
       await tglCLs('', 1, Tid);
     }
   });
 
   container.addEventListener('click', async (e) => {
-    const el = e.target.closest('.CTmapLabel, .CTmapLabelNew, .CTmapLabelNewExternal');
+    const el = e.target.closest('.CTmapLabel, .CTmapLabelNew, .CTmapLabelExternal');
     if (el) {
       const Tid = el.dataset.id;
       if (bolCTmapEditMode) {
-        await tglToolbar(Tid);
+        await registerMainToolbar(Tid);
       } else {
         await tglCLs('', 1, Tid);
       }
@@ -404,6 +404,7 @@ function registerMainToolbar(Tid) {
 
 function tglCTmapEdit() {
   bolCTmapEditMode = !bolCTmapEditMode;
+  document.getElementById('cntMainToolbar').style.display = bolCTmapEdit ? 'block' : 'none';
 }
 
 async function handleExpands(element, nLevel) {

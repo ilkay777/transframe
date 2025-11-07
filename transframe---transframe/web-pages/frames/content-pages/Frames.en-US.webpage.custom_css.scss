@@ -189,7 +189,7 @@ $typeColor2: #4a5e8c;
     gap: 15px;
     padding: 10px 40px;
     white-space: nowrap;
-    background: lighten($typeColor1, 20%);
+    background-color: lighten($typeColor1, 20%);
     border: 10px solid $typeColor1;
     border-radius: 40px;
     font-size: 0;
@@ -199,7 +199,7 @@ $typeColor2: #4a5e8c;
     span {
       font-size: 90px;
       font-weight: 4000;
-      color: $typeColor2;
+      color: $typeColor1;
     }
 
     svg {
@@ -215,13 +215,13 @@ $typeColor2: #4a5e8c;
     }
   }
 
-  .CTmapLabelNew {
+  .CTmapLabelNew, .CTmapLabelExternal {
     display: inline-flex;
     align-items: center;
     gap: 15px;
     padding: 10px 40px;
     white-space: nowrap;
-    background: lighten($brandColor1, 20%);
+    background-color: lighten($brandColor1, 20%);
     border: 10px solid $brandColor1;
     border-radius: 40px;
     font-size: 0;
@@ -231,7 +231,7 @@ $typeColor2: #4a5e8c;
     span {
       font-size: 90px;
       font-weight: 4000;
-      color: $brandColor2;
+      color: $brandColor1;
     }
 
     svg {
