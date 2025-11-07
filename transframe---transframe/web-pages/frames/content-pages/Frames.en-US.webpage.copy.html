@@ -12,11 +12,35 @@
               </svg>
               <div id="cntMainP"></div>
             </div>
-            <div id="cntMainToolbar">
-            </div>            
             <button id="btnEdit" onclick="tglCTmapEdit()">Edit</button>
           </div>
           <div id="cntMainCTmap"></div>
+          <div id="cntMainToolbar">
+            <h2>Edit Tag</h2>
+
+            <label for="inputName">Name</label>
+            <input type="text" id="inputName" placeholder="Tag name">
+
+            <label for="inputDesc">Description</label>
+            <textarea id="inputDesc" placeholder="Tag description"></textarea>
+
+            <label for="inputIcon">Icon</label>
+            <select id="inputIcon">
+              <option value="">— Select an icon —</option>
+              <option value="new">➕ New</option>
+              <option value="view">👁️ View</option>
+              <option value="folder">📁 Folder</option>
+            </select>
+
+            <button id="btnTupdate">💾 Save Changes</button>
+
+            <hr>
+
+            <h3>Actions</h3>
+            <button class="btnTaction" data-action="delete">🗑️ Delete Tag</button>
+            <button class="btnTaction" data-action="deleteCodes">🧹 Delete Codes</button>
+            <button class="btnTaction" data-action="generateCodes">⚙️ Generate Codes</button>
+          </div>
         </div>
         <div id="cntMainC">
           <div class="n0TLCL" id="Cmaster"></div>

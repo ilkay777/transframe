@@ -266,73 +266,6 @@ async function getTs(strTid, strScope, nLimit = 0, strFilter = '', mode = 'norma
   return nLimit === -1 ? myMappedValues[0] : myMappedValues;
 }
 
-/*
-async function getTs2(strTid, strScope, nLimit = 0, strFilter) {
-  let myStrQry;
-  strFilter = strFilter ? ' and ' + strFilter + ' ' : '';
-  switch (strScope) {
-    case 'R': //parents
-      myStrQry = 'tf_itags?' +
-        '$select=tf_itagid&' +
-        '$expand=tf_Parent($select=tf_tag,tf_tagid,tf_o,tf_svgicon)&' +
-        '$orderby=tf_porder&' +
-        '$filter=_tf_child_value eq \'' + strTid + '\'' + strFilter;
-      break;
-    case 'L': //childs
-      myStrQry = 'tf_itags?' +
-        '$select=tf_itagid&' +
-        '$expand=tf_Child($select=tf_tag,tf_tagid,tf_o,tf_svgicon)&' +
-        '$orderby=tf_corder&' +
-        '$filter=_tf_parent_value eq \'' + strTid + '\'' + strFilter;
-      break;
-    case '': //self
-    default:
-      nLimit = -1;
-      myStrQry = 'tf_tags?' +
-        '$select=tf_tag,tf_tagid,tf_o,tf_svgicon&' +
-        '$filter=tf_tagid eq \'' + strTid + '\'' + strFilter;
-      break;
-  }
-  myStrQry += (nLimit ? ('&$top=' + Math.abs(nLimit)) : '')
-
-  let myValues = await DVapiValues(myStrQry);
-  switch (strScope) {
-    case 'R': myValues = myValues.map(item => (item.tf_Parent));
-      break;
-    case 'L': myValues = myValues.map(item => (item.tf_Child));
-      break;
-  }
-  const myMappedValues = await mapApiTs(myValues);
-
-  return nLimit == -1 ? myMappedValues[0] : myMappedValues;
-}
-
-async function getTLs2(strTid, strCid, mode = '') {
-  let myTLs = await getTs(strTid, 'L');
-
-  if (mode !== 'tree') {
-    return await Promise.all(
-      myTLs.map(async (myTL) => ({
-        ...myTL,
-        nCs: await getTnCs(myTL.id, strCid)
-      }))
-    );
-  }
-
-  const result = [];
-  for (const myTL of myTLs) {
-    const subTLs = await getTLs(myTL.id, strCid, 'tree'); 
-    const node = {
-      ...myTL,
-      TLs: subTLs.length > 0 ? subTLs : []
-    };
-
-    result.push(node);
-  }
-
-  return result;
-}
-*/
 
 async function getW(strWid) {
   let myStrQry
@@ -632,24 +565,6 @@ async function DVapiUpdate(strQry, newValue) {
       },
       error: err => {
         if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.error(`❌ Update error: ${url}`, err);
-        reject(err);
-      }
-    });
-  });
-}
-
-async function DVapiAction(url, data = {}) {
-  if (!url) throw new Error('URL of the action is required');
-
-  return new Promise((resolve, reject) => {
-    webapi.safeAjax({
-      type: "POST",
-      url,
-      contentType: "application/json",
-      data: Object.keys(data).length ? JSON.stringify(data) : null,
-      success: res => resolve(res),
-      error: err => {
-        console.error(`❌ Dataverse Action error: ${url}`, err);
         reject(err);
       }
     });

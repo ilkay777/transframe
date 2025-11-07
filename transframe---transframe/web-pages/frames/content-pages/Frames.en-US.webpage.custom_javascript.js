@@ -358,191 +358,48 @@ async function wrCTmap(strCid, arrJs = []) {
   }
 }
 
-/*
-async function wrCTmap2(strCid, arrJs = []) {
-  const strTid = (await getCs(strCid)).T.id;
-  if (strTid === strTidFolder) {
-    if (window.cy) {
-      window.cy.destroy();
-      window.cy = null;
-    }
-    const container = document.getElementById('cntMainCTmap');
-    container.innerHTML = '';
-    container.style.height = '0px';
-    return null;
-  }
+function registerMainToolbar(Tid) {
+  const inputName = document.getElementById('inputName');
+  const inputDesc = document.getElementById('inputDesc');
+  const inputIcon = document.getElementById('inputIcon');
 
-  const arrCTmap = await getTs(strTid, 'L', 0, '', 'tree');
-  console.log('arrCTmap:', arrCTmap);
+  document.getElementById('btnTupdate').onclick = () => {
+    const name = inputName.value.trim();
+    const desc = inputDesc.value.trim();
+    const iconKey = inputIcon.value;
+    const svgIcon = strIcon[iconKey] || '';
 
-  const elements = [];
-
-  function addNode(T, parentId = null, isNew = false, styleSuffix = '') {
-    const nodeId = T.id || `Tnew_${Math.random().toString(36).slice(2)}`;
-    const labelClass = isNew ? `CTmapLabelNew${styleSuffix}` : 'CTmapLabel';
-    const edgeClass = isNew ? `CTmapLinkNew${styleSuffix}` : '';
-
-    if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) {
-      console.log('Adding T Map Element: ', nodeId);
-      console.log('T: ', T);
-    }
-
-    elements.push({
-      data: {
-        id: nodeId,
-        Tid: T.id || null,
-        html: `
-          <div class="${labelClass}" data-id="${T.id || ''}">
-            ${T.svgIcon || ''}
-            <span>${T.name || '(Sans nom)'}</span>
-          </div>
-        `
-      },
-      classes: 'clickable'
-    });
-
-    if (parentId) {
-      elements.push({
-        data: { source: parentId, target: nodeId },
-        classes: edgeClass
-      });
-    }
-
-    if (Array.isArray(T.TLs)) {
-      T.TLs.forEach(subT => addNode(subT, nodeId, isNew, styleSuffix));
-    }
-  }
-
-  // 1. Arbre réel
-  arrCTmap.forEach(rootTL => addNode(rootTL));
-
-  // 2. Jobs Tnew non terminés
-  arrJs
-    .filter(J =>
-      J.com?.name === 'Tnew' &&
-      J.status !== "finished" &&
-      J.v?.newT && J.v.newT["T Name"]
-    )
-    .forEach(J => {
-      const newTmapped = mapTfromConventions(J.v.newT);
-      const parentId = J.z?.T?.id;
-
-      if (!parentId || typeof newTmapped.name !== 'string') {
-        if (bolLogEnabled) console.warn('⚠️ Tnew ignoré : parentId ou Tname invalide');
-        return;
-      }
-
-      let parentNode = arrCTmap.find(T => T.id === parentId);
-      let parentVisualId = parentId;
-      let styleSuffix = '';
-
-      if (parentId === strTid) {
-        parentVisualId = null; // racine
-      } else if (!parentNode) {
-        styleSuffix = 'External';
-      }
-
-      addNode(newTmapped, parentVisualId, true, styleSuffix);
-    });
-
-  const maxDepth = Math.max(...arrCTmap.map(t => getMaxDepth(t)));
-  const graphHeight = Math.min(500, Math.max(50, maxDepth * 50));
-  const container = document.getElementById('cntMainCTmap');
-  container.style.height = `${graphHeight}px`;
-
-  const cy = cytoscape({
-    container,
-    elements,
-    style: [
-      {
-        selector: 'node',
-        style: {
-          'background-color': '#dde4f5',
-          'border-width': 1,
-          'border-color': '#4a5e8c',
-          'shape': 'roundrectangle',
-          'width': '1px',
-          'hight': '1px',
-          'padding': '0px',
-          'cursor': 'pointer'
-        }
-      },
-      {
-        selector: 'edge',
-        style: {
-          'background-opacity': 0,
-          'border-width': 10,
-          'width': 10,
-          'height': 10,
-          'padding': 0,
-          'label': '',
-          'text-opacity': 0,
-          'cursor': 'pointer'
+    const job = {
+      id: `J_${Date.now()}`,
+      com: { name: 'updateT' },
+      status: 'pending',
+      v: {
+        T: {
+          id: Tid,
+          ...(name && { tf_tag: name }),
+          ...(desc && { tf_o: desc }),
+          ...(svgIcon && { tf_svgicon: svgIcon })
         }
       }
-    ],
-    layout: {
-      name: 'breadthfirst',
-      spacingFactor: 10,
-      directed: true,
-      padding: 25,
-      animate: false
-    }
+    };
+
+    arrJs.push(job);
+    console.log('✅ Update job added to arrJs:', job);
+  };
+
+  document.querySelectorAll('.btnTaction').forEach(btn => {
+    btn.onclick = () => {
+      const action = btn.dataset.action;
+      const job = {
+        id: `J_${Date.now()}`,
+        com: { name: action },
+        status: 'pending',
+        v: { T: { id: Tid } }
+      };
+      arrJs.push(job);
+      console.log(`✅ Action "${action}" added to arrJs:`, job);
+    };
   });
-
-  cy.nodeHtmlLabel([
-    {
-      query: 'node',
-      halign: 'center',
-      valign: 'center',
-      halignBox: 'center',
-      valignBox: 'center',
-      tpl: (data) => data.html || ''
-    }
-  ]);
-
-  cy.on('tap', 'node', async (evt) => {
-    const Tid = evt.target.data('Tid');
-    const nodeId = evt.target.data('id');
-
-    const T = findTById(Tid); 
-    if (!T) return;
-
-    if (bolCTmapEditMode) {
-      openTEditor(T, nodeId); 
-    } else {
-      await tglCLs('', 1, Tid);
-    }
-  });
-
-  container.addEventListener('click', async (e) => {
-    const el = e.target.closest('.CTmapLabel, .CTmapLabelNew, .CTmapLabelNewExternal');
-    if (el) {
-      const Tid = el.dataset.Tid;
-      if (bolCTmapEditMode) {
-        await tglToolbar(Tid);
-      } else {
-        await tglCLs('', 1, Tid);
-      }
-      e.stopPropagation();
-    }
-  });
-
-  window.cy = cy;
-
-  if (bolLogEnabled) {
-    console.log('[wrCTmap] strCid:', strCid);
-    console.log('[wrCTmap] strTid:', strTid);
-    console.log('[wrCTmap] arrJs:', arrJs);
-    console.log('[wrCTmap] maxDepth:', maxDepth);
-    console.log('[wrCTmap] elements:', elements);
-  }
-}
-*/
-
-function getMaxDepth(TL, depth = 1) {
-  if (!TL.TLs || TL.TLs.length === 0) return depth;
-  return Math.max(...TL.TLs.map(child => getMaxDepth(child, depth + 1)));
 }
 
 function tglCTmapEdit() {
