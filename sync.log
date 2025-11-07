@@ -1402,3 +1402,21 @@ Run in verbose mode to see all warnings.
 2025-11-07 02:18:44 - ✅ Compilation réussie pour frames
 2025-11-07 02:18:44 - ✅ Terminé. Fermeture dans 30 secondes...
 2025-11-07 02:18:48 - 📤 Commit et push vers GitHub...
+2025-11-07 02:18:49 - 🚀 Publication sur Power Pages...
+2025-11-07 02:19:15 - ✅ Terminé. Fermeture dans 30 secondes...
+2025-11-07 13:00:31 - 🧵 Compilation SCSS pour les pages : home trans frames
+2025-11-07 13:00:31 - 🔍 Page: home
+2025-11-07 13:00:31 - 📄 CSS:  /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/home/content-pages/Home.en-US.webpage.custom_css.css
+2025-11-07 13:00:31 - 📄 SCSS: /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/home/content-pages/Home.en-US.webpage.custom_css.scss
+2025-11-07 13:00:31 - ⚠️ Aucun fichier SCSS trouvé pour home
+2025-11-07 13:00:31 - 🔍 Page: trans
+2025-11-07 13:00:31 - 📄 CSS:  /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/trans/content-pages/Trans.en-US.webpage.custom_css.css
+2025-11-07 13:00:31 - 📄 SCSS: /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/trans/content-pages/Trans.en-US.webpage.custom_css.scss
+2025-11-07 13:00:31 - ⚠️ Aucun fichier SCSS trouvé pour trans
+2025-11-07 13:00:31 - 🔍 Page: frames
+2025-11-07 13:00:31 - 📄 CSS:  /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.css
+2025-11-07 13:00:31 - 📄 SCSS: /Users/ilkay/Dev/PowerPages/transframe/transframe---transframe/web-pages/frames/content-pages/Frames.en-US.webpage.custom_css.scss
+/Users/ilkay/Dev/PowerPages/sync-transframe.sh: line 63: sass: command not found
+2025-11-07 13:00:31 - ❌ Erreur de compilation SCSS pour frames
+2025-11-07 13:00:31 - ✅ Terminé. Fermeture dans 30 secondes...
+2025-11-07 13:01:14 - 📤 Commit et push vers GitHub...
