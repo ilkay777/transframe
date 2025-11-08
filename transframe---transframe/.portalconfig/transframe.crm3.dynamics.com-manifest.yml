@@ -550,12 +550,56 @@ adx_webfile:
   CheckSum: ac26c3b0a7c8bc7acc38a53329fdddaa6ce25d5740e8c0829eeeab0958c948f0
   IsDeleted: false
 - RecordId: 178775f0-3bbc-f011-bbd2-002248b06997
-  DisplayName: cache.js
-  CheckSum: f723fc632aa509864f576148654c7cd746ad440027ea7772542b7fbda1856c74
+  DisplayName: src-shared-cache.js
+  CheckSum: 4baa6034323224d866fe4413c036f9174315e16d5bfd66720658ce410171bfba
+  IsDeleted: false
+- RecordId: 26f03d43-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-tools.js
+  CheckSum: c8293623a5a39a1b22e98d2df913adcaecb61bc4b5c50f7b1ccb2bb47b12d3e0
+  IsDeleted: false
+- RecordId: 287cd192-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-J.js
+  CheckSum: 2f44ea78afb92b22c78cef006b355ea25a76abc4ab4fa41e7bd0b27e701c2ceb
+  IsDeleted: false
+- RecordId: 3abc3386-55bc-f011-bbd2-002248b2f824
+  DisplayName: scss-trans.scss
+  CheckSum: 6537054ebe0203088a7b6c86b0f4ccf8937270569670dc6ddbdde36b11187c1c
+  IsDeleted: false
+- RecordId: 4520e302-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-fetch.js
+  CheckSum: 36f7523a21fe16a5a4a5b70cda00625150ae1a6599dc3bee5f5505a3a8b7cc58
+  IsDeleted: false
+- RecordId: 5363e2b9-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-W.js
+  CheckSum: bf913fa5a30ba5e1b49a102e09d21a874330dd2c945da372abe1bf6237cfe9d3
   IsDeleted: false
 - RecordId: 5f497d93-fca5-f011-bbd3-0022483ea98e
   DisplayName: common.js
   CheckSum: 19b31c5020dde96d5538de511aa7926d7b86539db0e502b2ed89f6fd6850ddda
+  IsDeleted: false
+- RecordId: 6aaa3865-55bc-f011-bbd2-002248b2f824
+  DisplayName: scss-common.scss
+  CheckSum: 9345f20ae70154380d4f06e65ccb98f0504dbba7ff36bce71c8e320de15b842f
+  IsDeleted: false
+- RecordId: 7187831d-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-map.js
+  CheckSum: 40781794a607cc31c3fb7e8a1e9b2adbb6b5ae4257bf45db3ac6cdf7be910a26
+  IsDeleted: false
+- RecordId: 73e40963-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-C.js
+  CheckSum: 46775f1af5e430772072191cda983a6c7447d9c36ab9b168b0e0427b0d93f4b8
+  IsDeleted: false
+- RecordId: 867ae7a0-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-T.js
+  CheckSum: 20db763b6184848ee29bc54878a5343f5785242c95eb271f5e34eafb91236361
+  IsDeleted: false
+- RecordId: 90b56730-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-schema.js
+  CheckSum: b5eff408655c649d9e16c1eb4f59e082012d02d80edab6d79f8e7df5153ecfd7
+  IsDeleted: false
+- RecordId: 9ebcbb79-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-Com.js
+  CheckSum: 919f35fe28998c9611498230e5d9fbce498e06ba2c291fca5d9856e81ecf0ded
   IsDeleted: false
 - RecordId: a91a31de-fba5-f011-bbd3-0022483ea98e
   DisplayName: common.css
@@ -569,10 +613,14 @@ adx_webfile:
   DisplayName: bootstrap.min.css
   CheckSum: 15e918f6cc9d42d51e90a98d995d3884e425833143bdddad4fceed858054f283
   IsDeleted: false
+- RecordId: d7f5de72-55bc-f011-bbd2-002248b2f824
+  DisplayName: scss-home.scss
+  CheckSum: 840e170fc8bbbd80a1e5690ddc4548ce9d42c2894c42b69e5c58468f766b5616
+  IsDeleted: false
 - RecordId: ddd99e6c-3ebc-f011-bbd2-002248b06997
   DisplayName: typedCache.js
   CheckSum: fdd5b7aab52d666619e221671f2c693d1de56846a199e68dfa6d0a3ae2cf2b8a
-  IsDeleted: false
+  IsDeleted: true
 - RecordId: e25b0e86-e230-4850-9df2-11309b192dfb
   DisplayName: theme.css
   CheckSum: 7a6e4d488088b992833bbdf64a4cde9b22d308599a4997c9432190d4e9bb4cce
@@ -588,6 +636,10 @@ adx_webfile:
 - RecordId: f9511bdf-2f8d-4fd9-b4fc-a5251c3b1bfb
   DisplayName: portalbasictheme.css
   CheckSum: 02a46aaeb85a349a8803213216ec2d03a65719301bf188499098ca7beff0caef
+  IsDeleted: false
+- RecordId: f9d4611d-55bc-f011-bbd2-002248b2f824
+  DisplayName: scss-frames.scss
+  CheckSum: f491b8e1ed39edd9a1bd6cd51cc4c9b1ab229aeb60d5709d6e3cbf77f6e5bed2
   IsDeleted: false
 adx_weblink:
 - RecordId: 24c189d6-8566-2177-b27f-bd62cb4ee397
@@ -805,13 +857,49 @@ adx_webtemplate:
   CheckSum: d22eb584fce05b70daf9ac9464803b26a934ac5e1e7b977f71546daf49980eff
   IsDeleted: false
 annotation:
+- RecordId: 094f9623-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-map.js
+  CheckSum: 4c668dcdb1eb01b8631c2e1f2aa54d382849db847d3ec1a69e2cd7fd55eb71c1
+  IsDeleted: false
+- RecordId: 190f8936-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-schema.js
+  CheckSum: e25e23877277b188d2480008e14dbe32b8c247276fdea8fa4dc1a12c86181874
+  IsDeleted: false
+- RecordId: 27b93a7a-55bc-f011-bbd2-002248b2f824
+  DisplayName: scss-home.scss
+  CheckSum: a0860969c93e5b3388ec999550eb4899d63837a98c1cc189fe50777d5691ab30
+  IsDeleted: false
+- RecordId: 2d7cd192-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-J.js
+  CheckSum: ce550797253d0810d80e287a96bd74667464314383a0e1bb3d8ced8053ca6e4a
+  IsDeleted: false
 - RecordId: 32c7cd99-ea87-ef11-8a6a-6045bd5f9b62
   DisplayName: theme.css
   CheckSum: 261fa0f7ce8dfeae726d4f71cbc0f6e878d08b39b509cd9d277d082746db146f
   IsDeleted: false
+- RecordId: 3fbc3386-55bc-f011-bbd2-002248b2f824
+  DisplayName: scss-trans.scss
+  CheckSum: 4e3abac5779750ece4cdb4a062d391d2e1a0ca9e859ae898c200b7245bbebbe8
+  IsDeleted: false
 - RecordId: 4c46bda9-eb87-ef11-8a6a-6045bd5f9b62
   DisplayName: portalbasictheme.css
   CheckSum: a9808ccae1c8f8e464da67fa9799e115964ce64f3de140509cc5cf668d898007
+  IsDeleted: false
+- RecordId: 4db0abc8-53bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-cache.js
+  CheckSum: e0bf8dc7be8a0b50900aeb5f403c885078f8557ca0c731c99b2cfa78864353a5
+  IsDeleted: false
+- RecordId: 5863e2b9-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-W.js
+  CheckSum: e2d64475ec2a790b9daf236056b5ba4761b6c56d839930741ad503a4d3bb2da4
+  IsDeleted: false
+- RecordId: 68f51e09-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-fetch.js
+  CheckSum: c9a2f05dd40bed60add232aed5a0f06d2a943d4e1096a8ff7362d5a618b237c5
+  IsDeleted: false
+- RecordId: 6faa3865-55bc-f011-bbd2-002248b2f824
+  DisplayName: scss-common.scss
+  CheckSum: 2cb8698eb7013c1fd3af127dc95f94de38af9a1489b836ea08d5173b2f783400
   IsDeleted: false
 - RecordId: 7522e2a0-c584-ef11-ac21-6045bd5f9b62
   DisplayName: Cat-PC.png
@@ -825,6 +913,18 @@ annotation:
   DisplayName: bootstrap.min.css
   CheckSum: 0a2e2489a4cfe9ddf261633b755c021c70568d13a3e2dbd9714d976814044a79
   IsDeleted: false
+- RecordId: 77e40963-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-C.js
+  CheckSum: 4d955e3f25f7048e75b3fc35d574a5818ca2fc9694925d594268012b063ff7da
+  IsDeleted: false
+- RecordId: 7ec15b58-55bc-f011-bbd2-002248b2f824
+  DisplayName: scss-frames.scss
+  CheckSum: 46a00dc7f1e9aeca01d007ea20ccb884999a1d48b21eb1182e74f441ce1e3974
+  IsDeleted: false
+- RecordId: 8b7ae7a0-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-T.js
+  CheckSum: e219990b76dd28cc7fd842ef2e77804155006232a8e9099e1f9b5cff4072bb88
+  IsDeleted: false
 - RecordId: 8ea576d0-45bc-f011-bbd2-002248b06997
   DisplayName: common.js
   CheckSum: 0fbb31446a81fc2cede12731865a5bfffcb2aba33b6684d2316dbf079a3416fc
@@ -837,9 +937,17 @@ annotation:
   DisplayName: common.js
   CheckSum: 29ca2766816c741a76595bfaea96496c47e3ad39670bdb7bb07d9cb4f56444ee
   IsDeleted: true
+- RecordId: a3bcbb79-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-Com.js
+  CheckSum: 5da7533795170ea4b2067f7617d79df906a0fde4ece1a6fd91d4b95be3885c2f
+  IsDeleted: false
 - RecordId: a9b6a44a-de84-ef11-ac21-6045bd5f9b62
   DisplayName: PWAManifest.json
   CheckSum: 64b2b56670ea65c4fb9fbfb40c5d92d1ad972d1bfbc2b3dbca46fbefb130a1fd
+  IsDeleted: false
+- RecordId: cfd4bd4a-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-tools.js
+  CheckSum: 3f6fc7b89523c2d61f339e9938c141cc7fe4d97f7840229f892eafc50dac50ac
   IsDeleted: false
 - RecordId: d2371113-ec87-ef11-8a69-000d3af369b5
   DisplayName: PURPLE 1
@@ -848,7 +956,7 @@ annotation:
 - RecordId: e7af5416-3cbc-f011-bbd2-002248b06997
   DisplayName: cache.js
   CheckSum: 4fc5140808491d23882db4ec368150ddcf98b34be00b367742bae875ddee9238
-  IsDeleted: false
+  IsDeleted: true
 mspp_uxcomponent:
 - RecordId: 729f6ac0-45d0-4ce1-9e0c-4d52a31e23f7
   DisplayName: 729f6ac0-45d0-4ce1-9e0c-4d52a31e23f7

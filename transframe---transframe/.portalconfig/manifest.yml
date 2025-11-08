@@ -1,5 +1,14 @@
+adx_webfile:
+- RecordId: ddd99e6c-3ebc-f011-bbd2-002248b06997
+  DisplayName: typedCache.js
+  CheckSum: 
+  IsDeleted: true
 annotation:
 - RecordId: 9f0a7aa0-96b5-f011-bbd3-0022483ea98e
   DisplayName: common.js
+  CheckSum: 
+  IsDeleted: true
+- RecordId: e7af5416-3cbc-f011-bbd2-002248b06997
+  DisplayName: cache.js
   CheckSum: 
   IsDeleted: true
