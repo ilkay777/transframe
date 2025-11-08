@@ -549,9 +549,13 @@ adx_webfile:
   DisplayName: Logo-sm-64.png
   CheckSum: ac26c3b0a7c8bc7acc38a53329fdddaa6ce25d5740e8c0829eeeab0958c948f0
   IsDeleted: false
+- RecordId: 178775f0-3bbc-f011-bbd2-002248b06997
+  DisplayName: cache.js
+  CheckSum: f723fc632aa509864f576148654c7cd746ad440027ea7772542b7fbda1856c74
+  IsDeleted: false
 - RecordId: 5f497d93-fca5-f011-bbd3-0022483ea98e
   DisplayName: common.js
-  CheckSum: d73572f30fda0ac655437704cbe81608d3805065c5546efb61e91e364ed5eaf9
+  CheckSum: 19b31c5020dde96d5538de511aa7926d7b86539db0e502b2ed89f6fd6850ddda
   IsDeleted: false
 - RecordId: a91a31de-fba5-f011-bbd3-0022483ea98e
   DisplayName: common.css
@@ -564,6 +568,10 @@ adx_webfile:
 - RecordId: bc175afe-7f9d-4e21-9237-450ac542e36c
   DisplayName: bootstrap.min.css
   CheckSum: 15e918f6cc9d42d51e90a98d995d3884e425833143bdddad4fceed858054f283
+  IsDeleted: false
+- RecordId: ddd99e6c-3ebc-f011-bbd2-002248b06997
+  DisplayName: typedCache.js
+  CheckSum: fdd5b7aab52d666619e221671f2c693d1de56846a199e68dfa6d0a3ae2cf2b8a
   IsDeleted: false
 - RecordId: e25b0e86-e230-4850-9df2-11309b192dfb
   DisplayName: theme.css
@@ -622,7 +630,7 @@ adx_webpage:
   IsDeleted: false
 - RecordId: 439780f8-c628-5d1f-33d9-20f26db38dc5
   DisplayName: Trans
-  CheckSum: 13388c235a400c409210eb4b3ce713c3488525adc1148a349880ce50c8dd3a06
+  CheckSum: 528c1709d6b7c3d9778c92203c158cfc7916ceb38a2c55857f71251a0140d0ca
   IsDeleted: false
 - RecordId: 4e35d3b1-f5ae-45ce-a134-cf4a5d4457ae
   DisplayName: Search
@@ -670,7 +678,7 @@ adx_webpage:
   IsDeleted: false
 - RecordId: bc96d11f-f89a-fc94-fd00-5bd8bdf0e311
   DisplayName: Frames
-  CheckSum: a0ed07645f161c7cb3cae51191130d9f56647129d674b0acfe132e7d5aa8bdf8
+  CheckSum: 7db5fc4efbad2bda51a17ab3cc415631ccd5dca03271e7fd955cf1ca3031d698
   IsDeleted: false
 - RecordId: d8394aa0-aa17-09db-b61a-3702d93d5dad
   DisplayName: Data-deleted
@@ -817,6 +825,10 @@ annotation:
   DisplayName: bootstrap.min.css
   CheckSum: 0a2e2489a4cfe9ddf261633b755c021c70568d13a3e2dbd9714d976814044a79
   IsDeleted: false
+- RecordId: 8ea576d0-45bc-f011-bbd2-002248b06997
+  DisplayName: common.js
+  CheckSum: 0fbb31446a81fc2cede12731865a5bfffcb2aba33b6684d2316dbf079a3416fc
+  IsDeleted: false
 - RecordId: 901090d3-20a6-f011-bbd3-0022483ea98e
   DisplayName: common.css
   CheckSum: 3ddda32dfbd5ea34c18da2ce9457260414018b8d2beb1a7ff3869a6e9bffacd0
@@ -824,7 +836,7 @@ annotation:
 - RecordId: 9f0a7aa0-96b5-f011-bbd3-0022483ea98e
   DisplayName: common.js
   CheckSum: 29ca2766816c741a76595bfaea96496c47e3ad39670bdb7bb07d9cb4f56444ee
-  IsDeleted: false
+  IsDeleted: true
 - RecordId: a9b6a44a-de84-ef11-ac21-6045bd5f9b62
   DisplayName: PWAManifest.json
   CheckSum: 64b2b56670ea65c4fb9fbfb40c5d92d1ad972d1bfbc2b3dbca46fbefb130a1fd
@@ -832,6 +844,10 @@ annotation:
 - RecordId: d2371113-ec87-ef11-8a69-000d3af369b5
   DisplayName: PURPLE 1
   CheckSum: 14f7d947405cf99fd7d4047cfc547926558b178a515de9788a54105ca6ccd038
+  IsDeleted: false
+- RecordId: e7af5416-3cbc-f011-bbd2-002248b06997
+  DisplayName: cache.js
+  CheckSum: 4fc5140808491d23882db4ec368150ddcf98b34be00b367742bae875ddee9238
   IsDeleted: false
 mspp_uxcomponent:
 - RecordId: 729f6ac0-45d0-4ce1-9e0c-4d52a31e23f7
