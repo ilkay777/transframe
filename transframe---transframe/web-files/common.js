@@ -29,9 +29,12 @@ function createTypedCache() {
 
 // 🧠 Caches typés
 const cache = {
-  T: createTypedCache(), // Tags
-  C: createTypedCache(), // Codes
-  J: createTypedCache(), // Jobs
+  C: createTypedCache(), 
+  T: createTypedCache(), 
+  J: createTypedCache(), 
+  iC: createTypedCache(), 
+  iT: createTypedCache(), 
+  W: createTypedCache(), 
   // Ajoute d'autres types ici si besoin
 };
 
