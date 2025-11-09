@@ -3,94 +3,112 @@
 import { JoutHtml, strIcon } from './src-shared-tools.js';
 
 export const mappers = {
-  T(apiT) {
+  T(obj) {
+    const {
+      tf_tagid, tf_tag, tf_svgicon, tf_o,
+      tf_Layout, tf_LayoutAssoc
+    } = obj;
+
     return {
-      id: apiT.tf_tagid,
-      name: apiT.tf_tag,
-      svgIcon: apiT.tf_svgicon,
-      o: apiT.tf_o,
-      _W_id: apiT.tf_Layout?.tf_layoutid,
-      _WAssoc_id: apiT.tf_LayoutAssoc?.tf_layoutid
+      id: tf_tagid,
+      name: tf_tag,
+      svgIcon: tf_svgicon,
+      o: tf_o,
+      _W_id: tf_Layout?.tf_layoutid,
+      _WAssoc_id: tf_LayoutAssoc?.tf_layoutid
     };
   },
 
-  C(apiC) {
+  C(obj) {
+    const { tf_codeid, tf_code, tf_o, tf_Tag } = obj;
+
     return {
-      id: apiC.tf_codeid,
-      name: apiC.tf_code,
-      o: apiC.tf_o || '',
-      _T_id: apiC.tf_Tag?.tf_tagid
+      id: tf_codeid,
+      name: tf_code,
+      o: tf_o || '',
+      _T_id: tf_Tag?.tf_tagid
     };
   },
 
-  J(apiJ) {
-    const rawStatus = apiJ["statuscode@OData.Community.Display.V1.FormattedValue"] || '';
+  J(obj) {
+    const {
+      tf_jobid, tf_job, tf_o, tf_v, tf_out,
+      _tf_sourcejob_value, _tf_com_value,
+      _tf_xc_value, _tf_xt_value,
+      _tf_yc_value, _tf_yt_value,
+      _tf_zc_value, _tf_zt_value,
+      statuscode
+    } = obj;
+
+    const rawStatus = statuscode?.['@OData.Community.Display.V1.FormattedValue'] || '';
     const status = ['reset', 'ready', 'validated', 'packed', 'batched'].includes(rawStatus.toLowerCase())
       ? 'running'
       : rawStatus.toLowerCase();
 
     let v = {}, out = {};
-    try { v = JSON.parse(apiJ.tf_v || '{}'); } catch {}
-    try { out = JSON.parse(apiJ.tf_out || '{}'); } catch {}
+    try { v = JSON.parse(tf_v || '{}'); } catch {}
+    try { out = JSON.parse(tf_out || '{}'); } catch {}
 
     return {
-      id: apiJ.tf_jobid,
-      name: apiJ.tf_job,
-      o: apiJ.tf_o || '',
+      id: tf_jobid,
+      name: tf_job,
+      o: tf_o || '',
       v,
       out,
-      outHtml: JoutHtml((out.pssOut || {}).value || {}),
-      _srcJ_id: apiJ._tf_sourcejob_value,
+      outHtml: JoutHtml((out.pssOut || {}).value || ''),
+      _srcJ_id: _tf_sourcejob_value,
       status,
       statusHtml: strIcon[status] || strIcon.clear,
-      _Com_id: apiJ.tf_Com?.tf_comid,
-      x: {
-        _C_id: apiJ._tf_xc_value || '',
-        _T_id: apiJ._tf_xt_value || ''
-      },
-      y: {
-        _C_id: apiJ._tf_yc_value || '',
-        _T_id: apiJ._tf_yt_value || ''
-      },
-      z: {
-        _C_id: apiJ._tf_zc_value || '',
-        _T_id: apiJ._tf_zt_value || ''
-      }
+      _com_id: _tf_com_value,
+      x: { _C_id: _tf_xc_value || '', _T_id: _tf_xt_value || '' },
+      y: { _C_id: _tf_yc_value || '', _T_id: _tf_yt_value || '' },
+      z: { _C_id: _tf_zc_value || '', _T_id: _tf_zt_value || '' }
     };
   },
 
-  W(apiW) {
+  W(obj) {
+    const { tf_layoutid, tf_layout, tf_levels, tf_def } = obj;
+
     return {
-      id: apiW.tf_layoutid,
-      name: apiW.tf_layout,
-      nLevels: apiW.tf_levels,
-      def: apiW.tf_def
+      id: tf_layoutid,
+      name: tf_layout,
+      nLevels: tf_levels,
+      def: tf_def
     };
   },
 
-  Com(apiCom) {
+  Com(obj) {
+    const {
+      tf_comid, tf_com, tf_svgicon,
+      tf_Layout, tf_LayoutAssoc
+    } = obj;
+
     return {
-      id: apiCom.tf_comid,
-      name: apiCom.tf_com,
-      svgIcon: apiCom.tf_svgicon,
-      _W_id: apiCom.tf_Layout?.tf_layoutid,
-      _WAssoc_id: apiCom.tf_LayoutAssoc?.tf_layoutid
+      id: tf_comid,
+      name: tf_com,
+      svgIcon: tf_svgicon,
+      _W_id: tf_Layout?.tf_layoutid,
+      _WAssoc_id: tf_LayoutAssoc?.tf_layoutid
     };
   },
 
-  iT(apiiT) {
+  iT(obj) {
+    const { tf_itagid, _tf_child_value, _tf_parent_value } = obj;
+
     return {
-      id: apiiT.tf_itagid,
-      TRid: apiiT._tf_child_value,
-      TLid: apiiT._tf_parent_value
+      id: tf_itagid,
+      _TR_id: _tf_child_value,
+      _TL_id: _tf_parent_value
     };
   },
 
-  iC(apiiC) {
+  iC(obj) {
+    const { tf_icid, _tf_childcode_value, _tf_parentcode_value } = obj;
+
     return {
-      id: apiiC.tf_icid,
-      CRid: apiiC._tf_childcode_value,
-      CLid: apiiC._tf_parentcode_value
+      id: tf_icid,
+      _CR_id: _tf_childcode_value,
+      _CL_id: _tf_parentcode_value
     };
   }
 };

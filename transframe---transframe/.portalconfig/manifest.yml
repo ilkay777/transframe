@@ -4,8 +4,52 @@ adx_webfile:
   CheckSum: 
   IsDeleted: true
 annotation:
+- RecordId: 094f9623-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-map.js
+  CheckSum: 
+  IsDeleted: true
+- RecordId: 190f8936-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-schema.js
+  CheckSum: 
+  IsDeleted: true
+- RecordId: 2d7cd192-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-J.js
+  CheckSum: 
+  IsDeleted: true
+- RecordId: 4db0abc8-53bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-cache.js
+  CheckSum: 
+  IsDeleted: true
+- RecordId: 5863e2b9-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-W.js
+  CheckSum: 
+  IsDeleted: true
+- RecordId: 77e40963-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-C.js
+  CheckSum: 
+  IsDeleted: true
+- RecordId: 7ec15b58-55bc-f011-bbd2-002248b2f824
+  DisplayName: scss-frames.scss
+  CheckSum: 
+  IsDeleted: true
+- RecordId: 8b7ae7a0-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-T.js
+  CheckSum: 
+  IsDeleted: true
+- RecordId: 8ea576d0-45bc-f011-bbd2-002248b06997
+  DisplayName: common.js
+  CheckSum: 
+  IsDeleted: true
 - RecordId: 9f0a7aa0-96b5-f011-bbd3-0022483ea98e
   DisplayName: common.js
+  CheckSum: 
+  IsDeleted: true
+- RecordId: a3bcbb79-54bc-f011-bbd2-002248b2f824
+  DisplayName: types-Com.js
+  CheckSum: 
+  IsDeleted: true
+- RecordId: cfd4bd4a-54bc-f011-bbd2-002248b069fa
+  DisplayName: src-shared-tools.js
   CheckSum: 
   IsDeleted: true
 - RecordId: e7af5416-3cbc-f011-bbd2-002248b06997
