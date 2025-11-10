@@ -41,15 +41,6 @@ async function tglCLs(strCid, nLevel = 1, strTLid) {
   }
 }
 
-async function wrCLs(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', strTLid) {
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Starting wrCLs with strCid:', strCid, 'nLevel:', nLevel, 'strTLid:', strTLid);
-  let CLs = await getCs(strCid, 'L', 0,
-    (strTLid) ? `tf_Child/_tf_tag_value eq '${strTLid}'` : '');
-  for (let CL of CLs) {
-    await wrC(CL.id, nLevel, `TLCLs_${strCid}_${strTLid}_`, true);
-  }
-}
-
 async function wrC(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', bolAssoc) {
   if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Starting wrC with strCid:', strCid, 'nLevel:', nLevel, 'strCntId:', strCntId);
   let C = await getCs(strCid);
@@ -86,30 +77,6 @@ async function wrC(strCid = strCidRoot, nLevel = 1, strCntId = 'Cmaster', bolAss
   await handleLoops(newElement, { nLevel, C });
 
   if (nLevel < curC.T.W.nLevels) await handleExpands(newElement, nLevel);
-}
-
-async function fetchData(dataType, context) {
-  const dataFetchMap = {
-    'TLs': async (context) => {
-      return await getTs(context.C.T.id, 'L', 0, '', 'normal', context.C.id);
-    },
-    'TLCLs': async (context) => {
-      return await getCs(context.C.id, 'L', 0, `tf_Child/tf_Tag/tf_tagid eq '${context.TL.id}'`);
-    },
-    'CLs': async (context) => {
-      return await getCs(context.C.id, 'L');
-    },
-    'CUs': async (context) => {
-      return await getCs(context.C.id, 'U');
-    },
-    'CDs': async (context) => {
-      return await getCs(context.C.id, 'D');
-    }
-  };
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log(`Fetching ${dataType}...`);
-  const fetchedData = await dataFetchMap[dataType](context);
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log(`Fetched ${dataType}:`, fetchedData);
-  return fetchedData.map(item => ({ ...context, [dataType.slice(0, -1)]: item }));
 }
 
 async function wrCP(strCid) {
@@ -405,18 +372,6 @@ function registerMainToolbar(Tid) {
 function tglCTmapEdit() {
   bolCTmapEditMode = !bolCTmapEditMode;
   document.getElementById('cntMainToolbar').style.display = bolCTmapEditMode ? 'block' : 'none';
-}
-
-async function handleExpands(element, nLevel) {
-  if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Checking for expand elements.');
-  const expandElements = element.querySelectorAll('[data-expand="true"]');
-  for (const expandElement of expandElements) {
-    const expandId = expandElement.id.split('_')[1];
-    if (typeof bolLogEnabled !== 'undefined' && bolLogEnabled) console.log('Expanding into element with expandId:', expandId);
-    //element.appendChild(expandElement);
-    expandElement.removeAttribute('data-expand');
-    await wrC(expandId, nLevel + 1, expandElement.id);
-  }
 }
 
 async function getCPs(strCid) {
