@@ -561,6 +561,10 @@ adx_webfile:
   DisplayName: types-J.js
   CheckSum: f0a703077d8b4d666859411a3adac4ef62a15a1d5ce06aa9a94a816aabf62888
   IsDeleted: false
+- RecordId: 2fc36dae-d3bd-f011-bbd2-7ced8da63393
+  DisplayName: src-settings-constants.js
+  CheckSum: bf97d8f413bfee45a367eeceed565bd39ae12ba300363687e41dc5353a9bb8fa
+  IsDeleted: false
 - RecordId: 3abc3386-55bc-f011-bbd2-002248b2f824
   DisplayName: scss-trans.scss
   CheckSum: 6537054ebe0203088a7b6c86b0f4ccf8937270569670dc6ddbdde36b11187c1c
@@ -575,7 +579,7 @@ adx_webfile:
   IsDeleted: false
 - RecordId: 5f497d93-fca5-f011-bbd3-0022483ea98e
   DisplayName: common.js
-  CheckSum: bdbc2ef386cb7e8c4881a540d2c3012ef2a2fc834b858af75c3aa7bf920ff3fe
+  CheckSum: 03462f8ad87443bb965325012dd8f132ebc1e77afd89d95eaa61d2b3410accf2
   IsDeleted: false
 - RecordId: 6aaa3865-55bc-f011-bbd2-002248b2f824
   DisplayName: scss-common.scss
@@ -595,7 +599,7 @@ adx_webfile:
   IsDeleted: false
 - RecordId: 90b56730-54bc-f011-bbd2-002248b069fa
   DisplayName: src-shared-schema.js
-  CheckSum: 6ea9daad962940fc231aabff7c6689be17ba008a830fb893f61398a2ae0c4332
+  CheckSum: e61ddcc9940102225221735b9fabe426d22aa09f0910616a800ab890c0687949
   IsDeleted: false
 - RecordId: 9ebcbb79-54bc-f011-bbd2-002248b2f824
   DisplayName: types-Com.js
@@ -611,7 +615,7 @@ adx_webfile:
   IsDeleted: false
 - RecordId: b321d9f0-44bd-f011-bbd2-7ced8da77641
   DisplayName: src-shared-render.js
-  CheckSum: ff03d7e39bf80aa5fdd7129d8193c5f08c8c36739092977406ae94d41e413a6c
+  CheckSum: ba9b4db22f8ef307374edf69df4428ad43944ea0d3c88614c551873c59314527
   IsDeleted: false
 - RecordId: bc175afe-7f9d-4e21-9237-450ac542e36c
   DisplayName: bootstrap.min.css
@@ -738,7 +742,7 @@ adx_webpage:
   IsDeleted: false
 - RecordId: bc96d11f-f89a-fc94-fd00-5bd8bdf0e311
   DisplayName: Frames
-  CheckSum: 7db5fc4efbad2bda51a17ab3cc415631ccd5dca03271e7fd955cf1ca3031d698
+  CheckSum: 3544739ad1183890c67f5144be8d3b31aecdf47be93b8a2562aed50f1426dcdf
   IsDeleted: false
 - RecordId: d8394aa0-aa17-09db-b61a-3702d93d5dad
   DisplayName: Data-deleted
@@ -873,6 +877,18 @@ annotation:
   DisplayName: src-shared-schema.js
   CheckSum: e25e23877277b188d2480008e14dbe32b8c247276fdea8fa4dc1a12c86181874
   IsDeleted: true
+- RecordId: 2587280a-d4bd-f011-bbd2-7ced8da63393
+  DisplayName: src-shared-schema.js
+  CheckSum: 4f310c470a6afc2dc4ec79fb7bf0bc19d1ab157482be2c2ac199e00623b9ee8e
+  IsDeleted: false
+- RecordId: 2687280a-d4bd-f011-bbd2-7ced8da63393
+  DisplayName: src-shared-render.js
+  CheckSum: c43c608942aa8d003d01f86d25a412a38d6ed63e75a1f93aa8570378bebea35a
+  IsDeleted: false
+- RecordId: 2787280a-d4bd-f011-bbd2-7ced8da63393
+  DisplayName: common.js
+  CheckSum: c9207b9f80cbcf51eab7322482ce19a2ee4a1c77889fa0888ddcd2111b90b8d7
+  IsDeleted: false
 - RecordId: 27b93a7a-55bc-f011-bbd2-002248b2f824
   DisplayName: scss-home.scss
   CheckSum: a0860969c93e5b3388ec999550eb4899d63837a98c1cc189fe50777d5691ab30
@@ -900,7 +916,7 @@ annotation:
 - RecordId: 3cea1c16-45bd-f011-bbd2-7ced8da77641
   DisplayName: common.js
   CheckSum: 9006a5a3770a58f7c1d5d4d443de275b0dea36ba316a162e724c6d0084aa1402
-  IsDeleted: false
+  IsDeleted: true
 - RecordId: 3fbc3386-55bc-f011-bbd2-002248b2f824
   DisplayName: scss-trans.scss
   CheckSum: 4e3abac5779750ece4cdb4a062d391d2e1a0ca9e859ae898c200b7245bbebbe8
@@ -920,7 +936,7 @@ annotation:
 - RecordId: 4b8aab48-71bc-f011-bbd2-002248b2f824
   DisplayName: src-shared-schema.js
   CheckSum: f4ace082e77897631cf5ba796144f9c094928ebae8505a53603c55217f1df54f
-  IsDeleted: false
+  IsDeleted: true
 - RecordId: 4c46bda9-eb87-ef11-8a6a-6045bd5f9b62
   DisplayName: portalbasictheme.css
   CheckSum: a9808ccae1c8f8e464da67fa9799e115964ce64f3de140509cc5cf668d898007
@@ -944,7 +960,7 @@ annotation:
 - RecordId: 72894d03-45bd-f011-bbd2-7ced8da77641
   DisplayName: src-shared-render.js
   CheckSum: 372b72646d74608214959887b6154ba342734348958d65456c32bad41bc63ed8
-  IsDeleted: false
+  IsDeleted: true
 - RecordId: 7522e2a0-c584-ef11-ac21-6045bd5f9b62
   DisplayName: Cat-PC.png
   CheckSum: caa9f7ea8016c5a85094b471446c9cf2bf3bb7c125b2d3a665fe9fa3b5b1cb5e
@@ -965,6 +981,10 @@ annotation:
   DisplayName: scss-frames.scss
   CheckSum: 46a00dc7f1e9aeca01d007ea20ccb884999a1d48b21eb1182e74f441ce1e3974
   IsDeleted: true
+- RecordId: 8a50b5e9-d3bd-f011-bbd2-7ced8da63393
+  DisplayName: src-settings-constants.js
+  CheckSum: d6af70573fd833f7c189ae284f77d672e6b47ba5b0737bcd436489629bfa1efe
+  IsDeleted: false
 - RecordId: 8b7ae7a0-54bc-f011-bbd2-002248b2f824
   DisplayName: types-T.js
   CheckSum: e219990b76dd28cc7fd842ef2e77804155006232a8e9099e1f9b5cff4072bb88
